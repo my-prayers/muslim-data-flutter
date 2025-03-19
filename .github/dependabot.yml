@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "pub" 
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "dev"
+    reviewers:
+      - "kosratdev"
