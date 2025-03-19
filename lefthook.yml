@@ -1,0 +1,23 @@
+pre-commit:
+  parallel: true
+  commands:
+    auto-fix:
+      run: dart fix --apply && git add {staged_files}
+    pretty:
+      glob: '*.dart'
+      run: dart format {staged_files} && git add {staged_files}
+    linter:
+      run: flutter analyze {staged_files} --no-fatal-infos --no-fatal-warnings
+
+commit-msg:
+  commands:
+    validate:
+      run: flutter pub run ./.github/commit_message.dart
+
+pre-push:
+  parallel: true
+  commands:
+    linter:
+      run: flutter analyze --no-fatal-infos --no-fatal-warnings
+    tests:
+      run: flutter test
