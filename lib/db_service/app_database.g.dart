@@ -3984,30 +3984,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $PrayerTimeTableTable prayerTimeTable = $PrayerTimeTableTable(
     this,
   );
-  late final Index countryIndex = Index(
-    'country_index',
-    'CREATE INDEX country_index ON country (code)',
-  );
-  late final Index locationCountryIdIndex = Index(
-    'location_country_id_index',
-    'CREATE INDEX location_country_id_index ON location (country_id)',
-  );
-  late final Index locationPrayerDependentIdIndex = Index(
-    'location_prayer_dependent_id_index',
-    'CREATE INDEX location_prayer_dependent_id_index ON location (prayer_dependent_id)',
-  );
-  late final Index locationNameIndex = Index(
-    'location_name_index',
-    'CREATE INDEX location_name_index ON location (name)',
-  );
-  late final Index locationLatLongIndex = Index(
-    'location_lat_long_index',
-    'CREATE INDEX location_lat_long_index ON location (latitude, longitude)',
-  );
-  late final Index prayerIndex = Index(
-    'prayer_index',
-    'CREATE INDEX prayer_index ON prayer_time (location_id, date)',
-  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -4026,12 +4002,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     nameTable,
     nameTranslationTable,
     prayerTimeTable,
-    countryIndex,
-    locationCountryIdIndex,
-    locationPrayerDependentIdIndex,
-    locationNameIndex,
-    locationLatLongIndex,
-    prayerIndex,
   ];
 }
 

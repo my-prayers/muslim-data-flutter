@@ -3,7 +3,6 @@ import 'package:muslim_data_flutter/db_service/tables/location/location_table.da
 
 /// Prayer time table class that will be used as the prayer_time table.
 @DataClassName('PrayerTimeRecord')
-@TableIndex(name: 'prayer_index', columns: {#locationId, #date})
 class PrayerTimeTable extends Table {
   IntColumn get id => integer().named('_id').autoIncrement()();
   IntColumn get locationId =>

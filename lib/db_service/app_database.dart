@@ -40,15 +40,27 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (migrator, from, to) async {
+      // do nothing...
+    },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
+
   /// Open the database connection
   static LazyDatabase _openConnection() {
     return LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dbFolder.path, 'muslim_db.db'));
+      final file = File(p.join(dbFolder.path, 'muslim_data_flutter.db'));
 
       if (!await file.exists()) {
         // Extract the pre-populated database file from assets
-        final blob = await rootBundle.load('assets/muslim_db_v2.4.0.db');
+        final blob = await rootBundle.load(
+          'packages/muslim_data_flutter/assets/db/muslim_db_v2.4.0.db',
+        );
         final buffer = blob.buffer;
         await file.writeAsBytes(
           buffer.asUint8List(blob.offsetInBytes, blob.lengthInBytes),
