@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:muslim_data_flutter/db_service/app_database.dart';
 import 'package:muslim_data_flutter/db_service/db_service.dart';
+import 'package:muslim_data_flutter/models/prayer_times/time_format.dart';
 import 'package:muslim_data_flutter/repository/muslim_repository.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeDateFormatting('en', null);
 
   runApp(const MyApp());
 }
@@ -18,10 +19,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      locale: Locale('en'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
       ),
-      locale: Locale('en'),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [Locale('en'), Locale('ar')],
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -40,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String>? _prayerTime;
   final dbService = DbService(AppDatabase());
   late MuslimRepository muslimRepo;
+  var format = DateFormat('hh:mm a', 'ar');
 
   @override
   void initState() {
@@ -51,7 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
     final prayer = await muslimRepo.getPrayerTimes(77359, DateTime.now());
 
     setState(() {
-      _prayerTime = prayer?.formatPrayerTime();
+      _prayerTime = prayer?.formatPrayerTime(
+        format: TimeFormat.time12,
+        locale: Locale('ckb'),
+      );
     });
   }
 
@@ -67,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Today Prayer Times',
+              format.format(DateTime.now()),
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             Text(
