@@ -92,8 +92,8 @@ class DbService {
   }
 
   /// Get prayer times for the specified user's location and date in the database.
-  Future<PrayerTimeRecord?> getPrayerTimes(int locationId, String date) {
-    return _db.managers.prayerTimeTable
+  Future<PrayerTimeRecord?> getPrayerTimes(int locationId, String date) async {
+    return await _db.managers.prayerTimeTable
         .filter((f) => f.locationId.id(locationId) & f.date.equals(date))
         .getSingleOrNull();
   }

@@ -63,13 +63,11 @@ class MuslimRepository {
           prayerTimeRecord.maghrib.toDate(date),
           prayerTimeRecord.isha.toDate(date),
         );
-      } else {
-        throw Exception(
-          'No prayer times found for the given location and date',
-        );
       }
+      return null;
     } catch (e) {
-      throw Exception('Error fetching prayer times from the database: $e');
+      debugPrint('Error fetching prayer times from the database: $e');
+      return null;
     }
   }
 
