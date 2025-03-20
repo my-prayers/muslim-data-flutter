@@ -11,7 +11,7 @@ class MuslimRepository {
 
   /// Get the prayer times for the specified [locationId] and [date].
   Future<PrayerTime?> getPrayerTimes(int locationId, DateTime date) async {
-    final String formattedDate = date.formatToDbDate();
+    final String formattedDate = date.toDbDate();
 
     try {
       final prayerTimeRecord = await _dbService.getPrayerTimes(
@@ -21,12 +21,12 @@ class MuslimRepository {
 
       if (prayerTimeRecord != null) {
         return PrayerTime(
-          prayerTimeRecord.fajr.fromDBString(date),
-          prayerTimeRecord.sunrise.fromDBString(date),
-          prayerTimeRecord.dhuhr.fromDBString(date),
-          prayerTimeRecord.asr.fromDBString(date),
-          prayerTimeRecord.maghrib.fromDBString(date),
-          prayerTimeRecord.isha.fromDBString(date),
+          prayerTimeRecord.fajr.toDate(date),
+          prayerTimeRecord.sunrise.toDate(date),
+          prayerTimeRecord.dhuhr.toDate(date),
+          prayerTimeRecord.asr.toDate(date),
+          prayerTimeRecord.maghrib.toDate(date),
+          prayerTimeRecord.isha.toDate(date),
         );
       } else {
         throw Exception(
@@ -37,4 +37,30 @@ class MuslimRepository {
       throw Exception('Error fetching prayer times from the database: $e');
     }
   }
+
+  /// Applies the given list of [offsets] to the prayer times.
+  // PrayerTime applyOffset(List<int> offsets) {
+  //   return copyWith(
+  //     fajr: fajr.add(Duration(minutes: offsets[0])),
+  //     sunrise: sunrise.add(Duration(minutes: offsets[1])),
+  //     dhuhr: dhuhr.add(Duration(minutes: offsets[2])),
+  //     asr: asr.add(Duration(minutes: offsets[3])),
+  //     maghrib: maghrib.add(Duration(minutes: offsets[4])),
+  //     isha: isha.add(Duration(minutes: offsets[5])),
+  //   );
+  // }
+
+  /// Adjusts the prayer times for Daylight Saving Time (DST).
+  // PrayerTime adjustDST() {
+  //   final timeZoneOffset = DateTime.now().timeZoneOffset;
+
+  //   return copyWith(
+  //     fajr: fajr.add(timeZoneOffset),
+  //     sunrise: sunrise.add(timeZoneOffset),
+  //     dhuhr: dhuhr.add(timeZoneOffset),
+  //     asr: asr.add(timeZoneOffset),
+  //     maghrib: maghrib.add(timeZoneOffset),
+  //     isha: isha.add(timeZoneOffset),
+  //   );
+  // }
 }

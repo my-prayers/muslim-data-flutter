@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:muslim_data_flutter/db_service/app_database.dart';
 import 'package:muslim_data_flutter/db_service/db_service.dart';
-import 'package:muslim_data_flutter/models/prayer_times/time_format.dart';
+import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
 import 'package:muslim_data_flutter/repository/muslim_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String>? _prayerTime;
+  PrayerTime? _prayerTime;
   final dbService = DbService(AppDatabase());
   late MuslimRepository muslimRepo;
   var format = DateFormat('hh:mm a', 'ar');
@@ -59,10 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final prayer = await muslimRepo.getPrayerTimes(77359, DateTime.now());
 
     setState(() {
-      _prayerTime = prayer?.formatPrayerTime(
-        format: TimeFormat.time12,
-        locale: Locale('ckb'),
-      );
+      _prayerTime = prayer;
     });
   }
 

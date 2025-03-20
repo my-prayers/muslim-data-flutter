@@ -6,7 +6,7 @@ void main() {
     test('fromDBString should convert valid time string to DateTime', () {
       const timeString = '14:30';
       final date = DateTime(2023, 10, 1);
-      final result = timeString.fromDBString(date);
+      final result = timeString.toDate(date);
 
       expect(result.year, date.year);
       expect(result.month, date.month);
@@ -21,10 +21,7 @@ void main() {
         const invalidTimeString = 'invalid';
         final date = DateTime(2023, 10, 1);
 
-        expect(
-          () => invalidTimeString.fromDBString(date),
-          throwsFormatException,
-        );
+        expect(() => invalidTimeString.toDate(date), throwsFormatException);
       },
     );
 
@@ -32,7 +29,7 @@ void main() {
       const invalidTimeString = '1430';
       final date = DateTime(2023, 10, 1);
 
-      expect(() => invalidTimeString.fromDBString(date), throwsRangeError);
+      expect(() => invalidTimeString.toDate(date), throwsRangeError);
     });
 
     test(
@@ -41,10 +38,7 @@ void main() {
         const invalidTimeString = '14:xx';
         final date = DateTime(2023, 10, 1);
 
-        expect(
-          () => invalidTimeString.fromDBString(date),
-          throwsFormatException,
-        );
+        expect(() => invalidTimeString.toDate(date), throwsFormatException);
       },
     );
 
@@ -53,7 +47,7 @@ void main() {
       () {
         const timeString = '4:5';
         final date = DateTime(2023, 10, 1);
-        final result = timeString.fromDBString(date);
+        final result = timeString.toDate(date);
 
         expect(result.year, date.year);
         expect(result.month, date.month);

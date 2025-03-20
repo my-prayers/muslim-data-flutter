@@ -81,8 +81,8 @@ as DateTime,
 /// @nodoc
 
 
-class _PrayerTime extends PrayerTime {
-  const _PrayerTime(this.fajr, this.sunrise, this.dhuhr, this.asr, this.maghrib, this.isha): super._();
+class _PrayerTime implements PrayerTime {
+  const _PrayerTime(this.fajr, this.sunrise, this.dhuhr, this.asr, this.maghrib, this.isha);
   
 
 @override final  DateTime fajr;
