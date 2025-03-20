@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:muslim_data_flutter/db_service/db_service.dart';
+import 'package:muslim_data_flutter/models/location/location.dart';
 import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
 import 'package:muslim_data_flutter/utils/date_utils.dart';
 import 'package:muslim_data_flutter/utils/string_date.dart';
@@ -8,6 +10,39 @@ class MuslimRepository {
   MuslimRepository(this._dbService);
 
   final DbService _dbService;
+
+  /// Search for locations by the given [locationName].
+  /// Returns a list of locations that match the search query.
+  Future<List<Location>> searchLocations(String locationName) async {
+    try {
+      return await _dbService.searchLocations(locationName);
+    } catch (e) {
+      debugPrint('Error searching locations from the database: $e');
+      return [];
+    }
+  }
+
+  /// Get the location by the given [countryCode] and [locationName].
+  /// Returns the location if found, otherwise returns null.
+  Future<Location?> geocoder(String countryCode, String locationName) async {
+    try {
+      return await _dbService.geocoder(countryCode, locationName);
+    } catch (e) {
+      debugPrint('Error geocoding location from the database: $e');
+      return null;
+    }
+  }
+
+  /// Get the location by the given [countryCode] and [locationName].
+  /// Returns the location if found, otherwise returns null.
+  Future<Location?> reverseGeocoder(double latitude, double longitude) async {
+    try {
+      return await _dbService.reverseGeocoder(latitude, longitude);
+    } catch (e) {
+      debugPrint('Error reverse geocoding location from the database: $e');
+      return null;
+    }
+  }
 
   /// Get the prayer times for the specified [locationId] and [date].
   Future<PrayerTime?> getPrayerTimes(int locationId, DateTime date) async {
