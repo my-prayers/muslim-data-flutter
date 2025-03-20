@@ -1280,6 +1280,9 @@ class $AzkarItemTranslationTableTable extends AzkarItemTranslationTable
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES azkar_item (_id)',
+    ),
   );
   static const VerificationMeta _languageMeta = const VerificationMeta(
     'language',
@@ -1798,6 +1801,9 @@ class $AzkarReferenceTranslationTableTable
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES azkar_reference (_id)',
+    ),
   );
   static const VerificationMeta _languageMeta = const VerificationMeta(
     'language',
@@ -3129,6 +3135,9 @@ class $NameTranslationTableTable extends NameTranslationTable
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES name (_id)',
+    ),
   );
   static const VerificationMeta _languageMeta = const VerificationMeta(
     'language',
@@ -5219,6 +5228,44 @@ typedef $$AzkarItemTableTableUpdateCompanionBuilder =
       Value<String> item,
     });
 
+final class $$AzkarItemTableTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $AzkarItemTableTable, AzkarItemRecord> {
+  $$AzkarItemTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $AzkarItemTranslationTableTable,
+    List<AzkarItemTranslationRecord>
+  >
+  _azkarItemTranslationTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.azkarItemTranslationTable,
+        aliasName: $_aliasNameGenerator(
+          db.azkarItemTable.id,
+          db.azkarItemTranslationTable.itemId,
+        ),
+      );
+
+  $$AzkarItemTranslationTableTableProcessedTableManager
+  get azkarItemTranslationTableRefs {
+    final manager = $$AzkarItemTranslationTableTableTableManager(
+      $_db,
+      $_db.azkarItemTranslationTable,
+    ).filter((f) => f.itemId.id.sqlEquals($_itemColumn<int>('_id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _azkarItemTranslationTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
 class $$AzkarItemTableTableFilterComposer
     extends Composer<_$AppDatabase, $AzkarItemTableTable> {
   $$AzkarItemTableTableFilterComposer({
@@ -5242,6 +5289,33 @@ class $$AzkarItemTableTableFilterComposer
     column: $table.item,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> azkarItemTranslationTableRefs(
+    Expression<bool> Function($$AzkarItemTranslationTableTableFilterComposer f)
+    f,
+  ) {
+    final $$AzkarItemTranslationTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.azkarItemTranslationTable,
+          getReferencedColumn: (t) => t.itemId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarItemTranslationTableTableFilterComposer(
+                $db: $db,
+                $table: $db.azkarItemTranslationTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$AzkarItemTableTableOrderingComposer
@@ -5286,6 +5360,33 @@ class $$AzkarItemTableTableAnnotationComposer
 
   GeneratedColumn<String> get item =>
       $composableBuilder(column: $table.item, builder: (column) => column);
+
+  Expression<T> azkarItemTranslationTableRefs<T extends Object>(
+    Expression<T> Function($$AzkarItemTranslationTableTableAnnotationComposer a)
+    f,
+  ) {
+    final $$AzkarItemTranslationTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.azkarItemTranslationTable,
+          getReferencedColumn: (t) => t.itemId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarItemTranslationTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.azkarItemTranslationTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$AzkarItemTableTableTableManager
@@ -5299,16 +5400,9 @@ class $$AzkarItemTableTableTableManager
           $$AzkarItemTableTableAnnotationComposer,
           $$AzkarItemTableTableCreateCompanionBuilder,
           $$AzkarItemTableTableUpdateCompanionBuilder,
-          (
-            AzkarItemRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $AzkarItemTableTable,
-              AzkarItemRecord
-            >,
-          ),
+          (AzkarItemRecord, $$AzkarItemTableTableReferences),
           AzkarItemRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool azkarItemTranslationTableRefs})
         > {
   $$AzkarItemTableTableTableManager(
     _$AppDatabase db,
@@ -5353,11 +5447,44 @@ class $$AzkarItemTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$AzkarItemTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({azkarItemTranslationTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (azkarItemTranslationTableRefs) db.azkarItemTranslationTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (azkarItemTranslationTableRefs)
+                    await $_getPrefetchedData<
+                      AzkarItemRecord,
+                      $AzkarItemTableTable,
+                      AzkarItemTranslationRecord
+                    >(
+                      currentTable: table,
+                      referencedTable: $$AzkarItemTableTableReferences
+                          ._azkarItemTranslationTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$AzkarItemTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).azkarItemTranslationTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) =>
+                              referencedItems.where((e) => e.itemId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -5372,12 +5499,9 @@ typedef $$AzkarItemTableTableProcessedTableManager =
       $$AzkarItemTableTableAnnotationComposer,
       $$AzkarItemTableTableCreateCompanionBuilder,
       $$AzkarItemTableTableUpdateCompanionBuilder,
-      (
-        AzkarItemRecord,
-        BaseReferences<_$AppDatabase, $AzkarItemTableTable, AzkarItemRecord>,
-      ),
+      (AzkarItemRecord, $$AzkarItemTableTableReferences),
       AzkarItemRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool azkarItemTranslationTableRefs})
     >;
 typedef $$AzkarItemTranslationTableTableCreateCompanionBuilder =
     AzkarItemTranslationTableCompanion Function({
@@ -5394,6 +5518,42 @@ typedef $$AzkarItemTranslationTableTableUpdateCompanionBuilder =
       Value<String> itemTranslation,
     });
 
+final class $$AzkarItemTranslationTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AzkarItemTranslationTableTable,
+          AzkarItemTranslationRecord
+        > {
+  $$AzkarItemTranslationTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $AzkarItemTableTable _itemIdTable(_$AppDatabase db) =>
+      db.azkarItemTable.createAlias(
+        $_aliasNameGenerator(
+          db.azkarItemTranslationTable.itemId,
+          db.azkarItemTable.id,
+        ),
+      );
+
+  $$AzkarItemTableTableProcessedTableManager get itemId {
+    final $_column = $_itemColumn<int>('item_id')!;
+
+    final manager = $$AzkarItemTableTableTableManager(
+      $_db,
+      $_db.azkarItemTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_itemIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$AzkarItemTranslationTableTableFilterComposer
     extends Composer<_$AppDatabase, $AzkarItemTranslationTableTable> {
   $$AzkarItemTranslationTableTableFilterComposer({
@@ -5408,11 +5568,6 @@ class $$AzkarItemTranslationTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get itemId => $composableBuilder(
-    column: $table.itemId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnFilters(column),
@@ -5422,6 +5577,29 @@ class $$AzkarItemTranslationTableTableFilterComposer
     column: $table.itemTranslation,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$AzkarItemTableTableFilterComposer get itemId {
+    final $$AzkarItemTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.itemId,
+      referencedTable: $db.azkarItemTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AzkarItemTableTableFilterComposer(
+            $db: $db,
+            $table: $db.azkarItemTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$AzkarItemTranslationTableTableOrderingComposer
@@ -5438,11 +5616,6 @@ class $$AzkarItemTranslationTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get itemId => $composableBuilder(
-    column: $table.itemId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnOrderings(column),
@@ -5452,6 +5625,29 @@ class $$AzkarItemTranslationTableTableOrderingComposer
     column: $table.itemTranslation,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$AzkarItemTableTableOrderingComposer get itemId {
+    final $$AzkarItemTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.itemId,
+      referencedTable: $db.azkarItemTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AzkarItemTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.azkarItemTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$AzkarItemTranslationTableTableAnnotationComposer
@@ -5466,9 +5662,6 @@ class $$AzkarItemTranslationTableTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get itemId =>
-      $composableBuilder(column: $table.itemId, builder: (column) => column);
-
   GeneratedColumn<String> get language =>
       $composableBuilder(column: $table.language, builder: (column) => column);
 
@@ -5476,6 +5669,29 @@ class $$AzkarItemTranslationTableTableAnnotationComposer
     column: $table.itemTranslation,
     builder: (column) => column,
   );
+
+  $$AzkarItemTableTableAnnotationComposer get itemId {
+    final $$AzkarItemTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.itemId,
+      referencedTable: $db.azkarItemTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AzkarItemTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.azkarItemTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$AzkarItemTranslationTableTableTableManager
@@ -5491,14 +5707,10 @@ class $$AzkarItemTranslationTableTableTableManager
           $$AzkarItemTranslationTableTableUpdateCompanionBuilder,
           (
             AzkarItemTranslationRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $AzkarItemTranslationTableTable,
-              AzkarItemTranslationRecord
-            >,
+            $$AzkarItemTranslationTableTableReferences,
           ),
           AzkarItemTranslationRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool itemId})
         > {
   $$AzkarItemTranslationTableTableTableManager(
     _$AppDatabase db,
@@ -5552,11 +5764,56 @@ class $$AzkarItemTranslationTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$AzkarItemTranslationTableTableReferences(
+                            db,
+                            table,
+                            e,
+                          ),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({itemId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (itemId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.itemId,
+                            referencedTable:
+                                $$AzkarItemTranslationTableTableReferences
+                                    ._itemIdTable(db),
+                            referencedColumn:
+                                $$AzkarItemTranslationTableTableReferences
+                                    ._itemIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -5571,21 +5828,56 @@ typedef $$AzkarItemTranslationTableTableProcessedTableManager =
       $$AzkarItemTranslationTableTableAnnotationComposer,
       $$AzkarItemTranslationTableTableCreateCompanionBuilder,
       $$AzkarItemTranslationTableTableUpdateCompanionBuilder,
-      (
-        AzkarItemTranslationRecord,
-        BaseReferences<
-          _$AppDatabase,
-          $AzkarItemTranslationTableTable,
-          AzkarItemTranslationRecord
-        >,
-      ),
+      (AzkarItemTranslationRecord, $$AzkarItemTranslationTableTableReferences),
       AzkarItemTranslationRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool itemId})
     >;
 typedef $$AzkarReferenceTableTableCreateCompanionBuilder =
     AzkarReferenceTableCompanion Function({Value<int> id, required int itemId});
 typedef $$AzkarReferenceTableTableUpdateCompanionBuilder =
     AzkarReferenceTableCompanion Function({Value<int> id, Value<int> itemId});
+
+final class $$AzkarReferenceTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AzkarReferenceTableTable,
+          AzkarReferenceRecord
+        > {
+  $$AzkarReferenceTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $AzkarReferenceTranslationTableTable,
+    List<AzkarReferenceTranslationRecord>
+  >
+  _azkarReferenceTranslationTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.azkarReferenceTranslationTable,
+        aliasName: $_aliasNameGenerator(
+          db.azkarReferenceTable.id,
+          db.azkarReferenceTranslationTable.referenceId,
+        ),
+      );
+
+  $$AzkarReferenceTranslationTableTableProcessedTableManager
+  get azkarReferenceTranslationTableRefs {
+    final manager = $$AzkarReferenceTranslationTableTableTableManager(
+      $_db,
+      $_db.azkarReferenceTranslationTable,
+    ).filter((f) => f.referenceId.id.sqlEquals($_itemColumn<int>('_id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _azkarReferenceTranslationTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$AzkarReferenceTableTableFilterComposer
     extends Composer<_$AppDatabase, $AzkarReferenceTableTable> {
@@ -5605,6 +5897,35 @@ class $$AzkarReferenceTableTableFilterComposer
     column: $table.itemId,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> azkarReferenceTranslationTableRefs(
+    Expression<bool> Function(
+      $$AzkarReferenceTranslationTableTableFilterComposer f,
+    )
+    f,
+  ) {
+    final $$AzkarReferenceTranslationTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.azkarReferenceTranslationTable,
+          getReferencedColumn: (t) => t.referenceId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarReferenceTranslationTableTableFilterComposer(
+                $db: $db,
+                $table: $db.azkarReferenceTranslationTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$AzkarReferenceTableTableOrderingComposer
@@ -5641,6 +5962,35 @@ class $$AzkarReferenceTableTableAnnotationComposer
 
   GeneratedColumn<int> get itemId =>
       $composableBuilder(column: $table.itemId, builder: (column) => column);
+
+  Expression<T> azkarReferenceTranslationTableRefs<T extends Object>(
+    Expression<T> Function(
+      $$AzkarReferenceTranslationTableTableAnnotationComposer a,
+    )
+    f,
+  ) {
+    final $$AzkarReferenceTranslationTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.azkarReferenceTranslationTable,
+          getReferencedColumn: (t) => t.referenceId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarReferenceTranslationTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.azkarReferenceTranslationTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$AzkarReferenceTableTableTableManager
@@ -5654,16 +6004,9 @@ class $$AzkarReferenceTableTableTableManager
           $$AzkarReferenceTableTableAnnotationComposer,
           $$AzkarReferenceTableTableCreateCompanionBuilder,
           $$AzkarReferenceTableTableUpdateCompanionBuilder,
-          (
-            AzkarReferenceRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $AzkarReferenceTableTable,
-              AzkarReferenceRecord
-            >,
-          ),
+          (AzkarReferenceRecord, $$AzkarReferenceTableTableReferences),
           AzkarReferenceRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool azkarReferenceTranslationTableRefs})
         > {
   $$AzkarReferenceTableTableTableManager(
     _$AppDatabase db,
@@ -5701,11 +6044,48 @@ class $$AzkarReferenceTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$AzkarReferenceTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({
+            azkarReferenceTranslationTableRefs = false,
+          }) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (azkarReferenceTranslationTableRefs)
+                  db.azkarReferenceTranslationTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (azkarReferenceTranslationTableRefs)
+                    await $_getPrefetchedData<
+                      AzkarReferenceRecord,
+                      $AzkarReferenceTableTable,
+                      AzkarReferenceTranslationRecord
+                    >(
+                      currentTable: table,
+                      referencedTable: $$AzkarReferenceTableTableReferences
+                          ._azkarReferenceTranslationTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$AzkarReferenceTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).azkarReferenceTranslationTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) => referencedItems.where(
+                            (e) => e.referenceId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -5720,16 +6100,9 @@ typedef $$AzkarReferenceTableTableProcessedTableManager =
       $$AzkarReferenceTableTableAnnotationComposer,
       $$AzkarReferenceTableTableCreateCompanionBuilder,
       $$AzkarReferenceTableTableUpdateCompanionBuilder,
-      (
-        AzkarReferenceRecord,
-        BaseReferences<
-          _$AppDatabase,
-          $AzkarReferenceTableTable,
-          AzkarReferenceRecord
-        >,
-      ),
+      (AzkarReferenceRecord, $$AzkarReferenceTableTableReferences),
       AzkarReferenceRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool azkarReferenceTranslationTableRefs})
     >;
 typedef $$AzkarReferenceTranslationTableTableCreateCompanionBuilder =
     AzkarReferenceTranslationTableCompanion Function({
@@ -5746,6 +6119,42 @@ typedef $$AzkarReferenceTranslationTableTableUpdateCompanionBuilder =
       Value<String> reference,
     });
 
+final class $$AzkarReferenceTranslationTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AzkarReferenceTranslationTableTable,
+          AzkarReferenceTranslationRecord
+        > {
+  $$AzkarReferenceTranslationTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $AzkarReferenceTableTable _referenceIdTable(_$AppDatabase db) =>
+      db.azkarReferenceTable.createAlias(
+        $_aliasNameGenerator(
+          db.azkarReferenceTranslationTable.referenceId,
+          db.azkarReferenceTable.id,
+        ),
+      );
+
+  $$AzkarReferenceTableTableProcessedTableManager get referenceId {
+    final $_column = $_itemColumn<int>('reference_id')!;
+
+    final manager = $$AzkarReferenceTableTableTableManager(
+      $_db,
+      $_db.azkarReferenceTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_referenceIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$AzkarReferenceTranslationTableTableFilterComposer
     extends Composer<_$AppDatabase, $AzkarReferenceTranslationTableTable> {
   $$AzkarReferenceTranslationTableTableFilterComposer({
@@ -5760,11 +6169,6 @@ class $$AzkarReferenceTranslationTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get referenceId => $composableBuilder(
-    column: $table.referenceId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnFilters(column),
@@ -5774,6 +6178,29 @@ class $$AzkarReferenceTranslationTableTableFilterComposer
     column: $table.reference,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$AzkarReferenceTableTableFilterComposer get referenceId {
+    final $$AzkarReferenceTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.referenceId,
+      referencedTable: $db.azkarReferenceTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AzkarReferenceTableTableFilterComposer(
+            $db: $db,
+            $table: $db.azkarReferenceTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$AzkarReferenceTranslationTableTableOrderingComposer
@@ -5790,11 +6217,6 @@ class $$AzkarReferenceTranslationTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get referenceId => $composableBuilder(
-    column: $table.referenceId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnOrderings(column),
@@ -5804,6 +6226,30 @@ class $$AzkarReferenceTranslationTableTableOrderingComposer
     column: $table.reference,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$AzkarReferenceTableTableOrderingComposer get referenceId {
+    final $$AzkarReferenceTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.referenceId,
+          referencedTable: $db.azkarReferenceTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarReferenceTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.azkarReferenceTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$AzkarReferenceTranslationTableTableAnnotationComposer
@@ -5818,16 +6264,35 @@ class $$AzkarReferenceTranslationTableTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get referenceId => $composableBuilder(
-    column: $table.referenceId,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<String> get language =>
       $composableBuilder(column: $table.language, builder: (column) => column);
 
   GeneratedColumn<String> get reference =>
       $composableBuilder(column: $table.reference, builder: (column) => column);
+
+  $$AzkarReferenceTableTableAnnotationComposer get referenceId {
+    final $$AzkarReferenceTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.referenceId,
+          referencedTable: $db.azkarReferenceTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AzkarReferenceTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.azkarReferenceTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$AzkarReferenceTranslationTableTableTableManager
@@ -5843,14 +6308,10 @@ class $$AzkarReferenceTranslationTableTableTableManager
           $$AzkarReferenceTranslationTableTableUpdateCompanionBuilder,
           (
             AzkarReferenceTranslationRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $AzkarReferenceTranslationTableTable,
-              AzkarReferenceTranslationRecord
-            >,
+            $$AzkarReferenceTranslationTableTableReferences,
           ),
           AzkarReferenceTranslationRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool referenceId})
         > {
   $$AzkarReferenceTranslationTableTableTableManager(
     _$AppDatabase db,
@@ -5904,11 +6365,56 @@ class $$AzkarReferenceTranslationTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$AzkarReferenceTranslationTableTableReferences(
+                            db,
+                            table,
+                            e,
+                          ),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({referenceId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (referenceId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.referenceId,
+                            referencedTable:
+                                $$AzkarReferenceTranslationTableTableReferences
+                                    ._referenceIdTable(db),
+                            referencedColumn:
+                                $$AzkarReferenceTranslationTableTableReferences
+                                    ._referenceIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -5925,14 +6431,10 @@ typedef $$AzkarReferenceTranslationTableTableProcessedTableManager =
       $$AzkarReferenceTranslationTableTableUpdateCompanionBuilder,
       (
         AzkarReferenceTranslationRecord,
-        BaseReferences<
-          _$AppDatabase,
-          $AzkarReferenceTranslationTableTable,
-          AzkarReferenceTranslationRecord
-        >,
+        $$AzkarReferenceTranslationTableTableReferences,
       ),
       AzkarReferenceTranslationRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool referenceId})
     >;
 typedef $$CountryTableTableCreateCompanionBuilder =
     CountryTableCompanion Function({
@@ -6810,6 +7312,39 @@ typedef $$NameTableTableCreateCompanionBuilder =
 typedef $$NameTableTableUpdateCompanionBuilder =
     NameTableCompanion Function({Value<int> id, Value<String> name});
 
+final class $$NameTableTableReferences
+    extends BaseReferences<_$AppDatabase, $NameTableTable, NameRecord> {
+  $$NameTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<
+    $NameTranslationTableTable,
+    List<NameTranslationRecord>
+  >
+  _nameTranslationTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.nameTranslationTable,
+        aliasName: $_aliasNameGenerator(
+          db.nameTable.id,
+          db.nameTranslationTable.nameId,
+        ),
+      );
+
+  $$NameTranslationTableTableProcessedTableManager
+  get nameTranslationTableRefs {
+    final manager = $$NameTranslationTableTableTableManager(
+      $_db,
+      $_db.nameTranslationTable,
+    ).filter((f) => f.nameId.id.sqlEquals($_itemColumn<int>('_id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _nameTranslationTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
 class $$NameTableTableFilterComposer
     extends Composer<_$AppDatabase, $NameTableTable> {
   $$NameTableTableFilterComposer({
@@ -6828,6 +7363,31 @@ class $$NameTableTableFilterComposer
     column: $table.name,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> nameTranslationTableRefs(
+    Expression<bool> Function($$NameTranslationTableTableFilterComposer f) f,
+  ) {
+    final $$NameTranslationTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.nameTranslationTable,
+      getReferencedColumn: (t) => t.nameId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NameTranslationTableTableFilterComposer(
+            $db: $db,
+            $table: $db.nameTranslationTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$NameTableTableOrderingComposer
@@ -6864,6 +7424,32 @@ class $$NameTableTableAnnotationComposer
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
+
+  Expression<T> nameTranslationTableRefs<T extends Object>(
+    Expression<T> Function($$NameTranslationTableTableAnnotationComposer a) f,
+  ) {
+    final $$NameTranslationTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.nameTranslationTable,
+          getReferencedColumn: (t) => t.nameId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$NameTranslationTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.nameTranslationTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$NameTableTableTableManager
@@ -6877,12 +7463,9 @@ class $$NameTableTableTableManager
           $$NameTableTableAnnotationComposer,
           $$NameTableTableCreateCompanionBuilder,
           $$NameTableTableUpdateCompanionBuilder,
-          (
-            NameRecord,
-            BaseReferences<_$AppDatabase, $NameTableTable, NameRecord>,
-          ),
+          (NameRecord, $$NameTableTableReferences),
           NameRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool nameTranslationTableRefs})
         > {
   $$NameTableTableTableManager(_$AppDatabase db, $NameTableTable table)
     : super(
@@ -6909,11 +7492,44 @@ class $$NameTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$NameTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({nameTranslationTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (nameTranslationTableRefs) db.nameTranslationTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (nameTranslationTableRefs)
+                    await $_getPrefetchedData<
+                      NameRecord,
+                      $NameTableTable,
+                      NameTranslationRecord
+                    >(
+                      currentTable: table,
+                      referencedTable: $$NameTableTableReferences
+                          ._nameTranslationTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$NameTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).nameTranslationTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) =>
+                              referencedItems.where((e) => e.nameId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -6928,9 +7544,9 @@ typedef $$NameTableTableProcessedTableManager =
       $$NameTableTableAnnotationComposer,
       $$NameTableTableCreateCompanionBuilder,
       $$NameTableTableUpdateCompanionBuilder,
-      (NameRecord, BaseReferences<_$AppDatabase, $NameTableTable, NameRecord>),
+      (NameRecord, $$NameTableTableReferences),
       NameRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool nameTranslationTableRefs})
     >;
 typedef $$NameTranslationTableTableCreateCompanionBuilder =
     NameTranslationTableCompanion Function({
@@ -6947,6 +7563,39 @@ typedef $$NameTranslationTableTableUpdateCompanionBuilder =
       Value<String> name,
     });
 
+final class $$NameTranslationTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $NameTranslationTableTable,
+          NameTranslationRecord
+        > {
+  $$NameTranslationTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $NameTableTable _nameIdTable(_$AppDatabase db) =>
+      db.nameTable.createAlias(
+        $_aliasNameGenerator(db.nameTranslationTable.nameId, db.nameTable.id),
+      );
+
+  $$NameTableTableProcessedTableManager get nameId {
+    final $_column = $_itemColumn<int>('name_id')!;
+
+    final manager = $$NameTableTableTableManager(
+      $_db,
+      $_db.nameTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_nameIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$NameTranslationTableTableFilterComposer
     extends Composer<_$AppDatabase, $NameTranslationTableTable> {
   $$NameTranslationTableTableFilterComposer({
@@ -6961,11 +7610,6 @@ class $$NameTranslationTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get nameId => $composableBuilder(
-    column: $table.nameId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnFilters(column),
@@ -6975,6 +7619,29 @@ class $$NameTranslationTableTableFilterComposer
     column: $table.name,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$NameTableTableFilterComposer get nameId {
+    final $$NameTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.nameId,
+      referencedTable: $db.nameTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NameTableTableFilterComposer(
+            $db: $db,
+            $table: $db.nameTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$NameTranslationTableTableOrderingComposer
@@ -6991,11 +7658,6 @@ class $$NameTranslationTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get nameId => $composableBuilder(
-    column: $table.nameId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get language => $composableBuilder(
     column: $table.language,
     builder: (column) => ColumnOrderings(column),
@@ -7005,6 +7667,29 @@ class $$NameTranslationTableTableOrderingComposer
     column: $table.name,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$NameTableTableOrderingComposer get nameId {
+    final $$NameTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.nameId,
+      referencedTable: $db.nameTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NameTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.nameTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$NameTranslationTableTableAnnotationComposer
@@ -7019,14 +7704,34 @@ class $$NameTranslationTableTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get nameId =>
-      $composableBuilder(column: $table.nameId, builder: (column) => column);
-
   GeneratedColumn<String> get language =>
       $composableBuilder(column: $table.language, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
+
+  $$NameTableTableAnnotationComposer get nameId {
+    final $$NameTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.nameId,
+      referencedTable: $db.nameTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NameTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.nameTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$NameTranslationTableTableTableManager
@@ -7040,16 +7745,9 @@ class $$NameTranslationTableTableTableManager
           $$NameTranslationTableTableAnnotationComposer,
           $$NameTranslationTableTableCreateCompanionBuilder,
           $$NameTranslationTableTableUpdateCompanionBuilder,
-          (
-            NameTranslationRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $NameTranslationTableTable,
-              NameTranslationRecord
-            >,
-          ),
+          (NameTranslationRecord, $$NameTranslationTableTableReferences),
           NameTranslationRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool nameId})
         > {
   $$NameTranslationTableTableTableManager(
     _$AppDatabase db,
@@ -7103,11 +7801,52 @@ class $$NameTranslationTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$NameTranslationTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({nameId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (nameId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.nameId,
+                            referencedTable:
+                                $$NameTranslationTableTableReferences
+                                    ._nameIdTable(db),
+                            referencedColumn:
+                                $$NameTranslationTableTableReferences
+                                    ._nameIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -7122,16 +7861,9 @@ typedef $$NameTranslationTableTableProcessedTableManager =
       $$NameTranslationTableTableAnnotationComposer,
       $$NameTranslationTableTableCreateCompanionBuilder,
       $$NameTranslationTableTableUpdateCompanionBuilder,
-      (
-        NameTranslationRecord,
-        BaseReferences<
-          _$AppDatabase,
-          $NameTranslationTableTable,
-          NameTranslationRecord
-        >,
-      ),
+      (NameTranslationRecord, $$NameTranslationTableTableReferences),
       NameTranslationRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool nameId})
     >;
 typedef $$PrayerTimeTableTableCreateCompanionBuilder =
     PrayerTimeTableCompanion Function({

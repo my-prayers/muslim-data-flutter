@@ -15,7 +15,8 @@ class AzkarItemTable extends Table {
 @DataClassName('AzkarItemTranslationRecord')
 class AzkarItemTranslationTable extends Table {
   IntColumn get id => integer().named('_id').autoIncrement()();
-  IntColumn get itemId => integer().named('item_id')();
+  IntColumn get itemId =>
+      integer().named('item_id').references(AzkarItemTable, #id)();
   TextColumn get language => text()();
   TextColumn get itemTranslation => text().named('item_translation')();
 
@@ -37,7 +38,8 @@ class AzkarReferenceTable extends Table {
 @DataClassName('AzkarReferenceTranslationRecord')
 class AzkarReferenceTranslationTable extends Table {
   IntColumn get id => integer().named('_id').autoIncrement()();
-  IntColumn get referenceId => integer().named('reference_id')();
+  IntColumn get referenceId =>
+      integer().named('reference_id').references(AzkarReferenceTable, #id)();
   TextColumn get language => text()();
   TextColumn get reference => text()();
 

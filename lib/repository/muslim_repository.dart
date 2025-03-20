@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:muslim_data_flutter/db_service/db_service.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_category.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_chapter.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_item.dart';
+import 'package:muslim_data_flutter/models/language.dart';
 import 'package:muslim_data_flutter/models/location/location.dart';
+import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
 import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
 import 'package:muslim_data_flutter/utils/date_utils.dart';
 import 'package:muslim_data_flutter/utils/string_date.dart';
@@ -68,6 +73,65 @@ class MuslimRepository {
     } catch (e) {
       debugPrint('Error fetching prayer times from the database: $e');
       return null;
+    }
+  }
+
+  /// Get the names of Allah for the specified [language].
+  Future<List<NameOfAllah>> getNames(Language language) async {
+    try {
+      return await _dbService.getNames(language.value);
+    } catch (e) {
+      debugPrint('Error fetching names from the database: $e');
+      return [];
+    }
+  }
+
+  /// Get azkar categories for the specified [language].
+  Future<List<AzkarCategory>> getAzkarCategories(Language language) async {
+    try {
+      return await _dbService.getAzkarCategories(language.value);
+    } catch (e) {
+      debugPrint('Error fetching azkar categories from the database: $e');
+      return [];
+    }
+  }
+
+  /// Get azkar chapters for the specified [language] and [categoryId].
+  Future<List<AzkarChapter>> getAzkarChapters(
+    Language language, [
+    int categoryId = -1,
+  ]) async {
+    try {
+      return await _dbService.getAzkarChapters(language.value, categoryId);
+    } catch (e) {
+      debugPrint('Error fetching azkar chapters from the database: $e');
+      return [];
+    }
+  }
+
+  /// Get azkar chapters for the specified [language] and [chapterIds].
+  Future<List<AzkarChapter>> getAzkarChaptersByIds(
+    Language language,
+    List<int> chapterIds,
+  ) async {
+    try {
+      return await _dbService.getAzkarChaptersByIds(language.value, chapterIds);
+    } catch (e) {
+      debugPrint('Error fetching azkar chapters by ids from the database: $e');
+      return [];
+    }
+  }
+
+  /// Get azkar items for the specified azkar [chapterId] and [language].
+  Future<List<AzkarItem>> getAzkarItems(
+    int chapterId,
+    Language language,
+  ) async {
+    try {
+      return await _dbService.getAzkarItems(chapterId, language.value);
+    } catch (e) {
+      debugPrint('Error fetching azkar items from the database: $e');
+      return [];
     }
   }
 

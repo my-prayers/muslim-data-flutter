@@ -14,7 +14,8 @@ class NameTable extends Table {
 @DataClassName('NameTranslationRecord')
 class NameTranslationTable extends Table {
   IntColumn get id => integer().named('_id').autoIncrement()();
-  IntColumn get nameId => integer().named('name_id')();
+  IntColumn get nameId =>
+      integer().named('name_id').references(NameTable, #id)();
   TextColumn get language => text()();
   TextColumn get name => text()();
 

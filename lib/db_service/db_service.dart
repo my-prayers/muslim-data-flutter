@@ -1,6 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:muslim_data_flutter/db_service/app_database.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_category.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_chapter.dart';
+import 'package:muslim_data_flutter/models/azkars/azkar_item.dart';
 import 'package:muslim_data_flutter/models/location/location.dart';
+import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
 
 /// A service class responsible for handling database operations.
 class DbService {
@@ -96,5 +100,119 @@ class DbService {
     return await _db.managers.prayerTimeTable
         .filter((f) => f.locationId.id(locationId) & f.date.equals(date))
         .getSingleOrNull();
+  }
+
+  /// Get the names of Allah from the database for the specified [language].
+  Future<List<NameOfAllah>> getNames(String language) async {
+    final dbNames =
+        await _db.managers.nameTranslationTable
+            .withReferences((prefetch) => prefetch(nameId: true))
+            .filter((f) => f.language.equals(language))
+            .get();
+
+    return dbNames
+        .map(
+          (e) => NameOfAllah(
+            id: e.$2.nameId.prefetchedData?.first.id ?? 0,
+            name: e.$2.nameId.prefetchedData?.first.name ?? '',
+            translation: e.$1.name,
+          ),
+        )
+        .toList();
+  }
+
+  /// Get the azkar categories from the database for the specified [language].
+  Future<List<AzkarCategory>> getAzkarCategories(String language) async {
+    final dbCategories =
+        await _db.managers.azkarCategoryTranslationTable
+            .withReferences((prefetch) => prefetch(categoryId: true))
+            .filter((f) => f.language.equals(language))
+            .get();
+
+    return dbCategories
+        .map(
+          (e) => AzkarCategory(
+            id: e.$2.categoryId.prefetchedData?.first.id ?? 0,
+            name: e.$1.categoryName,
+          ),
+        )
+        .toList();
+  }
+
+  /// Get the azkar chapters from the database for the specified [language] and [categoryId].
+  Future<List<AzkarChapter>> getAzkarChapters(
+    String language,
+    int categoryId,
+  ) async {
+    final dbChapters =
+        await _db.managers.azkarChapterTranslationTable
+            .withReferences((prefetch) => prefetch(chapterId: true))
+            .filter(
+              (f) =>
+                  f.language.equals(language) &
+                  f.chapterId.categoryId.equals(categoryId),
+            )
+            .get();
+
+    return dbChapters
+        .map(
+          (e) => AzkarChapter(
+            id: e.$2.chapterId.prefetchedData?.first.id ?? 0,
+            categoryId: e.$2.chapterId.prefetchedData?.first.categoryId ?? 0,
+            name: e.$1.chapterName,
+          ),
+        )
+        .toList();
+  }
+
+  /// Get the azkar chapters from the database for the specified [language] and [chapterIds].
+  Future<List<AzkarChapter>> getAzkarChaptersByIds(
+    String language,
+    List<int> chapterIds,
+  ) async {
+    final dbChapters =
+        await _db.managers.azkarChapterTranslationTable
+            .withReferences((prefetch) => prefetch(chapterId: true))
+            .filter(
+              (f) =>
+                  f.language.equals(language) &
+                  f.chapterId.categoryId.isIn(chapterIds),
+            )
+            .get();
+
+    return dbChapters
+        .map(
+          (e) => AzkarChapter(
+            id: e.$2.chapterId.prefetchedData?.first.id ?? 0,
+            categoryId: e.$2.chapterId.prefetchedData?.first.categoryId ?? 0,
+            name: e.$1.chapterName,
+          ),
+        )
+        .toList();
+  }
+
+  /// Get the azkar items from the database for the specified [chapterId] and [language].
+  Future<List<AzkarItem>> getAzkarItems(int chapterId, String language) async {
+    return await _db
+        .customSelect(
+          "SELECT item._id AS itemId, item.chapter_id AS chapterId, item.item, "
+          "transl.item_translation AS translation, ref_transl.reference "
+          "FROM azkar_item AS item "
+          "INNER JOIN azkar_item_translation AS transl ON transl.item_id = item._id "
+          "INNER JOIN azkar_reference AS ref ON ref.item_id = item._id "
+          "INNER JOIN azkar_reference_translation AS ref_transl ON ref_transl.reference_id = ref._id AND "
+          "ref_transl.language = transl.language "
+          "WHERE chapterId = $chapterId AND transl.language = '$language'",
+        )
+        .map((row) {
+          return AzkarItem(
+            id: row.read<int>('itemId'),
+            chapterId: row.read<int>('chapterId'),
+            item: row.read<String>('item'),
+            translation: row.read<String>('translation'),
+            reference: row.read<String>('reference'),
+          );
+        })
+        .get();
   }
 }
