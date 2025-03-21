@@ -2,13 +2,6 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:muslim_data_flutter/db_service/tables/azkars/azkar_category_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/azkars/azkar_chapter_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/azkars/azkar_item_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/location/country_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/location/location_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/names/name_table.dart';
-import 'package:muslim_data_flutter/db_service/tables/prayer_times/prayer_time_table.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as p;
@@ -17,23 +10,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(
-  tables: [
-    AzkarCategoryTable,
-    AzkarCategoryTranslationTable,
-    AzkarChapterTable,
-    AzkarChapterTranslationTable,
-    AzkarItemTable,
-    AzkarItemTranslationTable,
-    AzkarReferenceTable,
-    AzkarReferenceTranslationTable,
-    CountryTable,
-    LocationTable,
-    NameTable,
-    NameTranslationTable,
-    PrayerTimeTable,
-  ],
-)
+@DriftDatabase()
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
