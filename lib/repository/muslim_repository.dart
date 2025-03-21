@@ -6,6 +6,8 @@ import 'package:muslim_data_flutter/models/azkars/azkar_item.dart';
 import 'package:muslim_data_flutter/models/language.dart';
 import 'package:muslim_data_flutter/models/location/location.dart';
 import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
+import 'package:muslim_data_flutter/models/prayer_times/calculated_prayer_time.dart';
+import 'package:muslim_data_flutter/models/prayer_times/prayer_attribute.dart';
 import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
 
 /// A repository class responsible for handling Muslim-related data operations.
@@ -47,14 +49,82 @@ class MuslimRepository {
     }
   }
 
-  /// Get the prayer times for the specified [locationId] and [date].
-  Future<PrayerTime?> getPrayerTimes(int locationId, DateTime date) async {
+  /// Get prayer times for the specified [location], [date], and [attribute].
+  Future<PrayerTime?> getPrayerTimes(
+    Location location,
+    DateTime date,
+    PrayerAttribute attribute,
+  ) async {
     try {
-      return await _dbService.getPrayerTimes(locationId, date);
+      PrayerTime prayerTime;
+
+      if (location.hasFixedPrayerTime) {
+        final fixedPrayer = await _dbService.getPrayerTimes(
+          location.prayerDependentId ?? location.id,
+          date,
+        );
+        if (fixedPrayer == null) return null;
+
+        prayerTime = _adjustDST(fixedPrayer);
+      } else {
+        prayerTime = CalculatedPrayerTime(
+          attribute,
+        ).getPrayerTimes(location, date);
+      }
+
+      prayerTime = _applyOffset(prayerTime, attribute.offset);
+      return prayerTime;
     } catch (e) {
-      debugPrint('Error fetching prayer times from the database: $e');
+      debugPrint('Error fetching prayer times: $e');
       return null;
     }
+  }
+
+  /// Applies the given list of [offsets] to the prayer times.
+  PrayerTime _applyOffset(PrayerTime prayer, List<int> offsets) {
+    return prayer.copyWith(
+      fajr: prayer.fajr.add(Duration(minutes: offsets[0])),
+      sunrise: prayer.sunrise.add(Duration(minutes: offsets[1])),
+      dhuhr: prayer.dhuhr.add(Duration(minutes: offsets[2])),
+      asr: prayer.asr.add(Duration(minutes: offsets[3])),
+      maghrib: prayer.maghrib.add(Duration(minutes: offsets[4])),
+      isha: prayer.isha.add(Duration(minutes: offsets[5])),
+    );
+  }
+
+  /// Adjusts the prayer times for Daylight Saving Time (DST).
+  PrayerTime _adjustDST(PrayerTime prayer) {
+    if (_isDst()) {
+      return prayer.copyWith(
+        fajr: prayer.fajr.add(const Duration(hours: 1)),
+        sunrise: prayer.sunrise.add(const Duration(hours: 1)),
+        dhuhr: prayer.dhuhr.add(const Duration(hours: 1)),
+        asr: prayer.asr.add(const Duration(hours: 1)),
+        maghrib: prayer.maghrib.add(const Duration(hours: 1)),
+        isha: prayer.isha.add(const Duration(hours: 1)),
+      );
+    }
+
+    return prayer;
+  }
+
+  /// Determines whether Daylight Saving Time (DST) is active.
+  bool _isDst() {
+    final now = DateTime.now();
+
+    // Determine the standard time offset by comparing offsets in winter and summer
+    final january = DateTime(now.year, 1, 15);
+    final july = DateTime(now.year, 7, 15);
+
+    final januaryOffset = january.timeZoneOffset;
+    final julyOffset = july.timeZoneOffset;
+
+    // The smaller offset is the standard offset (non-DST)
+    final standardOffset =
+        januaryOffset < julyOffset ? januaryOffset : julyOffset;
+
+    // DST is active if the current offset is greater than the standard offset
+    return now.timeZoneOffset > standardOffset;
   }
 
   /// Get the names of Allah for the specified [language].
@@ -116,30 +186,4 @@ class MuslimRepository {
       return [];
     }
   }
-
-  /// Applies the given list of [offsets] to the prayer times.
-  // PrayerTime applyOffset(List<int> offsets) {
-  //   return copyWith(
-  //     fajr: fajr.add(Duration(minutes: offsets[0])),
-  //     sunrise: sunrise.add(Duration(minutes: offsets[1])),
-  //     dhuhr: dhuhr.add(Duration(minutes: offsets[2])),
-  //     asr: asr.add(Duration(minutes: offsets[3])),
-  //     maghrib: maghrib.add(Duration(minutes: offsets[4])),
-  //     isha: isha.add(Duration(minutes: offsets[5])),
-  //   );
-  // }
-
-  /// Adjusts the prayer times for Daylight Saving Time (DST).
-  // PrayerTime adjustDST() {
-  //   final timeZoneOffset = DateTime.now().timeZoneOffset;
-
-  //   return copyWith(
-  //     fajr: fajr.add(timeZoneOffset),
-  //     sunrise: sunrise.add(timeZoneOffset),
-  //     dhuhr: dhuhr.add(timeZoneOffset),
-  //     asr: asr.add(timeZoneOffset),
-  //     maghrib: maghrib.add(timeZoneOffset),
-  //     isha: isha.add(timeZoneOffset),
-  //   );
-  // }
 }

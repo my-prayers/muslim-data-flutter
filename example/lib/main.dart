@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:muslim_data_flutter/db_service/app_database.dart';
 import 'package:muslim_data_flutter/db_service/db_service.dart';
+import 'package:muslim_data_flutter/models/location/location.dart';
+import 'package:muslim_data_flutter/models/prayer_times/asr_method.dart';
+import 'package:muslim_data_flutter/models/prayer_times/calculation_method.dart';
+import 'package:muslim_data_flutter/models/prayer_times/higher_latitude_method.dart';
+import 'package:muslim_data_flutter/models/prayer_times/prayer_attribute.dart';
 import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
 import 'package:muslim_data_flutter/repository/muslim_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -56,7 +61,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _getPrayerTime() async {
-    final prayer = await muslimRepo.getPrayerTimes(77359, DateTime.now());
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.makkah,
+      asrMethod: AsrMethod.shafii,
+      higherLatitudeMethod: HigherLatitudeMethod.angleBased,
+    );
+    final prayer = await muslimRepo.getPrayerTimes(
+      Location(
+        id: 77359,
+        name: 'Erbil',
+        latitude: 36.191196,
+        longitude: 44.009962,
+        countryCode: 'IQ',
+        countryName: 'Iraq',
+        hasFixedPrayerTime: true,
+      ),
+      DateTime.now(),
+      attribute,
+    );
 
     setState(() {
       _prayerTime = prayer;

@@ -1,5 +1,9 @@
 /// Prayer asr method.
 enum AsrMethod {
-  shafii, // Shafii (standard)
-  hanafi, // Hanafi
+  shafii(value: 0), // Shafii (standard)
+  hanafi(value: 1); // Hanafi
+
+  const AsrMethod({required this.value});
+
+  final int value;
 }

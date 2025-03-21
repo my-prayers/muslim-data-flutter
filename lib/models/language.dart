@@ -1,19 +1,13 @@
 /// Languages that available for muslim data.
 enum Language {
-  en, // English
-  ar, // Arabic
-  ckb, // Central Kurdish
-  ckbBadini, // Central Kurdish (Badini)
-  fa, // Persian
-  ru, // Russian
-}
+  en('en'), // English
+  ar('ar'), // Arabic
+  ckb('ckb'), // Central Kurdish
+  ckbBadini('ckb_BADINI'), // Central Kurdish (Badini)
+  fa('fa'), // Persian
+  ru('ru'); // Russian
 
-/// Language extension to get the value of the language.
-extension LanguageExtension on Language {
-  String get value {
-    if (this == Language.ckbBadini) {
-      return 'ckb_BADINI';
-    }
-    return name;
-  }
+  const Language(this.value);
+
+  final String value;
 }
