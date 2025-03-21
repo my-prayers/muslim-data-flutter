@@ -7,8 +7,6 @@ import 'package:muslim_data_flutter/models/language.dart';
 import 'package:muslim_data_flutter/models/location/location.dart';
 import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
 import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
-import 'package:muslim_data_flutter/utils/date_utils.dart';
-import 'package:muslim_data_flutter/utils/string_date.dart';
 
 /// A repository class responsible for handling Muslim-related data operations.
 class MuslimRepository {
@@ -51,25 +49,8 @@ class MuslimRepository {
 
   /// Get the prayer times for the specified [locationId] and [date].
   Future<PrayerTime?> getPrayerTimes(int locationId, DateTime date) async {
-    final String formattedDate = date.toDbDate();
-
     try {
-      final prayerTimeRecord = await _dbService.getPrayerTimes(
-        locationId,
-        formattedDate,
-      );
-
-      if (prayerTimeRecord != null) {
-        return PrayerTime(
-          prayerTimeRecord.fajr.toDate(date),
-          prayerTimeRecord.sunrise.toDate(date),
-          prayerTimeRecord.dhuhr.toDate(date),
-          prayerTimeRecord.asr.toDate(date),
-          prayerTimeRecord.maghrib.toDate(date),
-          prayerTimeRecord.isha.toDate(date),
-        );
-      }
-      return null;
+      return await _dbService.getPrayerTimes(locationId, date);
     } catch (e) {
       debugPrint('Error fetching prayer times from the database: $e');
       return null;
@@ -97,6 +78,7 @@ class MuslimRepository {
   }
 
   /// Get azkar chapters for the specified [language] and [categoryId].
+  /// If [categoryId] is not provided, all azkar chapters will be returned.
   Future<List<AzkarChapter>> getAzkarChapters(
     Language language, [
     int categoryId = -1,
