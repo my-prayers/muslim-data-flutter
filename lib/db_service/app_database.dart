@@ -10,12 +10,14 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'app_database.g.dart';
 
+final _dbVersion = 1;
+
 @DriftDatabase()
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => _dbVersion;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -33,7 +35,7 @@ class AppDatabase extends _$AppDatabase {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'muslim_data_flutter.db'));
 
-      if (!await file.exists()) {
+      if (!await file.exists() || await _hasUpdate()) {
         // Extract the pre-populated database file from assets
         final blob = await rootBundle.load(
           'packages/muslim_data_flutter/assets/db/muslim_db_v2.4.0.db',
@@ -58,5 +60,24 @@ class AppDatabase extends _$AppDatabase {
 
       return NativeDatabase.createInBackground(file);
     });
+  }
+
+  /// Check if the database has been updated
+  static Future<bool> _hasUpdate() async {
+    final dbVersionFile = File(
+      p.join((await getApplicationDocumentsDirectory()).path, 'db_version.txt'),
+    );
+
+    int currentVersion = 1;
+    if (await dbVersionFile.exists()) {
+      final versionString = await dbVersionFile.readAsString();
+      currentVersion = int.tryParse(versionString) ?? 1;
+    }
+
+    if (currentVersion < _dbVersion) {
+      await dbVersionFile.writeAsString(_dbVersion.toString());
+      return true;
+    }
+    return false;
   }
 }
