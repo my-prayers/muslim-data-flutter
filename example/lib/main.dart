@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:muslim_data_flutter/db_service/app_database.dart';
-import 'package:muslim_data_flutter/db_service/db_service.dart';
-import 'package:muslim_data_flutter/models/location/location.dart';
-import 'package:muslim_data_flutter/models/prayer_times/asr_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/calculation_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/higher_latitude_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_attribute.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
-import 'package:muslim_data_flutter/repository/muslim_repository.dart';
+import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -50,14 +42,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PrayerTime? _prayerTime;
-  final dbService = DbService(AppDatabase());
   late MuslimRepository muslimRepo;
   var format = DateFormat('hh:mm a', 'ar');
 
   @override
   void initState() {
     super.initState();
-    muslimRepo = MuslimRepository(dbService);
+    muslimRepo = MuslimRepository();
   }
 
   Future<void> _getPrayerTime() async {

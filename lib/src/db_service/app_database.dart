@@ -14,7 +14,10 @@ final _dbVersion = 1;
 
 @DriftDatabase()
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  AppDatabase._internal() : super(_openConnection());
+  factory AppDatabase() => _instance;
+
+  static final AppDatabase _instance = AppDatabase._internal();
 
   @override
   int get schemaVersion => _dbVersion;

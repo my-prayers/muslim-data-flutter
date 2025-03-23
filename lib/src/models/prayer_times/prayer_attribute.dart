@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:muslim_data_flutter/models/prayer_times/asr_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/calculation_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/higher_latitude_method.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/asr_method.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/calculation_method.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/higher_latitude_method.dart';
 
 part 'prayer_attribute.freezed.dart';
 

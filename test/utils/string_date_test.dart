@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:muslim_data_flutter/utils/string_date.dart';
+import 'package:muslim_data_flutter/src/utils/string_date.dart';
 
 void main() {
   group('StringDate Extension', () {

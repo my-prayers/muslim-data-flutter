@@ -1,18 +1,21 @@
-import 'package:muslim_data_flutter/db_service/app_database.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_category.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_chapter.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_item.dart';
-import 'package:muslim_data_flutter/models/location/location.dart';
-import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
-import 'package:muslim_data_flutter/utils/date_utils.dart';
-import 'package:muslim_data_flutter/utils/string_date.dart';
+import 'package:muslim_data_flutter/src/db_service/app_database.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_category.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_chapter.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_item.dart';
+import 'package:muslim_data_flutter/src/models/location/location.dart';
+import 'package:muslim_data_flutter/src/models/names/names_of_allah.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/prayer_time.dart';
+import 'package:muslim_data_flutter/src/utils/date_utils.dart';
+import 'package:muslim_data_flutter/src/utils/string_date.dart';
 
 /// A service class responsible for handling database operations.
 class DbService {
-  final AppDatabase _db;
+  DbService._internal(this._db);
+  factory DbService() => _instance;
 
-  DbService(this._db);
+  static final DbService _instance = DbService._internal(AppDatabase());
+
+  final AppDatabase _db;
 
   /// Search for locations in the database by the given [locationName].
   Future<List<Location>> searchLocations(String locationName) async {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:muslim_data_flutter/utils/date_utils.dart';
+import 'package:muslim_data_flutter/src/utils/date_utils.dart';
 
 void main() {
   test('formatToDbDate formats date to MM-dd', () {

@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:muslim_data_flutter/models/location/location.dart';
-import 'package:muslim_data_flutter/models/prayer_times/calculation_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/higher_latitude_method.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_attribute.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
-import 'package:muslim_data_flutter/utils/string_date.dart';
+import 'package:muslim_data_flutter/src/models/location/location.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/calculation_method.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/higher_latitude_method.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/prayer_attribute.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/prayer_time.dart';
+import 'package:muslim_data_flutter/src/utils/string_date.dart';
 
 class CalculatedPrayerTime {
   final PrayerAttribute attribute;

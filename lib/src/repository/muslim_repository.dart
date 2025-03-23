@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
-import 'package:muslim_data_flutter/db_service/db_service.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_category.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_chapter.dart';
-import 'package:muslim_data_flutter/models/azkars/azkar_item.dart';
-import 'package:muslim_data_flutter/models/language.dart';
-import 'package:muslim_data_flutter/models/location/location.dart';
-import 'package:muslim_data_flutter/models/names/names_of_allah.dart';
-import 'package:muslim_data_flutter/models/prayer_times/calculated_prayer_time.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_attribute.dart';
-import 'package:muslim_data_flutter/models/prayer_times/prayer_time.dart';
+import 'package:muslim_data_flutter/src/db_service/db_service.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_category.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_chapter.dart';
+import 'package:muslim_data_flutter/src/models/azkars/azkar_item.dart';
+import 'package:muslim_data_flutter/src/models/language.dart';
+import 'package:muslim_data_flutter/src/models/location/location.dart';
+import 'package:muslim_data_flutter/src/models/names/names_of_allah.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/calculated_prayer_time.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/prayer_attribute.dart';
+import 'package:muslim_data_flutter/src/models/prayer_times/prayer_time.dart';
 
 /// A repository class responsible for handling Muslim-related data operations.
 class MuslimRepository {
-  MuslimRepository(this._dbService);
+  MuslimRepository._internal(this._dbService);
+  factory MuslimRepository() => _instance;
+
+  static final MuslimRepository _instance = MuslimRepository._internal(
+    DbService(),
+  );
 
   final DbService _dbService;
 
