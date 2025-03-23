@@ -125,12 +125,12 @@ class CalculatedPrayerTime {
 
     final cTime = computeDayTimes();
     return PrayerTime(
-      cTime[0].toDate(date),
-      cTime[1].toDate(date),
-      cTime[2].toDate(date),
-      cTime[3].toDate(date),
-      cTime[4].toDate(date),
-      cTime[5].toDate(date),
+      fajr: cTime[0].toDate(date),
+      sunrise: cTime[1].toDate(date),
+      dhuhr: cTime[2].toDate(date),
+      asr: cTime[3].toDate(date),
+      maghrib: cTime[4].toDate(date),
+      isha: cTime[5].toDate(date),
     );
   }
 

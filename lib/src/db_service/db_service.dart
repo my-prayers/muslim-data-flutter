@@ -77,12 +77,12 @@ class DbService {
         .customSelect(_RowQuery.prayerTimesQuery(locationId, date.toDbDate()))
         .map((row) {
           return PrayerTime(
-            row.read<String>('fajr').toDate(date),
-            row.read<String>('sunrise').toDate(date),
-            row.read<String>('dhuhr').toDate(date),
-            row.read<String>('asr').toDate(date),
-            row.read<String>('maghrib').toDate(date),
-            row.read<String>('isha').toDate(date),
+            fajr: row.read<String>('fajr').toDate(date),
+            sunrise: row.read<String>('sunrise').toDate(date),
+            dhuhr: row.read<String>('dhuhr').toDate(date),
+            asr: row.read<String>('asr').toDate(date),
+            maghrib: row.read<String>('maghrib').toDate(date),
+            isha: row.read<String>('isha').toDate(date),
           );
         })
         .getSingleOrNull();

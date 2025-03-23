@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:muslim_data_flutter/src/db_service/db_service.dart';
 import 'package:muslim_data_flutter/src/models/azkars/azkar_category.dart';
 import 'package:muslim_data_flutter/src/models/azkars/azkar_chapter.dart';
