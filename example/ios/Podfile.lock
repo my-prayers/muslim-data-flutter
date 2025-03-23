@@ -10,6 +10,8 @@ PODS:
     - sqlite3/common
   - sqlite3/fts5 (3.49.1):
     - sqlite3/common
+  - sqlite3/math (3.49.1):
+    - sqlite3/common
   - sqlite3/perf-threadsafe (3.49.1):
     - sqlite3/common
   - sqlite3/rtree (3.49.1):
@@ -20,6 +22,7 @@ PODS:
     - sqlite3 (~> 3.49.1)
     - sqlite3/dbstatvtab
     - sqlite3/fts5
+    - sqlite3/math
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
 
@@ -44,7 +47,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   sqlite3: fc1400008a9b3525f5914ed715a5d1af0b8f4983
-  sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241
+  sqlite3_flutter_libs: f6acaa2172e6bb3e2e70c771661905080e8ebcf2
 
 PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
 
