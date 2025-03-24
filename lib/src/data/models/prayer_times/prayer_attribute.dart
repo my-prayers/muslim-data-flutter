@@ -1,6 +1,6 @@
-import 'package:muslim_data_flutter/src/models/prayer_times/asr_method.dart';
-import 'package:muslim_data_flutter/src/models/prayer_times/calculation_method.dart';
-import 'package:muslim_data_flutter/src/models/prayer_times/higher_latitude_method.dart';
+import 'asr_method.dart';
+import 'calculation_method.dart';
+import 'higher_latitude_method.dart';
 
 /// Prayer attribute that holds all information to create prayer times object.
 class PrayerAttribute {

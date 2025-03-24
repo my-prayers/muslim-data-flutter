@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
-import 'package:muslim_data_flutter/src/db_service/db_service.dart';
-import 'package:muslim_data_flutter/src/models/azkars/azkar_category.dart';
-import 'package:muslim_data_flutter/src/models/azkars/azkar_chapter.dart';
-import 'package:muslim_data_flutter/src/models/azkars/azkar_item.dart';
-import 'package:muslim_data_flutter/src/models/language.dart';
-import 'package:muslim_data_flutter/src/models/location/location.dart';
-import 'package:muslim_data_flutter/src/models/names/names_of_allah.dart';
-import 'package:muslim_data_flutter/src/models/prayer_times/calculated_prayer_time.dart';
-import 'package:muslim_data_flutter/src/models/prayer_times/prayer_attribute.dart';
-import 'package:muslim_data_flutter/src/models/prayer_times/prayer_time.dart';
+
+import '../data/database/muslim_dao.dart';
+import '../data/models/azkars/azkar_category.dart';
+import '../data/models/azkars/azkar_chapter.dart';
+import '../data/models/azkars/azkar_item.dart';
+import '../data/models/language.dart';
+import '../data/models/location/location.dart';
+import '../data/models/names/names_of_allah.dart';
+import '../data/models/prayer_times/calculated_prayer_time.dart';
+import '../data/models/prayer_times/prayer_attribute.dart';
+import '../data/models/prayer_times/prayer_time.dart';
 
 /// A repository class responsible for handling Muslim-related data operations.
 class MuslimRepository {
@@ -16,10 +17,10 @@ class MuslimRepository {
   factory MuslimRepository() => _instance;
 
   static final MuslimRepository _instance = MuslimRepository._internal(
-    DbService(),
+    MuslimDao(),
   );
 
-  final DbService _dbService;
+  final MuslimDao _dbService;
 
   /// Search for locations by the given [locationName].
   /// Returns a list of locations that match the search query.

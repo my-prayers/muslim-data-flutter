@@ -8,16 +8,16 @@ import 'package:path/path.dart' as p;
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
-part 'app_database.g.dart';
+part 'muslim_db.g.dart';
 
 final _dbVersion = 1;
 
 @DriftDatabase()
-class AppDatabase extends _$AppDatabase {
-  AppDatabase._internal() : super(_openConnection());
-  factory AppDatabase() => _instance;
+class MuslimDb extends _$MuslimDb {
+  MuslimDb._internal() : super(_openConnection());
+  factory MuslimDb() => _instance;
 
-  static final AppDatabase _instance = AppDatabase._internal();
+  static final MuslimDb _instance = MuslimDb._internal();
 
   @override
   int get schemaVersion => _dbVersion;
