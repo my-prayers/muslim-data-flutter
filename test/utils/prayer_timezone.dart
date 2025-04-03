@@ -2,7 +2,7 @@ import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculated_prayer_time.dart';
 import 'package:muslim_data_flutter/src/utils/string_date.dart';
 
-extension PrayerTimezoneTest on CalculatedPrayerTime {
+extension PrayerTimezone on CalculatedPrayerTime {
   /// Calculate prayer times for a given location and date with custom timezone.
   /// This method is used for testing purposes only.
   PrayerTime getPrayerTimesTest(

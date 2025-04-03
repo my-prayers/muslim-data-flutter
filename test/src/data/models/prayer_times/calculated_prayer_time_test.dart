@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculated_prayer_time.dart';
-import '../../../../utils/prayer_timezone_test.dart';
+import '../../../../utils/prayer_timezone.dart';
 
 void main() {
   final attribute = PrayerAttribute(
