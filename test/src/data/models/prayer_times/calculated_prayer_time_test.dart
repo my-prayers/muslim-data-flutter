@@ -125,8 +125,7 @@ void main() {
       expect(formatTime(prayerTimes.fajr), '05:10');
       expect(formatTime(prayerTimes.sunrise), '06:49');
       expect(formatTime(prayerTimes.dhuhr), '13:52');
-      // FIXME: Asr time is not correct
-      // expect(formatTime(prayerTimes.asr), '17:36');
+      expect(formatTime(prayerTimes.asr), '17:36');
       expect(formatTime(prayerTimes.maghrib), '20:55');
       expect(formatTime(prayerTimes.isha), '22:28');
     });
@@ -142,8 +141,7 @@ void main() {
       expect(formatTime(prayerTimes.fajr), '06:17');
       expect(formatTime(prayerTimes.sunrise), '07:44');
       expect(formatTime(prayerTimes.dhuhr), '12:49');
-      // FIXME: Asr time is not correct
-      // expect(formatTime(prayerTimes.asr), '15:34');
+      expect(formatTime(prayerTimes.asr), '15:34');
       expect(formatTime(prayerTimes.maghrib), '17:53');
       expect(formatTime(prayerTimes.isha), '19:16');
     });
@@ -213,8 +211,7 @@ void main() {
       );
 
       expect(formatTime(prayerTimes.fajr), '05:59');
-      // FIXME: Sunrise time is not correct
-      // expect(formatTime(prayerTimes.sunrise), '06:59');
+      expect(formatTime(prayerTimes.sunrise), '07:59');
       expect(formatTime(prayerTimes.dhuhr), '12:10');
       expect(formatTime(prayerTimes.asr), '14:02');
       expect(formatTime(prayerTimes.maghrib), '16:21');
