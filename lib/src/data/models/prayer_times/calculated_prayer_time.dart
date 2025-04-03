@@ -62,10 +62,10 @@ class CalculatedPrayerTime {
     }
     final a = (year / 100.0).floor();
     final b = 2 - a + (a / 4.0).floor();
-    return (365.25 * (year + 4716)).floor() +
-        (30.6001 * (month + 1)).floor() +
-        day +
-        b -
+    return ((365.25 * (year + 4716)).floor() +
+            (30.6001 * (month + 1)).floor() +
+            day +
+            b) -
         1524.5;
   }
 
@@ -104,7 +104,7 @@ class CalculatedPrayerTime {
 
   double computeAsr(double step, double t) {
     final d = sunDeclination(jDate + t);
-    final g = -dArcCot(step + dTan(lat.abs() - d));
+    final g = -dArcCot(step + dTan((lat - d).abs()));
     return computeTime(g, t);
   }
 
@@ -136,6 +136,7 @@ class CalculatedPrayerTime {
 
   String floatToTime24(double time) {
     if (time.isNaN) return invalidTime;
+
     time = fixHour(time + 0.5 / 60.0);
     final hours = time.floor();
     final minutes = ((time - hours) * 60.0).floor();
