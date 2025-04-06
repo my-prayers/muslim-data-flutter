@@ -88,4 +88,15 @@ class RowQuery {
         "ref_transl.language = transl.language "
         "WHERE chapterId = $chapterId AND transl.language = '$language'";
   }
+
+  /// Query to get the list of locations with fixed prayer times.
+  static String fixedPrayerTimesListQuery() {
+    return "SELECT location._id AS id, country.code AS countryCode, country.name AS countryName, "
+        "location.name AS name, latitude, longitude, "
+        "has_fixed_prayer_time AS hasFixedPrayerTime, "
+        "prayer_dependent_id AS prayerDependentId "
+        "FROM location "
+        "INNER JOIN country ON country._id = location.country_id "
+        "WHERE has_fixed_prayer_time = 1";
+  }
 }

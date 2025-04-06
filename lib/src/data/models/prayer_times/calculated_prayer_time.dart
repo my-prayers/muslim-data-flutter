@@ -111,11 +111,15 @@ class CalculatedPrayerTime {
   double timeDiff(double time1, double time2) => fixHour(time2 - time1);
 
   // Interface Functions
-  PrayerTime getPrayerTimes(Location location, DateTime date) {
+  PrayerTime? getPrayerTimes(
+    Location location,
+    DateTime date, {
+    double? timezone,
+  }) {
     final year = date.year;
     final month = date.month;
     final day = date.day;
-    timeZone = date.timeZoneOffset.inHours.toDouble();
+    timeZone = timezone ?? date.timeZoneOffset.inHours.toDouble();
 
     lat = location.latitude;
     lng = location.longitude;
@@ -123,15 +127,19 @@ class CalculatedPrayerTime {
     final lonDiff = location.longitude / (15.0 * 24.0);
     jDate -= lonDiff;
 
-    final cTime = computeDayTimes();
-    return PrayerTime(
-      fajr: cTime[0].toDate(date),
-      sunrise: cTime[1].toDate(date),
-      dhuhr: cTime[2].toDate(date),
-      asr: cTime[3].toDate(date),
-      maghrib: cTime[4].toDate(date),
-      isha: cTime[5].toDate(date),
-    );
+    try {
+      final cTime = computeDayTimes();
+      return PrayerTime(
+        fajr: cTime[0].toDate(date),
+        sunrise: cTime[1].toDate(date),
+        dhuhr: cTime[2].toDate(date),
+        asr: cTime[3].toDate(date),
+        maghrib: cTime[4].toDate(date),
+        isha: cTime[5].toDate(date),
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   String floatToTime24(double time) {

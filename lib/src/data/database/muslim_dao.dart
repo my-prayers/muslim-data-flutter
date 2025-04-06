@@ -13,9 +13,14 @@ import '../models/prayer_times/prayer_time.dart';
 /// A service class responsible for handling database operations.
 class MuslimDao {
   MuslimDao._internal(this._db);
-  factory MuslimDao() => _instance;
 
-  static final MuslimDao _instance = MuslimDao._internal(MuslimDb());
+  static MuslimDao? _instance;
+
+  /// Factory method to create a singleton instance of [MuslimDao].
+  factory MuslimDao({required MuslimDb db}) {
+    _instance ??= MuslimDao._internal(db);
+    return _instance!;
+  }
 
   final MuslimDb _db;
 
@@ -32,6 +37,7 @@ class MuslimDao {
             countryCode: row.read<String>('countryCode'),
             countryName: row.read<String>('countryName'),
             hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+            prayerDependentId: row.read<int?>('prayerDependentId'),
           );
         })
         .get();
@@ -50,6 +56,7 @@ class MuslimDao {
             countryCode: row.read<String>('countryCode'),
             countryName: row.read<String>('countryName'),
             hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+            prayerDependentId: row.read<int?>('prayerDependentId'),
           );
         })
         .getSingleOrNull();
@@ -68,6 +75,7 @@ class MuslimDao {
             countryCode: row.read<String>('countryCode'),
             countryName: row.read<String>('countryName'),
             hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+            prayerDependentId: row.read<int?>('prayerDependentId'),
           );
         })
         .getSingleOrNull();
@@ -161,5 +169,23 @@ class MuslimDao {
           );
         })
         .get();
+  }
+
+  /// Get the list of locations with fixed prayer times from the database.
+  Future<List<Location>> getFixedPrayerTimesList() async {
+    return await _db.customSelect(RowQuery.fixedPrayerTimesListQuery()).map((
+      row,
+    ) {
+      return Location(
+        id: row.read<int>('id'),
+        name: row.read<String>('name'),
+        latitude: row.read<double>('latitude'),
+        longitude: row.read<double>('longitude'),
+        countryCode: row.read<String>('countryCode'),
+        countryName: row.read<String>('countryName'),
+        hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+        prayerDependentId: row.read<int?>('prayerDependentId'),
+      );
+    }).get();
   }
 }

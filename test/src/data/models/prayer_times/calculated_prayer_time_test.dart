@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculated_prayer_time.dart';
-import '../../../../utils/prayer_timezone.dart';
+import '../../../../utils/date_extension.dart';
 
 void main() {
   final attribute = PrayerAttribute(
@@ -10,10 +10,6 @@ void main() {
     higherLatitudeMethod: HigherLatitudeMethod.angleBased,
   );
   final calculator = CalculatedPrayerTime(attribute);
-
-  String formatTime(DateTime time) {
-    return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-  }
 
   group('Washington DC, USA Tests', () {
     final location = Location(
@@ -28,34 +24,36 @@ void main() {
 
     test('Washington DC, USA - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -5.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:51');
-      expect(formatTime(prayerTimes.sunrise), '07:25');
-      expect(formatTime(prayerTimes.dhuhr), '12:18');
-      expect(formatTime(prayerTimes.asr), '14:51');
-      expect(formatTime(prayerTimes.maghrib), '17:11');
-      expect(formatTime(prayerTimes.isha), '18:39');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:51');
+      expect(prayerTimes.sunrise.formatTime(), '07:25');
+      expect(prayerTimes.dhuhr.formatTime(), '12:18');
+      expect(prayerTimes.asr.formatTime(), '14:51');
+      expect(prayerTimes.maghrib.formatTime(), '17:11');
+      expect(prayerTimes.isha.formatTime(), '18:39');
     });
 
     test('Washington DC, USA - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -4.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '04:02');
-      expect(formatTime(prayerTimes.sunrise), '05:55');
-      expect(formatTime(prayerTimes.dhuhr), '13:14');
-      expect(formatTime(prayerTimes.asr), '17:09');
-      expect(formatTime(prayerTimes.maghrib), '20:33');
-      expect(formatTime(prayerTimes.isha), '22:18');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '04:02');
+      expect(prayerTimes.sunrise.formatTime(), '05:55');
+      expect(prayerTimes.dhuhr.formatTime(), '13:14');
+      expect(prayerTimes.asr.formatTime(), '17:09');
+      expect(prayerTimes.maghrib.formatTime(), '20:33');
+      expect(prayerTimes.isha.formatTime(), '22:18');
     });
   });
 
@@ -72,34 +70,36 @@ void main() {
 
     test('Mexico City, Mexico - 1 Junuary 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -6.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:56');
-      expect(formatTime(prayerTimes.sunrise), '07:13');
-      expect(formatTime(prayerTimes.dhuhr), '12:46');
-      expect(formatTime(prayerTimes.asr), '15:56');
-      expect(formatTime(prayerTimes.maghrib), '18:19');
-      expect(formatTime(prayerTimes.isha), '19:32');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:56');
+      expect(prayerTimes.sunrise.formatTime(), '07:13');
+      expect(prayerTimes.dhuhr.formatTime(), '12:46');
+      expect(prayerTimes.asr.formatTime(), '15:56');
+      expect(prayerTimes.maghrib.formatTime(), '18:19');
+      expect(prayerTimes.isha.formatTime(), '19:32');
     });
 
     test('Mexico City, Mexico - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -5.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:45');
-      expect(formatTime(prayerTimes.sunrise), '07:07');
-      expect(formatTime(prayerTimes.dhuhr), '13:43');
-      expect(formatTime(prayerTimes.asr), '16:59');
-      expect(formatTime(prayerTimes.maghrib), '20:18');
-      expect(formatTime(prayerTimes.isha), '21:35');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:45');
+      expect(prayerTimes.sunrise.formatTime(), '07:07');
+      expect(prayerTimes.dhuhr.formatTime(), '13:43');
+      expect(prayerTimes.asr.formatTime(), '16:59');
+      expect(prayerTimes.maghrib.formatTime(), '20:18');
+      expect(prayerTimes.isha.formatTime(), '21:35');
     });
   });
 
@@ -116,34 +116,36 @@ void main() {
 
     test('Santiago, Chile - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -3.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:10');
-      expect(formatTime(prayerTimes.sunrise), '06:49');
-      expect(formatTime(prayerTimes.dhuhr), '13:52');
-      expect(formatTime(prayerTimes.asr), '17:36');
-      expect(formatTime(prayerTimes.maghrib), '20:55');
-      expect(formatTime(prayerTimes.isha), '22:28');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:10');
+      expect(prayerTimes.sunrise.formatTime(), '06:49');
+      expect(prayerTimes.dhuhr.formatTime(), '13:52');
+      expect(prayerTimes.asr.formatTime(), '17:36');
+      expect(prayerTimes.maghrib.formatTime(), '20:55');
+      expect(prayerTimes.isha.formatTime(), '22:28');
     });
 
     test('Santiago, Chile - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: -4.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '06:17');
-      expect(formatTime(prayerTimes.sunrise), '07:44');
-      expect(formatTime(prayerTimes.dhuhr), '12:49');
-      expect(formatTime(prayerTimes.asr), '15:34');
-      expect(formatTime(prayerTimes.maghrib), '17:53');
-      expect(formatTime(prayerTimes.isha), '19:16');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '06:17');
+      expect(prayerTimes.sunrise.formatTime(), '07:44');
+      expect(prayerTimes.dhuhr.formatTime(), '12:49');
+      expect(prayerTimes.asr.formatTime(), '15:34');
+      expect(prayerTimes.maghrib.formatTime(), '17:53');
+      expect(prayerTimes.isha.formatTime(), '19:16');
     });
   });
 
@@ -160,34 +162,36 @@ void main() {
 
     test('Stockholm, Sweden - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 1.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:57');
-      expect(formatTime(prayerTimes.sunrise), '08:30');
-      expect(formatTime(prayerTimes.dhuhr), '11:57');
-      expect(formatTime(prayerTimes.asr), '13:10');
-      expect(formatTime(prayerTimes.maghrib), '15:25');
-      expect(formatTime(prayerTimes.isha), '17:50');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:57');
+      expect(prayerTimes.sunrise.formatTime(), '08:30');
+      expect(prayerTimes.dhuhr.formatTime(), '11:57');
+      expect(prayerTimes.asr.formatTime(), '13:10');
+      expect(prayerTimes.maghrib.formatTime(), '15:25');
+      expect(prayerTimes.isha.formatTime(), '17:50');
     });
 
     test('Stockholm, Sweden - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 2.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '02:07');
-      expect(formatTime(prayerTimes.sunrise), '03:58');
-      expect(formatTime(prayerTimes.dhuhr), '12:54');
-      expect(formatTime(prayerTimes.asr), '17:27');
-      expect(formatTime(prayerTimes.maghrib), '21:49');
-      expect(formatTime(prayerTimes.isha), '23:33');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '02:07');
+      expect(prayerTimes.sunrise.formatTime(), '03:58');
+      expect(prayerTimes.dhuhr.formatTime(), '12:54');
+      expect(prayerTimes.asr.formatTime(), '17:27');
+      expect(prayerTimes.maghrib.formatTime(), '21:49');
+      expect(prayerTimes.isha.formatTime(), '23:33');
     });
   });
 
@@ -204,34 +208,36 @@ void main() {
 
     test('London, UK - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 0.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:59');
-      expect(formatTime(prayerTimes.sunrise), '07:59');
-      expect(formatTime(prayerTimes.dhuhr), '12:10');
-      expect(formatTime(prayerTimes.asr), '14:02');
-      expect(formatTime(prayerTimes.maghrib), '16:21');
-      expect(formatTime(prayerTimes.isha), '18:15');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:59');
+      expect(prayerTimes.sunrise.formatTime(), '07:59');
+      expect(prayerTimes.dhuhr.formatTime(), '12:10');
+      expect(prayerTimes.asr.formatTime(), '14:02');
+      expect(prayerTimes.maghrib.formatTime(), '16:21');
+      expect(prayerTimes.isha.formatTime(), '18:15');
     });
 
     test('London, UK - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 1.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '02:40');
-      expect(formatTime(prayerTimes.sunrise), '05:01');
-      expect(formatTime(prayerTimes.dhuhr), '13:07');
-      expect(formatTime(prayerTimes.asr), '17:25');
-      expect(formatTime(prayerTimes.maghrib), '21:11');
-      expect(formatTime(prayerTimes.isha), '23:24');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '02:40');
+      expect(prayerTimes.sunrise.formatTime(), '05:01');
+      expect(prayerTimes.dhuhr.formatTime(), '13:07');
+      expect(prayerTimes.asr.formatTime(), '17:25');
+      expect(prayerTimes.maghrib.formatTime(), '21:11');
+      expect(prayerTimes.isha.formatTime(), '23:24');
     });
   });
 
@@ -248,34 +254,36 @@ void main() {
 
     test('Budapest, Hungary - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 1.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:37');
-      expect(formatTime(prayerTimes.sunrise), '07:27');
-      expect(formatTime(prayerTimes.dhuhr), '11:53');
-      expect(formatTime(prayerTimes.asr), '14:00');
-      expect(formatTime(prayerTimes.maghrib), '16:20');
-      expect(formatTime(prayerTimes.isha), '18:04');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:37');
+      expect(prayerTimes.sunrise.formatTime(), '07:27');
+      expect(prayerTimes.dhuhr.formatTime(), '11:53');
+      expect(prayerTimes.asr.formatTime(), '14:00');
+      expect(prayerTimes.maghrib.formatTime(), '16:20');
+      expect(prayerTimes.isha.formatTime(), '18:04');
     });
 
     test('Budapest, Hungary - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 2.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '02:31');
-      expect(formatTime(prayerTimes.sunrise), '05:02');
-      expect(formatTime(prayerTimes.dhuhr), '12:50');
-      expect(formatTime(prayerTimes.asr), '17:01');
-      expect(formatTime(prayerTimes.maghrib), '20:37');
-      expect(formatTime(prayerTimes.isha), '23:00');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '02:31');
+      expect(prayerTimes.sunrise.formatTime(), '05:02');
+      expect(prayerTimes.dhuhr.formatTime(), '12:50');
+      expect(prayerTimes.asr.formatTime(), '17:01');
+      expect(prayerTimes.maghrib.formatTime(), '20:37');
+      expect(prayerTimes.isha.formatTime(), '23:00');
     });
   });
 
@@ -299,34 +307,36 @@ void main() {
 
     test('Makkah, KSA - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 3.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:41');
-      expect(formatTime(prayerTimes.sunrise), '07:01');
-      expect(formatTime(prayerTimes.dhuhr), '12:30');
-      expect(formatTime(prayerTimes.asr), '15:38');
-      expect(formatTime(prayerTimes.maghrib), '18:00');
-      expect(formatTime(prayerTimes.isha), '19:30');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:41');
+      expect(prayerTimes.sunrise.formatTime(), '07:01');
+      expect(prayerTimes.dhuhr.formatTime(), '12:30');
+      expect(prayerTimes.asr.formatTime(), '15:38');
+      expect(prayerTimes.maghrib.formatTime(), '18:00');
+      expect(prayerTimes.isha.formatTime(), '19:30');
     });
 
     test('Makkah, KSA - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 3.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '04:21');
-      expect(formatTime(prayerTimes.sunrise), '05:47');
-      expect(formatTime(prayerTimes.dhuhr), '12:27');
-      expect(formatTime(prayerTimes.asr), '15:41');
-      expect(formatTime(prayerTimes.maghrib), '19:06');
-      expect(formatTime(prayerTimes.isha), '20:36');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '04:21');
+      expect(prayerTimes.sunrise.formatTime(), '05:47');
+      expect(prayerTimes.dhuhr.formatTime(), '12:27');
+      expect(prayerTimes.asr.formatTime(), '15:41');
+      expect(prayerTimes.maghrib.formatTime(), '19:06');
+      expect(prayerTimes.isha.formatTime(), '20:36');
     });
   });
 
@@ -343,34 +353,36 @@ void main() {
 
     test('Lusaka, Zambia - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 2.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '04:29');
-      expect(formatTime(prayerTimes.sunrise), '05:48');
-      expect(formatTime(prayerTimes.dhuhr), '12:16');
-      expect(formatTime(prayerTimes.asr), '15:37');
-      expect(formatTime(prayerTimes.maghrib), '18:44');
-      expect(formatTime(prayerTimes.isha), '19:58');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '04:29');
+      expect(prayerTimes.sunrise.formatTime(), '05:48');
+      expect(prayerTimes.dhuhr.formatTime(), '12:16');
+      expect(prayerTimes.asr.formatTime(), '15:37');
+      expect(prayerTimes.maghrib.formatTime(), '18:44');
+      expect(prayerTimes.isha.formatTime(), '19:58');
     });
 
     test('Lusaka, Zambia - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 2.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:18');
-      expect(formatTime(prayerTimes.sunrise), '06:34');
-      expect(formatTime(prayerTimes.dhuhr), '12:13');
-      expect(formatTime(prayerTimes.asr), '15:27');
-      expect(formatTime(prayerTimes.maghrib), '17:52');
-      expect(formatTime(prayerTimes.isha), '19:03');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:18');
+      expect(prayerTimes.sunrise.formatTime(), '06:34');
+      expect(prayerTimes.dhuhr.formatTime(), '12:13');
+      expect(prayerTimes.asr.formatTime(), '15:27');
+      expect(prayerTimes.maghrib.formatTime(), '17:52');
+      expect(prayerTimes.isha.formatTime(), '19:03');
     });
   });
 
@@ -387,34 +399,36 @@ void main() {
 
     test('Budapest, Hungary - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 7.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:18');
-      expect(formatTime(prayerTimes.sunrise), '06:36');
-      expect(formatTime(prayerTimes.dhuhr), '12:06');
-      expect(formatTime(prayerTimes.asr), '15:14');
-      expect(formatTime(prayerTimes.maghrib), '17:36');
-      expect(formatTime(prayerTimes.isha), '18:49');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:18');
+      expect(prayerTimes.sunrise.formatTime(), '06:36');
+      expect(prayerTimes.dhuhr.formatTime(), '12:06');
+      expect(prayerTimes.asr.formatTime(), '15:14');
+      expect(prayerTimes.maghrib.formatTime(), '17:36');
+      expect(prayerTimes.isha.formatTime(), '18:49');
     });
 
     test('Budapest, Hungary - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 7.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '04:01');
-      expect(formatTime(prayerTimes.sunrise), '05:24');
-      expect(formatTime(prayerTimes.dhuhr), '12:03');
-      expect(formatTime(prayerTimes.asr), '15:18');
-      expect(formatTime(prayerTimes.maghrib), '18:41');
-      expect(formatTime(prayerTimes.isha), '19:59');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '04:01');
+      expect(prayerTimes.sunrise.formatTime(), '05:24');
+      expect(prayerTimes.dhuhr.formatTime(), '12:03');
+      expect(prayerTimes.asr.formatTime(), '15:18');
+      expect(prayerTimes.maghrib.formatTime(), '18:41');
+      expect(prayerTimes.isha.formatTime(), '19:59');
     });
   });
 
@@ -431,34 +445,59 @@ void main() {
 
     test('Canberra, Australia - 15 January 2025', () {
       final date = DateTime(2025, 1, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 11.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '04:21');
-      expect(formatTime(prayerTimes.sunrise), '06:05');
-      expect(formatTime(prayerTimes.dhuhr), '13:13');
-      expect(formatTime(prayerTimes.asr), '17:00');
-      expect(formatTime(prayerTimes.maghrib), '20:21');
-      expect(formatTime(prayerTimes.isha), '21:57');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '04:21');
+      expect(prayerTimes.sunrise.formatTime(), '06:05');
+      expect(prayerTimes.dhuhr.formatTime(), '13:13');
+      expect(prayerTimes.asr.formatTime(), '17:00');
+      expect(prayerTimes.maghrib.formatTime(), '20:21');
+      expect(prayerTimes.isha.formatTime(), '21:57');
     });
 
     test('Canberra, Australia - 15 July 2025', () {
       final date = DateTime(2025, 7, 15);
-      final prayerTimes = calculator.getPrayerTimesTest(
+      final prayerTimes = calculator.getPrayerTimes(
         location,
         date,
         timezone: 10.0,
       );
 
-      expect(formatTime(prayerTimes.fajr), '05:40');
-      expect(formatTime(prayerTimes.sunrise), '07:10');
-      expect(formatTime(prayerTimes.dhuhr), '12:09');
-      expect(formatTime(prayerTimes.asr), '14:51');
-      expect(formatTime(prayerTimes.maghrib), '17:09');
-      expect(formatTime(prayerTimes.isha), '18:34');
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:40');
+      expect(prayerTimes.sunrise.formatTime(), '07:10');
+      expect(prayerTimes.dhuhr.formatTime(), '12:09');
+      expect(prayerTimes.asr.formatTime(), '14:51');
+      expect(prayerTimes.maghrib.formatTime(), '17:09');
+      expect(prayerTimes.isha.formatTime(), '18:34');
+    });
+  });
+
+  group('Unknown Location Tests', () {
+    final location = Location(
+      id: 0,
+      name: 'Unknown',
+      countryCode: 'XX',
+      countryName: 'Unknown',
+      latitude: -100.0,
+      longitude: -100.0,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Unknown Location - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 0.0,
+      );
+
+      expect(prayerTimes, isNull);
     });
   });
 }

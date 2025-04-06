@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
 
 import '../data/database/muslim_dao.dart';
 import '../data/models/azkars/azkar_category.dart';
@@ -13,22 +13,23 @@ import '../data/models/prayer_times/prayer_time.dart';
 
 /// A repository class responsible for handling Muslim-related data operations.
 class MuslimRepository {
-  MuslimRepository._internal(this._dbService);
-  factory MuslimRepository() => _instance;
+  MuslimRepository._internal(this._dbDao);
 
-  static final MuslimRepository _instance = MuslimRepository._internal(
-    MuslimDao(),
-  );
+  factory MuslimRepository({MuslimDao? dao}) {
+    _instance ??= MuslimRepository._internal(dao ?? MuslimDao(db: MuslimDb()));
+    return _instance!;
+  }
 
-  final MuslimDao _dbService;
+  static MuslimRepository? _instance;
+
+  final MuslimDao _dbDao;
 
   /// Search for locations by the given [locationName].
   /// Returns a list of locations that match the search query.
   Future<List<Location>> searchLocations(String locationName) async {
     try {
-      return await _dbService.searchLocations(locationName);
+      return await _dbDao.searchLocations(locationName);
     } catch (e) {
-      debugPrint('Error searching locations from the database: $e');
       return [];
     }
   }
@@ -37,9 +38,8 @@ class MuslimRepository {
   /// Returns the location if found, otherwise returns null.
   Future<Location?> geocoder(String countryCode, String locationName) async {
     try {
-      return await _dbService.geocoder(countryCode, locationName);
+      return await _dbDao.geocoder(countryCode, locationName);
     } catch (e) {
-      debugPrint('Error geocoding location from the database: $e');
       return null;
     }
   }
@@ -48,9 +48,8 @@ class MuslimRepository {
   /// Returns the location if found, otherwise returns null.
   Future<Location?> reverseGeocoder(double latitude, double longitude) async {
     try {
-      return await _dbService.reverseGeocoder(latitude, longitude);
+      return await _dbDao.reverseGeocoder(latitude, longitude);
     } catch (e) {
-      debugPrint('Error reverse geocoding location from the database: $e');
       return null;
     }
   }
@@ -62,10 +61,10 @@ class MuslimRepository {
     PrayerAttribute attribute,
   ) async {
     try {
-      PrayerTime prayerTime;
+      PrayerTime? prayerTime;
 
       if (location.hasFixedPrayerTime) {
-        final fixedPrayer = await _dbService.getPrayerTimes(
+        final fixedPrayer = await _dbDao.getPrayerTimes(
           location.prayerDependentId ?? location.id,
           date,
         );
@@ -78,10 +77,9 @@ class MuslimRepository {
         ).getPrayerTimes(location, date);
       }
 
-      prayerTime = _applyOffset(prayerTime, attribute.offset);
+      prayerTime = _applyOffset(prayerTime!, attribute.offset);
       return prayerTime;
     } catch (e) {
-      debugPrint('Error fetching prayer times: $e');
       return null;
     }
   }
@@ -136,9 +134,8 @@ class MuslimRepository {
   /// Get the names of Allah for the specified [language].
   Future<List<NameOfAllah>> getNames(Language language) async {
     try {
-      return await _dbService.getNames(language.value);
+      return await _dbDao.getNames(language.value);
     } catch (e) {
-      debugPrint('Error fetching names from the database: $e');
       return [];
     }
   }
@@ -146,9 +143,8 @@ class MuslimRepository {
   /// Get azkar categories for the specified [language].
   Future<List<AzkarCategory>> getAzkarCategories(Language language) async {
     try {
-      return await _dbService.getAzkarCategories(language.value);
+      return await _dbDao.getAzkarCategories(language.value);
     } catch (e) {
-      debugPrint('Error fetching azkar categories from the database: $e');
       return [];
     }
   }
@@ -160,9 +156,8 @@ class MuslimRepository {
     int categoryId = -1,
   ]) async {
     try {
-      return await _dbService.getAzkarChapters(language.value, categoryId);
+      return await _dbDao.getAzkarChapters(language.value, categoryId);
     } catch (e) {
-      debugPrint('Error fetching azkar chapters from the database: $e');
       return [];
     }
   }
@@ -173,9 +168,8 @@ class MuslimRepository {
     List<int> chapterIds,
   ) async {
     try {
-      return await _dbService.getAzkarChaptersByIds(language.value, chapterIds);
+      return await _dbDao.getAzkarChaptersByIds(language.value, chapterIds);
     } catch (e) {
-      debugPrint('Error fetching azkar chapters by ids from the database: $e');
       return [];
     }
   }
@@ -186,9 +180,8 @@ class MuslimRepository {
     Language language,
   ) async {
     try {
-      return await _dbService.getAzkarItems(chapterId, language.value);
+      return await _dbDao.getAzkarItems(chapterId, language.value);
     } catch (e) {
-      debugPrint('Error fetching azkar items from the database: $e');
       return [];
     }
   }

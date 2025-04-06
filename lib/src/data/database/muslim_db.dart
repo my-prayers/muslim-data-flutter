@@ -14,10 +14,15 @@ final _dbVersion = 1;
 
 @DriftDatabase()
 class MuslimDb extends _$MuslimDb {
-  MuslimDb._internal() : super(_openConnection());
-  factory MuslimDb() => _instance;
+  MuslimDb._internal(super.connection);
 
-  static final MuslimDb _instance = MuslimDb._internal();
+  static MuslimDb? _instance;
+
+  /// Factory constructor to initialize the singleton instance
+  factory MuslimDb({LazyDatabase? connection}) {
+    _instance ??= MuslimDb._internal(connection ?? _openConnection());
+    return _instance!;
+  }
 
   @override
   int get schemaVersion => _dbVersion;
