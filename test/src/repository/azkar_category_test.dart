@@ -19,7 +19,9 @@ void main() {
 
     /// Test function to verify the number of azkar categories
     Future<void> testAzkarCategories(Language language) async {
-      final categories = await repository.getAzkarCategories(language);
+      final categories = await repository.getAzkarCategories(
+        language: language,
+      );
       expect(categories, isNotNull);
       expect(categories.length, equals(11));
       expect(categories[0].name, isNotNull);

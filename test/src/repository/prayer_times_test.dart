@@ -33,9 +33,9 @@ void main() {
       final date = DateTime.fromMillisecondsSinceEpoch(1709206718000);
       for (final location in locations) {
         final prayerTime = await repository.getPrayerTimes(
-          location,
-          date,
-          attributes,
+          location: location,
+          date: date,
+          attribute: attributes,
         );
         expect(prayerTime, isNotNull);
       }
@@ -54,9 +54,9 @@ void main() {
       hasFixedPrayerTime: false,
     );
     final prayerTimes = await repository.getPrayerTimes(
-      location,
-      date,
-      attributes,
+      location: location,
+      date: date,
+      attribute: attributes,
     );
 
     expect(prayerTimes, isNotNull);
@@ -82,9 +82,9 @@ void main() {
         hasFixedPrayerTime: false,
       );
       final prayerTimes = await repository.getPrayerTimes(
-        location,
-        date,
-        attributes,
+        location: location,
+        date: date,
+        attribute: attributes,
       );
 
       expect(prayerTimes, isNull);

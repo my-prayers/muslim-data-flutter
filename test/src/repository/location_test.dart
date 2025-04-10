@@ -17,7 +17,10 @@ void main() {
   });
 
   test('geocoder returns correct location for London, GB', () async {
-    final location = await repository.geocoder('GB', 'London');
+    final location = await repository.geocoder(
+      countryCode: 'GB',
+      locationName: 'London',
+    );
     expect(location, isNotNull);
     expect(location!.latitude, equals(51.50853));
     expect(location.longitude, equals(-0.12574));
@@ -25,12 +28,18 @@ void main() {
   });
 
   test('geocoder returns null for unknown city', () async {
-    final location = await repository.geocoder('abc', 'Unknown');
+    final location = await repository.geocoder(
+      countryCode: 'abc',
+      locationName: 'Unknown',
+    );
     expect(location, isNull);
   });
 
   test('geocoder returns correct location for Tehran, IR', () async {
-    final location = await repository.geocoder('IR', 'Tehran');
+    final location = await repository.geocoder(
+      countryCode: 'IR',
+      locationName: 'Tehran',
+    );
     expect(location, isNotNull);
     expect(location!.latitude, equals(35.69439));
     expect(location.longitude, equals(51.42151));
@@ -38,7 +47,10 @@ void main() {
   });
 
   test('geocoder returns correct location for Soran, IQ', () async {
-    final location = await repository.geocoder('IQ', 'Soran');
+    final location = await repository.geocoder(
+      countryCode: 'IQ',
+      locationName: 'Soran',
+    );
     expect(location, isNotNull);
     expect(location!.latitude, equals(36.652686));
     expect(location.longitude, equals(44.541427));
@@ -46,7 +58,10 @@ void main() {
   });
 
   test('geocoder returns correct location for Qasre, IQ', () async {
-    final location = await repository.geocoder('IQ', 'Qasre');
+    final location = await repository.geocoder(
+      countryCode: 'IQ',
+      locationName: 'Qasre',
+    );
     expect(location, isNotNull);
     expect(location!.latitude, equals(36.557804));
     expect(location.longitude, equals(44.827805));
@@ -54,7 +69,10 @@ void main() {
   });
 
   test('reverse geocoder returns correct details for London, GB', () async {
-    final location = await repository.reverseGeocoder(51.50853, -0.12574);
+    final location = await repository.reverseGeocoder(
+      latitude: 51.50853,
+      longitude: -0.12574,
+    );
     expect(location, isNotNull);
     expect(location!.name, 'London');
     expect(location.countryCode, 'GB');
@@ -63,7 +81,10 @@ void main() {
   });
 
   test('reverse geocoder returns correct details for Tehran, IR', () async {
-    final location = await repository.reverseGeocoder(35.69439, 51.42151);
+    final location = await repository.reverseGeocoder(
+      latitude: 35.69439,
+      longitude: 51.42151,
+    );
     expect(location, isNotNull);
     expect(location!.name, 'Tehran');
     expect(location.countryCode, 'IR');
@@ -72,7 +93,10 @@ void main() {
   });
 
   test('reverse geocoder returns correct details for Soran, IQ', () async {
-    final location = await repository.reverseGeocoder(36.652686, 44.541427);
+    final location = await repository.reverseGeocoder(
+      latitude: 36.652686,
+      longitude: 44.541427,
+    );
     expect(location, isNotNull);
     expect(location!.name, 'Soran');
     expect(location.countryCode, 'IQ');
@@ -81,7 +105,10 @@ void main() {
   });
 
   test('reverse geocoder returns correct details for Qasre, IQ', () async {
-    final location = await repository.reverseGeocoder(36.557804, 44.827805);
+    final location = await repository.reverseGeocoder(
+      latitude: 36.557804,
+      longitude: 44.827805,
+    );
     expect(location, isNotNull);
     expect(location!.name, 'Qasre');
     expect(location.countryCode, 'IQ');
@@ -90,7 +117,7 @@ void main() {
   });
 
   test('search returns correct locations for query "Tehran"', () async {
-    final locations = await repository.searchLocations('Tehran');
+    final locations = await repository.searchLocations(locationName: 'Tehran');
     expect(locations, isNotEmpty);
     expect(locations.first.name, 'Tehran');
     expect(locations.first.countryCode, 'IR');
@@ -100,7 +127,7 @@ void main() {
   });
 
   test('search returns multiple locations for query "Erbil"', () async {
-    final locations = await repository.searchLocations('Erbil');
+    final locations = await repository.searchLocations(locationName: 'Erbil');
     expect(locations, isNotEmpty);
     expect(locations.length, equals(1));
     expect(locations.first.name, 'Erbil');
@@ -111,7 +138,9 @@ void main() {
   });
 
   test('search returns empty list for unknown query', () async {
-    final locations = await repository.searchLocations('UnknownCity');
+    final locations = await repository.searchLocations(
+      locationName: 'UnknownCity',
+    );
     expect(locations, isEmpty);
   });
 }

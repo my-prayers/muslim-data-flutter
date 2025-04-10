@@ -42,7 +42,7 @@ void main() {
     });
 
     test('Verify chapter IDs for English azkar chapters', () async {
-      final chapters = await repository.getAzkarChapters(Language.en);
+      final chapters = await repository.getAzkarChapters();
       expect(chapters, isNotNull);
       expect(chapters.length, 133);
     });
@@ -80,7 +80,10 @@ Future<void> testAzkarChapters(
   int total = 133,
 }) async {
   final repository = MuslimRepository();
-  final chapters = await repository.getAzkarChapters(language, categoryId);
+  final chapters = await repository.getAzkarChapters(
+    language: language,
+    categoryId: categoryId,
+  );
   expect(chapters, isNotNull);
   expect(chapters.length, total);
 }

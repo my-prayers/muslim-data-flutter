@@ -17,7 +17,7 @@ void main() {
   });
 
   Future<void> testNames(Language language) async {
-    final names = await repository.getNames(language);
+    final names = await repository.getNames(language: language);
     expect(names, isNotNull);
     expect(names, isNotEmpty);
     expect(names.length, 99);

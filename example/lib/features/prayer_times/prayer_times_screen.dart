@@ -32,9 +32,9 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
 
     final muslimRepo = MuslimRepository();
     final prayerTime = await muslimRepo.getPrayerTimes(
-      location,
-      date,
-      attribute,
+      location: location,
+      date: date,
+      attribute: attribute,
     );
     setState(() {
       _prayerTime = prayerTime;

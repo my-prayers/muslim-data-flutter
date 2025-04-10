@@ -26,7 +26,7 @@ class MuslimRepository {
 
   /// Search for locations by the given [locationName].
   /// Returns a list of locations that match the search query.
-  Future<List<Location>> searchLocations(String locationName) async {
+  Future<List<Location>> searchLocations({required String locationName}) async {
     try {
       return await _dbDao.searchLocations(locationName);
     } catch (e) {
@@ -36,7 +36,10 @@ class MuslimRepository {
 
   /// Get the location by the given [countryCode] and [locationName].
   /// Returns the location if found, otherwise returns null.
-  Future<Location?> geocoder(String countryCode, String locationName) async {
+  Future<Location?> geocoder({
+    required String countryCode,
+    required String locationName,
+  }) async {
     try {
       return await _dbDao.geocoder(countryCode, locationName);
     } catch (e) {
@@ -46,7 +49,10 @@ class MuslimRepository {
 
   /// Get the location by the given [countryCode] and [locationName].
   /// Returns the location if found, otherwise returns null.
-  Future<Location?> reverseGeocoder(double latitude, double longitude) async {
+  Future<Location?> reverseGeocoder({
+    required double latitude,
+    required double longitude,
+  }) async {
     try {
       return await _dbDao.reverseGeocoder(latitude, longitude);
     } catch (e) {
@@ -55,11 +61,11 @@ class MuslimRepository {
   }
 
   /// Get prayer times for the specified [location], [date], and [attribute].
-  Future<PrayerTime?> getPrayerTimes(
-    Location location,
-    DateTime date,
-    PrayerAttribute attribute,
-  ) async {
+  Future<PrayerTime?> getPrayerTimes({
+    required Location location,
+    required DateTime date,
+    required PrayerAttribute attribute,
+  }) async {
     try {
       PrayerTime? prayerTime;
 
@@ -132,7 +138,7 @@ class MuslimRepository {
   }
 
   /// Get the names of Allah for the specified [language].
-  Future<List<NameOfAllah>> getNames(Language language) async {
+  Future<List<NameOfAllah>> getNames({Language language = Language.en}) async {
     try {
       return await _dbDao.getNames(language.value);
     } catch (e) {
@@ -141,7 +147,9 @@ class MuslimRepository {
   }
 
   /// Get azkar categories for the specified [language].
-  Future<List<AzkarCategory>> getAzkarCategories(Language language) async {
+  Future<List<AzkarCategory>> getAzkarCategories({
+    Language language = Language.en,
+  }) async {
     try {
       return await _dbDao.getAzkarCategories(language.value);
     } catch (e) {
@@ -151,10 +159,10 @@ class MuslimRepository {
 
   /// Get azkar chapters for the specified [language] and [categoryId].
   /// If [categoryId] is not provided, all azkar chapters will be returned.
-  Future<List<AzkarChapter>> getAzkarChapters(
-    Language language, [
+  Future<List<AzkarChapter>> getAzkarChapters({
+    Language language = Language.en,
     int categoryId = -1,
-  ]) async {
+  }) async {
     try {
       return await _dbDao.getAzkarChapters(language.value, categoryId);
     } catch (e) {
@@ -163,10 +171,10 @@ class MuslimRepository {
   }
 
   /// Get azkar chapters for the specified [language] and [chapterIds].
-  Future<List<AzkarChapter>> getAzkarChaptersByIds(
-    Language language,
-    List<int> chapterIds,
-  ) async {
+  Future<List<AzkarChapter>> getAzkarChaptersByIds({
+    Language language = Language.en,
+    required List<int> chapterIds,
+  }) async {
     try {
       return await _dbDao.getAzkarChaptersByIds(language.value, chapterIds);
     } catch (e) {
@@ -175,10 +183,10 @@ class MuslimRepository {
   }
 
   /// Get azkar items for the specified azkar [language] and [chapterId].
-  Future<List<AzkarItem>> getAzkarItems(
-    Language language,
-    int chapterId,
-  ) async {
+  Future<List<AzkarItem>> getAzkarItems({
+    Language language = Language.en,
+    required int chapterId,
+  }) async {
     try {
       return await _dbDao.getAzkarItems(language.value, chapterId);
     } catch (e) {

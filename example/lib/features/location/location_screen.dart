@@ -24,7 +24,9 @@ class _LocationScreenState extends State<LocationScreen> {
     keyword = keyword.trim();
     if (keyword.isNotEmpty) {
       // Query the API (replace with your actual implementation)
-      final results = await MuslimRepository().searchLocations(keyword);
+      final results = await MuslimRepository().searchLocations(
+        locationName: keyword,
+      );
       setState(() {
         _searchResults = results;
       });

@@ -20,7 +20,10 @@ class AzkarChapterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Azkar Chapters')),
       body: FutureBuilder<List<AzkarChapter>>(
-        future: MuslimRepository().getAzkarChapters(Language.en, categoryId),
+        future: MuslimRepository().getAzkarChapters(
+          language: Language.en,
+          categoryId: categoryId,
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
