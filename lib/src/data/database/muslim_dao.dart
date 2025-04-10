@@ -155,10 +155,10 @@ class MuslimDao {
         .get();
   }
 
-  /// Get the azkar items from the database for the specified [chapterId] and [language].
-  Future<List<AzkarItem>> getAzkarItems(int chapterId, String language) async {
+  /// Get the azkar items from the database for the specified [language] and [chapterId].
+  Future<List<AzkarItem>> getAzkarItems(String language, int chapterId) async {
     return await _db
-        .customSelect(RowQuery.azkarItemsQuery(chapterId, language))
+        .customSelect(RowQuery.azkarItemsQuery(language, chapterId))
         .map((row) {
           return AzkarItem(
             id: row.read<int>('itemId'),

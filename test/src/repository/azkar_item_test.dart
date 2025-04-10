@@ -20,7 +20,7 @@ void main() {
 
     /// Test function to verify the number of azkar items in a chapter
     Future<void> testChapterItems(Language language, int id, int total) async {
-      final items = await repository.getAzkarItems(id, language);
+      final items = await repository.getAzkarItems(language, id);
       expect(items, isNotNull);
       expect(items.length, total);
     }

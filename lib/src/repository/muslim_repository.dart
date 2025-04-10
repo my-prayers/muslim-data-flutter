@@ -174,13 +174,13 @@ class MuslimRepository {
     }
   }
 
-  /// Get azkar items for the specified azkar [chapterId] and [language].
+  /// Get azkar items for the specified azkar [language] and [chapterId].
   Future<List<AzkarItem>> getAzkarItems(
-    int chapterId,
     Language language,
+    int chapterId,
   ) async {
     try {
-      return await _dbDao.getAzkarItems(chapterId, language.value);
+      return await _dbDao.getAzkarItems(language.value, chapterId);
     } catch (e) {
       return [];
     }

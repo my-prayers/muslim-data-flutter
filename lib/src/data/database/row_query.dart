@@ -77,8 +77,8 @@ class RowQuery {
         "WHERE language='$language' AND category_id IN (${chapterIds.join(',')})";
   }
 
-  /// Query to get the azkar items for the specified [chapterId] and [language].
-  static String azkarItemsQuery(int chapterId, String language) {
+  /// Query to get the azkar items for the specified [language] and [chapterId].
+  static String azkarItemsQuery(String language, int chapterId) {
     return "SELECT item._id AS itemId, item.chapter_id AS chapterId, item.item, "
         "transl.item_translation AS translation, ref_transl.reference "
         "FROM azkar_item AS item "
