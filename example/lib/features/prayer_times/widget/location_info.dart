@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 
 class LocationInfo extends StatelessWidget {
-  const LocationInfo({super.key});
+  const LocationInfo({required this.location, super.key});
 
-  /// This method is used to change the navigation to the location screen.
+  final Location location;
+
+  /// This method is used to navigate to the location screen.
   void changeLocation(BuildContext context) {
     StatefulNavigationShell.of(context).goBranch(1);
   }
@@ -15,13 +18,16 @@ class LocationInfo extends StatelessWidget {
       children: [
         const Icon(Icons.location_on),
         const SizedBox(width: 8),
-        Text('Erbil, Iraq', style: Theme.of(context).textTheme.titleLarge),
+        Text(
+          '${location.name}, ${location.countryName}',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         const Spacer(),
         TextButton(
           onPressed: () {
             changeLocation(context);
           },
-          child: Text('Change'),
+          child: const Text('Change'),
         ),
       ],
     );

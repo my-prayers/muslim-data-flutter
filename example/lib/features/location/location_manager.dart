@@ -1,10 +1,18 @@
+import 'dart:async'; // Add this import
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationManager {
+  static final _locationStreamController =
+      StreamController<Location>.broadcast();
+
+  /// Stream to listen for location changes.
+  static Stream<Location> get locationStream =>
+      _locationStreamController.stream;
+
   /// Load the location from SharedPreferences.
-  static Future<Location> loadLocation() async {
+  static Future<void> loadLocation() async {
     final fallbackLocation = Location(
       id: 77359,
       countryName: 'Iraq',
@@ -20,15 +28,21 @@ class LocationManager {
     if (locationJson != null) {
       final locationMap = jsonDecode(locationJson) as Map<String, dynamic>;
       final savedLocation = Location.fromJson(locationMap);
-      return savedLocation;
+      _locationStreamController.add(savedLocation);
     } else {
-      return fallbackLocation;
+      return _locationStreamController.add(fallbackLocation);
     }
   }
 
-  /// Save the location to SharedPreferences.
+  /// Save the location to SharedPreferences and notify listeners.
   static Future<void> saveLocation(Location location) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('location', jsonEncode(location.toJson()));
+    _locationStreamController.add(location); // Notify listeners
+  }
+
+  /// Dispose the stream controller.
+  static void dispose() {
+    _locationStreamController.close();
   }
 }

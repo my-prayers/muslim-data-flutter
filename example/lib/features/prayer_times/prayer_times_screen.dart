@@ -4,12 +4,25 @@ import 'package:example/features/prayer_times/widget/prayer_list.dart';
 import 'package:flutter/material.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 
-class PrayerTimesScreen extends StatelessWidget {
+class PrayerTimesScreen extends StatefulWidget {
   const PrayerTimesScreen({super.key});
 
-  /// Fetches the prayer times for the current location and date.
-  Future<PrayerTime?> getPrayerTimes() async {
-    final location = await LocationManager.loadLocation();
+  @override
+  State<PrayerTimesScreen> createState() => _PrayerTimesScreenState();
+}
+
+class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
+  PrayerTime? _prayerTime;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load the initial location when the screen is initialized.
+    LocationManager.loadLocation();
+  }
+
+  /// Fetches the prayer times for the given location.
+  Future<void> _updatePrayerTimes(Location location) async {
     final date = DateTime.now();
     final attribute = PrayerAttribute(
       calculationMethod: CalculationMethod.mwl,
@@ -18,7 +31,14 @@ class PrayerTimesScreen extends StatelessWidget {
     );
 
     final muslimRepo = MuslimRepository();
-    return await muslimRepo.getPrayerTimes(location, date, attribute);
+    final prayerTime = await muslimRepo.getPrayerTimes(
+      location,
+      date,
+      attribute,
+    );
+    setState(() {
+      _prayerTime = prayerTime;
+    });
   }
 
   @override
@@ -27,28 +47,36 @@ class PrayerTimesScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Prayer Times')),
       body: SafeArea(
         minimum: const EdgeInsets.all(16),
-        child: FutureBuilder<PrayerTime?>(
-          future: getPrayerTimes(),
+        child: StreamBuilder<Location>(
+          stream: LocationManager.locationStream,
           builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData) {
+              return const Center(child: Text('Location Not Available'));
+            }
+
+            final location = snapshot.data!;
+            _updatePrayerTimes(
+              location,
+            ); // Update prayer times when location changes
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 16,
               children: [
                 Text('Location', style: Theme.of(context).textTheme.labelLarge),
-                const LocationInfo(),
+                LocationInfo(location: location),
                 const SizedBox(height: 32),
                 Text(
                   'Prayer Times',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
-                if (snapshot.connectionState == ConnectionState.waiting)
+                if (_prayerTime == null)
                   const Center(child: CircularProgressIndicator())
-                else if (snapshot.hasError)
-                  Center(child: Text('Error: ${snapshot.error}'))
-                else if (snapshot.hasData && snapshot.data != null)
-                  PrayerList(prayerTime: snapshot.data!)
                 else
-                  const Center(child: Text('Not Available')),
+                  PrayerList(prayerTime: _prayerTime!),
               ],
             );
           },
