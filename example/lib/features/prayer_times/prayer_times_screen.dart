@@ -65,6 +65,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
               children: [
                 Text('Location', style: Theme.of(context).textTheme.labelLarge),
                 LocationInfo(location: location),
