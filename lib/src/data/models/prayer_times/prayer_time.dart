@@ -33,6 +33,16 @@ class PrayerTime {
     );
   }
 
+  /// Returns the prayer time for the given index.
+  DateTime operator [](int index) {
+    final prayers = [fajr, sunrise, dhuhr, asr, maghrib, isha];
+    if (index < 0) {
+      return prayers[5];
+    } else {
+      return prayers[index];
+    }
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
