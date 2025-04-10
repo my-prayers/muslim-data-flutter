@@ -70,6 +70,13 @@ void main() {
     test('Verify Russian azkar chapters by category', () async {
       await testAzkarChaptersByCategory(Language.ru);
     });
+
+    test('Verifies azkar chapters filter by chapter ids', () async {
+      final chapters = await repository.getAzkarChaptersByIds(
+        chapterIds: [1, 2],
+      );
+      expect(chapters, isNotEmpty);
+    });
   });
 }
 
