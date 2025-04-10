@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 
-class Names extends StatelessWidget {
-  const Names({super.key});
+class NamesScreen extends StatelessWidget {
+  const NamesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

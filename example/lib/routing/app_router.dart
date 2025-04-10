@@ -1,7 +1,7 @@
 import 'package:example/example_app.dart';
 import 'package:example/features/azkars/azkars.dart';
 import 'package:example/features/location/location_screen.dart';
-import 'package:example/features/names/names.dart';
+import 'package:example/features/names/names_screen.dart';
 import 'package:example/features/prayer_times/prayer_times_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -46,7 +46,7 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/names',
               name: 'names',
-              builder: (context, state) => const Names(),
+              builder: (context, state) => const NamesScreen(),
             ),
           ],
         ),
