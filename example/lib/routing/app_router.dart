@@ -1,5 +1,6 @@
 import 'package:example/example_app.dart';
-import 'package:example/features/azkars/azkars.dart';
+import 'package:example/features/azkars/azkar_category_screen.dart';
+import 'package:example/features/azkars/azkar_chapter_screen.dart';
 import 'package:example/features/location/location_screen.dart';
 import 'package:example/features/names/names_screen.dart';
 import 'package:example/features/prayer_times/prayer_times_screen.dart';
@@ -37,7 +38,7 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/azkars',
               name: 'azkars',
-              builder: (context, state) => const Azkars(),
+              builder: (context, state) => const AzkarCategoryScreen(),
             ),
           ],
         ),
@@ -51,6 +52,22 @@ final appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/azkar-chapter',
+      name: 'azkar-chapter',
+      builder: (context, state) {
+        final categoryId = int.parse(state.uri.queryParameters['categoryId']!);
+        return AzkarChapterScreen(categoryId: categoryId);
+      },
+    ),
+    GoRoute(
+      path: '/azkar-item',
+      name: 'azkar-item',
+      builder: (context, state) {
+        final chapterId = int.parse(state.uri.queryParameters['chapterId']!);
+        return AzkarChapterScreen(categoryId: chapterId);
+      },
     ),
   ],
 );
