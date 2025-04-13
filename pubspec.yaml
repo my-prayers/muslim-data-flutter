@@ -1,28 +1,38 @@
 name: muslim_data_flutter
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: > 
+  Best Muslim package that provides: 
+  Prayer Times, Offline Geocoder, Names of Allah, and Azkars
+version: 1.0.0
+repository: https://github.com/kosratdev/muslim-data-flutter
+issue_tracker: https://github.com/kosratdev/muslim-data-flutter/issues
+
+topics:
+  - muslim
+  - prayer
+  - prayer-times
+  - azkar
+  - names-of-allah
 
 environment:
-  sdk: 3.7.2
+  sdk: ^3.0.0
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  drift: 2.26.0
-  drift_flutter: 0.2.4
-  path_provider: 2.1.5
-  sqlite3_flutter_libs: 0.5.32
-  sqlite3: 2.7.5
-  path: 1.9.1
+  drift: ^2.26.0
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.5
+  sqlite3_flutter_libs: ^0.5.32
+  sqlite3: ^2.7.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: 5.0.0
-  drift_dev: 2.26.0
-  build_runner: 2.4.15
+  flutter_lints: ^5.0.0
+  drift_dev: ^2.26.0
+  build_runner: ^2.4.15
 
 flutter:
   assets:
