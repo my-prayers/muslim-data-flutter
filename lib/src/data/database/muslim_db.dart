@@ -29,13 +29,13 @@ class MuslimDb extends _$MuslimDb {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onUpgrade: (migrator, from, to) async {
-      // do nothing...
-    },
-    beforeOpen: (details) async {
-      await customStatement('PRAGMA foreign_keys = ON');
-    },
-  );
+        onUpgrade: (migrator, from, to) async {
+          // do nothing...
+        },
+        beforeOpen: (details) async {
+          await customStatement('PRAGMA foreign_keys = ON');
+        },
+      );
 
   /// Open the database connection
   static LazyDatabase _openConnection() {

@@ -212,19 +212,17 @@ class CalculatedPrayerTime {
       times[0] = times[1] - fajrDiff;
     }
 
-    final ishaAngle =
-        methodParams[attribute.calculationMethod]![3] == 0.0
-            ? methodParams[attribute.calculationMethod]![4]
-            : 18.0;
+    final ishaAngle = methodParams[attribute.calculationMethod]![3] == 0.0
+        ? methodParams[attribute.calculationMethod]![4]
+        : 18.0;
     final ishaDiff = nightPortion(ishaAngle) * nightTime;
     if (times[6].isNaN || timeDiff(times[4], times[6]) > ishaDiff) {
       times[6] = times[4] + ishaDiff;
     }
 
-    final maghribAngle =
-        methodParams[attribute.calculationMethod]![1] == 0.0
-            ? methodParams[attribute.calculationMethod]![2]
-            : 4.0;
+    final maghribAngle = methodParams[attribute.calculationMethod]![1] == 0.0
+        ? methodParams[attribute.calculationMethod]![2]
+        : 4.0;
     final maghribDiff = nightPortion(maghribAngle) * nightTime;
     if (times[5].isNaN || timeDiff(times[4], times[5]) > maghribDiff) {
       times[5] = times[4] + maghribDiff;

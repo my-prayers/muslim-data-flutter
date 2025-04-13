@@ -29,18 +29,17 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.searchLocationsQuery(locationName))
         .map((row) {
-          return Location(
-            id: row.read<int>('id'),
-            name: row.read<String>('name'),
-            latitude: row.read<double>('latitude'),
-            longitude: row.read<double>('longitude'),
-            countryCode: row.read<String>('countryCode'),
-            countryName: row.read<String>('countryName'),
-            hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
-            prayerDependentId: row.read<int?>('prayerDependentId'),
-          );
-        })
-        .get();
+      return Location(
+        id: row.read<int>('id'),
+        name: row.read<String>('name'),
+        latitude: row.read<double>('latitude'),
+        longitude: row.read<double>('longitude'),
+        countryCode: row.read<String>('countryCode'),
+        countryName: row.read<String>('countryName'),
+        hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+        prayerDependentId: row.read<int?>('prayerDependentId'),
+      );
+    }).get();
   }
 
   /// Get the location by the given [countryCode] and [locationName].
@@ -48,18 +47,17 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.geocoderQuery(countryCode, locationName))
         .map((row) {
-          return Location(
-            id: row.read<int>('id'),
-            name: row.read<String>('name'),
-            latitude: row.read<double>('latitude'),
-            longitude: row.read<double>('longitude'),
-            countryCode: row.read<String>('countryCode'),
-            countryName: row.read<String>('countryName'),
-            hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
-            prayerDependentId: row.read<int?>('prayerDependentId'),
-          );
-        })
-        .getSingleOrNull();
+      return Location(
+        id: row.read<int>('id'),
+        name: row.read<String>('name'),
+        latitude: row.read<double>('latitude'),
+        longitude: row.read<double>('longitude'),
+        countryCode: row.read<String>('countryCode'),
+        countryName: row.read<String>('countryName'),
+        hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+        prayerDependentId: row.read<int?>('prayerDependentId'),
+      );
+    }).getSingleOrNull();
   }
 
   /// Get the location by the given [latitude] and [longitude].
@@ -67,18 +65,17 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.reverseGeocoderQuery(latitude, longitude))
         .map((row) {
-          return Location(
-            id: row.read<int>('id'),
-            name: row.read<String>('name'),
-            latitude: row.read<double>('latitude'),
-            longitude: row.read<double>('longitude'),
-            countryCode: row.read<String>('countryCode'),
-            countryName: row.read<String>('countryName'),
-            hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
-            prayerDependentId: row.read<int?>('prayerDependentId'),
-          );
-        })
-        .getSingleOrNull();
+      return Location(
+        id: row.read<int>('id'),
+        name: row.read<String>('name'),
+        latitude: row.read<double>('latitude'),
+        longitude: row.read<double>('longitude'),
+        countryCode: row.read<String>('countryCode'),
+        countryName: row.read<String>('countryName'),
+        hasFixedPrayerTime: row.read<bool>('hasFixedPrayerTime'),
+        prayerDependentId: row.read<int?>('prayerDependentId'),
+      );
+    }).getSingleOrNull();
   }
 
   /// Get prayer times for the specified user's location and date in the database.
@@ -86,16 +83,15 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.prayerTimesQuery(locationId, date.toDbDate()))
         .map((row) {
-          return PrayerTime(
-            fajr: row.read<String>('fajr').toDate(date),
-            sunrise: row.read<String>('sunrise').toDate(date),
-            dhuhr: row.read<String>('dhuhr').toDate(date),
-            asr: row.read<String>('asr').toDate(date),
-            maghrib: row.read<String>('maghrib').toDate(date),
-            isha: row.read<String>('isha').toDate(date),
-          );
-        })
-        .getSingleOrNull();
+      return PrayerTime(
+        fajr: row.read<String>('fajr').toDate(date),
+        sunrise: row.read<String>('sunrise').toDate(date),
+        dhuhr: row.read<String>('dhuhr').toDate(date),
+        asr: row.read<String>('asr').toDate(date),
+        maghrib: row.read<String>('maghrib').toDate(date),
+        isha: row.read<String>('isha').toDate(date),
+      );
+    }).getSingleOrNull();
   }
 
   /// Get the names of Allah from the database for the specified [language].
@@ -129,13 +125,12 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.azkarChaptersQuery(language, categoryId))
         .map((row) {
-          return AzkarChapter(
-            id: row.read<int>('chapterId'),
-            categoryId: row.read<int>('categoryId'),
-            name: row.read<String>('chapterName'),
-          );
-        })
-        .get();
+      return AzkarChapter(
+        id: row.read<int>('chapterId'),
+        categoryId: row.read<int>('categoryId'),
+        name: row.read<String>('chapterName'),
+      );
+    }).get();
   }
 
   /// Get the azkar chapters from the database for the specified [language] and [chapterIds].
@@ -146,13 +141,12 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.azkarChaptersQueryByIds(language, chapterIds))
         .map((row) {
-          return AzkarChapter(
-            id: row.read<int>('chapterId'),
-            categoryId: row.read<int>('categoryId'),
-            name: row.read<String>('chapterName'),
-          );
-        })
-        .get();
+      return AzkarChapter(
+        id: row.read<int>('chapterId'),
+        categoryId: row.read<int>('categoryId'),
+        name: row.read<String>('chapterName'),
+      );
+    }).get();
   }
 
   /// Get the azkar items from the database for the specified [language] and [chapterId].
@@ -160,15 +154,14 @@ class MuslimDao {
     return await _db
         .customSelect(RowQuery.azkarItemsQuery(language, chapterId))
         .map((row) {
-          return AzkarItem(
-            id: row.read<int>('itemId'),
-            chapterId: row.read<int>('chapterId'),
-            item: row.read<String>('item'),
-            translation: row.read<String>('translation'),
-            reference: row.read<String>('reference'),
-          );
-        })
-        .get();
+      return AzkarItem(
+        id: row.read<int>('itemId'),
+        chapterId: row.read<int>('chapterId'),
+        item: row.read<String>('item'),
+        translation: row.read<String>('translation'),
+        reference: row.read<String>('reference'),
+      );
+    }).get();
   }
 
   /// Get the list of locations with fixed prayer times from the database.
