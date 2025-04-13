@@ -12,7 +12,7 @@ pre-commit:
 commit-msg:
   commands:
     validate:
-      run: flutter pub run ./.github/commit_message.dart
+      run: 'scripts/validate_commit_msg.sh'
 
 pre-push:
   parallel: true
@@ -21,31 +21,3 @@ pre-push:
       run: flutter analyze --no-fatal-infos --no-fatal-warnings
     tests:
       run: flutter test --concurrency=1
-
-pre-tag:
-  commands:
-    bump-version:
-      run: |
-        # Ensure the tag version is provided
-        if [ -z "$GIT_TAG" ]; then
-          echo "Error: GIT_TAG environment variable is not set."
-          exit 1
-        fi
-
-        # Use the tag version to update pubspec.yaml
-        sed -i '' "s/version: .*/version: $GIT_TAG/" pubspec.yaml
-
-        # Temporarily create the tag locally
-        git tag "$GIT_TAG"
-
-        # Generate changelog using cliff
-        cliff changelog > CHANGELOG.md
-
-        # Delete the temporary tag
-        git tag -d "$GIT_TAG"
-
-        # Update documentation
-        dart doc --output=docs
-
-    git-add:
-      run: git add pubspec.yaml CHANGELOG.md docs
