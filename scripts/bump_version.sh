@@ -24,7 +24,7 @@ git tag -d "$GIT_TAG"
 # Update documentation
 dart doc
 
-git add pubspec.yaml CHANGELOG.md docs
+git add pubspec.yaml CHANGELOG.md doc
 
 git commit -m "chore: update version to $GIT_TAG and regenerate changelog and docs"
 
