@@ -22,7 +22,7 @@ git-cliff -o CHANGELOG.md
 git tag -d "$GIT_TAG"
 
 # Update documentation
-dart doc --output=docs
+dart doc
 
 git add pubspec.yaml CHANGELOG.md docs
 
