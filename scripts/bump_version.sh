@@ -13,7 +13,7 @@ GIT_TAG=$1
 sed -i '' "s/version: .*/version: $GIT_TAG/" pubspec.yaml
 
 # Temporarily create the tag locally
-git tag "$GIT_TAG"
+git tag -a "$GIT_TAG" -m "Release version $GIT_TAG"
 
 # Generate changelog using cliff
 git-cliff -o CHANGELOG.md
