@@ -7,25 +7,17 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-GIT_TAG=$1
+# define the commit message
+commit_msg="build(release): update version to $1 and regenerate changelog and docs"
 
-# Use the tag version to update pubspec.yaml
-sed -i '' "s/version: .*/version: $GIT_TAG/" pubspec.yaml
-
-# Temporarily create the tag locally
-git tag -a "$GIT_TAG" -m "Release version $GIT_TAG"
-
-# Generate changelog using cliff
-git-cliff -o CHANGELOG.md
-
-# Delete the temporary tag
-git tag -d "$GIT_TAG"
-
-# Update documentation
+# Bump files for the new release
+sed -i '' "s/version: .*/version: $1/" pubspec.yaml
+git cliff --unreleased --tag 1.0.2 --prepend CHANGELOG.md
 dart doc
 
+# Commit changes.
 git add pubspec.yaml CHANGELOG.md doc
+git commit -m "$commit_msg"
 
-git commit -m "chore: update version to $GIT_TAG and regenerate changelog and docs"
-
-git tag -a "$GIT_TAG" -m "Release version $GIT_TAG"
+# Create the release tag
+git tag -a "$GIT_TAG" -m "Release version $1"
