@@ -1,5 +1,5 @@
 name: muslim_data_flutter
-description: > 
+description: >
   Best Muslim package that provides: 
   Prayer Times, Offline Geocoder, Names of Allah, and Azkars
 version: 1.0.1
@@ -14,8 +14,7 @@ topics:
   - names-of-allah
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=1.17.0"
+  sdk: ^3.6.0
 
 dependencies:
   flutter:

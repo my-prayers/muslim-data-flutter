@@ -12,7 +12,7 @@ commit_msg="build(release): update version to $1 and regenerate changelog and do
 
 # Bump files for the new release
 sed -i '' "s/version: .*/version: $1/" pubspec.yaml
-git cliff --unreleased --tag 1.0.2 --prepend CHANGELOG.md
+git cliff --unreleased --tag $1 --prepend CHANGELOG.md
 dart doc
 
 # Commit changes.
@@ -20,4 +20,4 @@ git add pubspec.yaml CHANGELOG.md doc
 git commit -m "$commit_msg"
 
 # Create the release tag
-git tag -a "$GIT_TAG" -m "Release version $1"
+git tag -a "$1" -m "Release version $1"
