@@ -9,7 +9,7 @@ import 'package:sqlite3/sqlite3.dart';
 LazyDatabase openTestConnection() {
   return LazyDatabase(() async {
     // Load the pre-populated database from assets
-    final blob = await rootBundle.load('assets/db/muslim_db_v2.4.0.db');
+    final blob = await rootBundle.load('assets/db/muslim_db_v2.5.0.db');
     final buffer = blob.buffer;
     final data = buffer.asUint8List(blob.offsetInBytes, blob.lengthInBytes);
 

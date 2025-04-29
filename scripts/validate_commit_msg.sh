@@ -13,7 +13,7 @@ fi
 COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 
 # Define the Conventional Commits regex pattern
-PATTERN='^(feat|fix|build|chore|ci|docs|style|refactor|perf|test)(\([^\r\n]*\))?(!)?: .+'
+PATTERN='^(feat|fix|build|chore|ci|docs|style|refactor|perf|test)(\([^)]*\))?(!)?: .+'
 
 # Validate the commit message
 if [[ "$COMMIT_MSG" =~ $PATTERN ]]; then
