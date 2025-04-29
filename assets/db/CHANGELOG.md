@@ -4,6 +4,13 @@ All notable changes to the MuslimData database will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.0] - 2025-04-29
+Revert Kalar, IQ prayer times.
+
+### Changed 
+
+- Revert back the fajr and sunrise prayer times of Kalar, IQ to the old timetable.
+
 ## [2.4.0] - 2025-01-03
 Change Qasre, IQ prayer times.
 
