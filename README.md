@@ -132,7 +132,7 @@ Future<void> getPrayerTimesExample() async {
 }
 ```
 
-### Azkars (Hisnul Muslim)
+## Azkars (Hisnul Muslim)
 Get all azkars from (Hisnul Muslim book) that is categorized by (`AzkarCategory`, `AzkarChapter`, and `AzkarItem`) and also the azkars are available for these languages (`en`, `ar`, `ckb`, `ckb_BADINI`, `fa`, and `ru`)
 
 | Azkar Categories | Azkar Chapters | Azkar Items |
@@ -194,7 +194,7 @@ void getAzkarChaptersExample() async {
 }
 ```
 
-#### Azkar Items
+### Azkar Items
 
 Get azkar items for a specific chapter and it is localized for the given language.
 
@@ -210,7 +210,7 @@ void getAzkarItemsExample() async {
 }
 ```
 
-### Names of Allah
+## Names of Allah
 
 | 99 Names of Allah |
 | :---------------: |
@@ -226,11 +226,11 @@ Future<void> getNamesOfAllah() async {
 }
 ```
 
-## Author
+# Author
 
 Kosrat D. Ahmed  
 Email: kosrat.d.ahmad@gmail.com
 
-## License
+# License
 
 **Muslim Data for Flutter** is available under the MIT license. See the [LICENSE](LICENSE) file for details.
