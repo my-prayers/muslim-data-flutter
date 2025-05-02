@@ -8,6 +8,14 @@ Muslim Data for Flutter is a cross-platform library that brings Islamic data to 
 - Azkars (Hisnul Muslim) with translations  
 - 99 Names of Allah with translations  
 
+## Available on Native Platforms
+
+This library is also available for native platform integration:
+
+- [Muslim Data for Android](https://github.com/my-prayers/muslim-data-android)
+- [Muslim Data for iOS](https://github.com/my-prayers/muslim-data-ios)
+
+These native libraries share the same concepts and data structure, making it easy to develop similar applications across different platforms.
 
 # Features
 
@@ -17,6 +25,11 @@ Muslim Data for Flutter is a cross-platform library that brings Islamic data to 
 ✅ **Names of Allah**: Access 99 Names of Allah along with translations in supported languages.
 
 # Usage
+Install the package: 
+
+```bash
+flutter pub add muslim_data_flutter
+```
 
 Import the package in your Dart file:
 
