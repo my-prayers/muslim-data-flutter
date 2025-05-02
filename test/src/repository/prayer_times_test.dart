@@ -28,7 +28,7 @@ void main() {
     () async {
       final locations = await dao.getFixedPrayerTimesList();
       expect(locations, isNotNull);
-      expect(locations.length, equals(251));
+      expect(locations.length, equals(252));
 
       final date = DateTime.fromMillisecondsSinceEpoch(1709206718000);
       for (final location in locations) {
