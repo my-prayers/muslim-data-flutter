@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2025-05-09
+
+### 🐛 Bug Fixes
+
+- Fix undefined variables in the bump version script
+- Fix Kalar, IQ prayer times by reverting the fajr and sunrise to the old timetable
+- R and n are not a valid letter in the commit message scope
+- *(prayer times)* Prayer times but fixes
+
+### 📚 Documentation
+
+- Update read me file to address the availability of muslim data on other platforms
+- Update heading style in the readme file
+
+### 🧪 Testing
+
+- Update calculated prayer times test
+- *(prayer times)* Update total fixed prayer times as we added Rovia, IQ
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove the footer of the changelog
+- Add build options to the commit parser for the changelog
+- Remove the footer of the changelog file
+- Update cliff configuration
+- Simplify the bump version script
+- Update pubspec.lock of the example app
+- Update flutter action in the pull request workflow
+- Update flutter version in the pull request workflow
+- Update flutter version to 3.27.0 in the pull request workflow
+- Update flutter version to 3.29.0 in the pull request workflow
+
 ## [1.0.1] - 2025-04-13
 
 ### 🚜 Refactor

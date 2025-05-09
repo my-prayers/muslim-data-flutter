@@ -2,7 +2,7 @@ name: muslim_data_flutter
 description: >
   Best Muslim package that provides: 
   Prayer Times, Offline Geocoder, Names of Allah, and Azkars
-version: 1.0.1
+version: 1.1.0
 repository: https://github.com/kosratdev/muslim-data-flutter
 issue_tracker: https://github.com/kosratdev/muslim-data-flutter/issues
 
