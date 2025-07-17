@@ -8,15 +8,14 @@ if [ -z "$1" ]; then
 fi
 
 # define the commit message
-commit_msg="build(release): update version to $1 and regenerate changelog and docs"
+commit_msg="build(release): update version to $1 and regenerate changelog"
 
 # Bump files for the new release
 sed -i '' "s/version: .*/version: $1/" pubspec.yaml
 git cliff --unreleased --tag $1 --prepend CHANGELOG.md
-dart doc
 
 # Commit changes.
-git add pubspec.yaml CHANGELOG.md doc
+git add pubspec.yaml CHANGELOG.md
 git commit -m "$commit_msg"
 
 # Create the release tag
