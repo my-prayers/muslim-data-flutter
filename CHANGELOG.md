@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2025-07-17
+
+### 🐛 Bug Fixes
+
+- *(database)* Update database version and fix Piranshahr, IR prayer time
+
+### 🚜 Refactor
+
+- *(bump version)* Remove generating doc while bumpping a new version
+- *(bump version)* Update version bump script to include pub get
+
 ## [1.1.0] - 2025-05-09
 
 ### 🐛 Bug Fixes
