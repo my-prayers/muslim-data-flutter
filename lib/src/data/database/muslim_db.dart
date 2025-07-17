@@ -10,7 +10,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'muslim_db.g.dart';
 
-final _dbVersion = 2;
+final _dbVersion = 3;
 
 @DriftDatabase()
 class MuslimDb extends _$MuslimDb {
@@ -29,13 +29,13 @@ class MuslimDb extends _$MuslimDb {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onUpgrade: (migrator, from, to) async {
-          // do nothing...
-        },
-        beforeOpen: (details) async {
-          await customStatement('PRAGMA foreign_keys = ON');
-        },
-      );
+    onUpgrade: (migrator, from, to) async {
+      // do nothing...
+    },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
 
   /// Open the database connection
   static LazyDatabase _openConnection() {
@@ -46,7 +46,7 @@ class MuslimDb extends _$MuslimDb {
       if (!await file.exists() || await _hasUpdate()) {
         // Extract the pre-populated database file from assets
         final blob = await rootBundle.load(
-          'packages/muslim_data_flutter/assets/db/muslim_db_v2.5.0.db',
+          'packages/muslim_data_flutter/assets/db/muslim_db_v2.5.1.db',
         );
         final buffer = blob.buffer;
         await file.writeAsBytes(
