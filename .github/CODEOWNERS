@@ -1,0 +1,9 @@
+# Global code owners
+# These owners will be the default owners for everything in the repo
+# Unless a later match takes precedence, @kosratdev will be requested for review when someone opens a pull request.
+
+- @kosratdev
+
+# Package management files - specifically for Dependabot PRs
+pubspec.yaml @kosratdev
+pubspec.lock @kosratdev
