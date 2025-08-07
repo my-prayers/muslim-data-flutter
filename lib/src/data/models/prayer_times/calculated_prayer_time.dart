@@ -119,7 +119,7 @@ class CalculatedPrayerTime {
     final year = date.year;
     final month = date.month;
     final day = date.day;
-    timeZone = timezone ?? date.timeZoneOffset.inHours.toDouble();
+    timeZone = timezone ?? date.timeZoneOffset.inMinutes.toDouble() / 60.0;
 
     lat = location.latitude;
     lng = location.longitude;
