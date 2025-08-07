@@ -13,12 +13,21 @@ class PrayerTimesScreen extends StatefulWidget {
 
 class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
   PrayerTime? _prayerTime;
+  Location? _currentLocation;
 
   @override
   void initState() {
     super.initState();
     // Load the initial location when the screen is initialized.
     LocationManager.loadLocation();
+
+    // Listen to location changes and update prayer times
+    LocationManager.locationStream.listen((location) {
+      if (_currentLocation != location) {
+        _currentLocation = location;
+        _updatePrayerTimes(location);
+      }
+    });
   }
 
   /// Fetches the prayer times for the given location.
@@ -59,9 +68,6 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
             }
 
             final location = snapshot.data!;
-            _updatePrayerTimes(
-              location,
-            ); // Update prayer times when location changes
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
