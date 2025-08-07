@@ -14,8 +14,8 @@ topics:
   - names-of-allah
 
 environment:
-  sdk: ^3.7.0
-  flutter: 3.29.0
+  sdk: ^3.8.0
+  flutter: 3.32.0
 
 dependencies:
   flutter:
