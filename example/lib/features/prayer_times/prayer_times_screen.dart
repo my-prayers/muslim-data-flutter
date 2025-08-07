@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:example/features/location/location_manager.dart';
 import 'package:example/features/prayer_times/widget/location_info.dart';
 import 'package:example/features/prayer_times/widget/prayer_list.dart';
@@ -13,32 +15,57 @@ class PrayerTimesScreen extends StatefulWidget {
 
 class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
   PrayerTime? _prayerTime;
+  Location? _currentLocation;
+  bool _isLoadingPrayerTimes = false;
 
   @override
   void initState() {
     super.initState();
-    // Load the initial location when the screen is initialized.
+    // Only load the initial location
     LocationManager.loadLocation();
   }
 
   /// Fetches the prayer times for the given location.
   Future<void> _updatePrayerTimes(Location location) async {
-    final date = DateTime.now();
-    final attribute = PrayerAttribute(
-      calculationMethod: CalculationMethod.mwl,
-      asrMethod: AsrMethod.shafii,
-      higherLatitudeMethod: HigherLatitudeMethod.angleBased,
-    );
+    // Avoid duplicate calls for the same location
+    if (_currentLocation == location && _prayerTime != null) return;
 
-    final muslimRepo = MuslimRepository();
-    final prayerTime = await muslimRepo.getPrayerTimes(
-      location: location,
-      date: date,
-      attribute: attribute,
-    );
     setState(() {
-      _prayerTime = prayerTime;
+      _isLoadingPrayerTimes = true;
     });
+
+    try {
+      final date = DateTime.now();
+      final attribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.mwl,
+        asrMethod: AsrMethod.shafii,
+        higherLatitudeMethod: HigherLatitudeMethod.angleBased,
+      );
+
+      final muslimRepo = MuslimRepository();
+      final prayerTime = await muslimRepo.getPrayerTimes(
+        location: location,
+        date: date,
+        attribute: attribute,
+      );
+
+      if (mounted) {
+        setState(() {
+          _prayerTime = prayerTime;
+          _currentLocation = location;
+          _isLoadingPrayerTimes = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoadingPrayerTimes = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to load prayer times: $e')),
+        );
+      }
+    }
   }
 
   @override
@@ -59,9 +86,11 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
             }
 
             final location = snapshot.data!;
-            _updatePrayerTimes(
-              location,
-            ); // Update prayer times when location changes
+
+            // Update prayer times when location changes
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _updatePrayerTimes(location);
+            });
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,8 +103,10 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                   'Prayer Times',
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
-                if (_prayerTime == null)
+                if (_isLoadingPrayerTimes)
                   const Center(child: CircularProgressIndicator())
+                else if (_prayerTime == null)
+                  const Center(child: Text('Loading prayer times...'))
                 else
                   PrayerList(prayerTime: _prayerTime!),
               ],
