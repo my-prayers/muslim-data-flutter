@@ -8,8 +8,8 @@ if [ -z "$1" ]; then
 fi
 
 # Validate version format (semantic versioning)
-if ! [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+(\+[0-9]+)?$ ]]; then
-  echo "Error: Invalid version format. Use semantic versioning (e.g., 1.2.3 or 1.2.3+4)"
+if ! [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+(\+[0-9A-Za-z\-]+(\.[0-9A-Za-z\-]+)*)?$ ]]; then
+  echo "Error: Invalid version format. Use semantic versioning (e.g., 1.2.3 or 1.2.3+exp.sha.5114f85)"
   exit 1
 fi
 
