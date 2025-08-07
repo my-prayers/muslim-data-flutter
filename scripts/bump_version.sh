@@ -42,4 +42,6 @@ git commit -S -m "$commit_msg"
 git tag -s "$1" -m "Release version $1"
 
 echo "✅ Successfully bumped version to $1"
-echo "Don't forget to push: git push origin main --tags"
+echo "Don't forget to validate publish and push."
+echo "dart pub publish --dry-run"
+echo "git push origin main --tags"
