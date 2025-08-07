@@ -15,6 +15,7 @@ jobs:
 
   analyze:
     runs-on: ubuntu-latest
+    name: Flutter Analyze
     needs: commitlint
 
     steps:
@@ -27,6 +28,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    name: Flutter Tests
     needs: analyze
 
     steps:
