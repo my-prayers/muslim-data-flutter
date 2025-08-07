@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Conventional Commitlint
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Conventional Commitlint
         uses: opensource-nepal/commitlint@v1
 
