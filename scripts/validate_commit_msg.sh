@@ -16,12 +16,22 @@ COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 FIRST_LINE=$(echo "$COMMIT_MSG" | head -n 1)
 
 # Define the Conventional Commits regex pattern
-PATTERN='^(feat|fix|build|chore|ci|docs|style|refactor|perf|test)(\([^)]*\))?(!)?: .+'
+# Scope cannot contain spaces - only letters, numbers, hyphens, and underscores
+PATTERN='^(feat|fix|build|chore|ci|docs|style|refactor|perf|test)(\([a-zA-Z0-9_-]+\))?(!)?: .+'
 
 # Validate the commit message format
 if [[ ! "$FIRST_LINE" =~ $PATTERN ]]; then
   echo "👎 Invalid commit message format."
-  echo "Commit message should follow the Conventional Commits format."
+  echo "Commit message should follow the Conventional Commits format:"
+  echo "  <type>(<scope>): <description>"
+  echo "  - type: feat, fix, build, chore, ci, docs, style, refactor, perf, test"
+  echo "  - scope: optional, no spaces allowed (use hyphens or underscores instead)"
+  echo "  - description: brief description"
+  echo ""
+  echo "Examples:"
+  echo "  ✅ feat(user-auth): Add new authentication method"
+  echo "  ✅ fix(api_client): Fix connection timeout issue" 
+  echo "  ❌ fix(my feature): Fix some bug (scope contains spaces)"
   exit 1
 fi
 
