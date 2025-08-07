@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter PR Checks
 
 on:
   pull_request:
@@ -6,20 +6,33 @@ on:
       - main
 
 jobs:
-  analyze_and_test:
+  commitlint:
     runs-on: ubuntu-latest
+    name: Conventional Commitlint
+    steps:
+      - name: Conventional Commitlint
+        uses: opensource-nepal/commitlint@v1
+
+  analyze:
+    runs-on: ubuntu-latest
+    needs: commitlint
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Set up Flutter
-        uses: flutter-actions/setup-flutter@v4
-        with:
-          channel: stable
-          version: 3.29.0
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
       - name: Analyze code
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+  test:
+    runs-on: ubuntu-latest
+    needs: analyze
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
       - name: Run tests
         run: flutter test --concurrency=1
