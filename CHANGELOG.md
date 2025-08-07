@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2025-08-07
+
+### 🚀 Features
+
+- *(actions)* Create setup-flutter action for CI workflows
+
+### 🐛 Bug Fixes
+
+- *(pubspec)* Update Flutter version format in pubspec.yaml
+- *(actions)* Remove unnecessary shell declaration in setup action
+- *(prayer-times)* Correct timezone calculation and improve readability
+- *(example)* Update prayer times on location change
+- *(pubspec)* Update flutter version constraint format
+
+### 🚜 Refactor
+
+- *(actions)* Rename action.yaml to action.yml
+- *(githook)* Improve commit message validation logic
+- *(example)* Update prayer times on location change
+- *(githook)* Improve validation message for commit format
+- Update .github/CODEOWNERS
+- Update pattern check of the semantic version
+
+### ⚙️ Miscellaneous Tasks
+
+- *(dependabot)* Update configuration for dependency updates
+- Update Flutter CI workflow for pull request checks
+- Add checkout step in pull request workflow
+- Remove redundant checkout steps from setup-flutter action
+- Add CODEOWNERS file for default code ownership
+- Add names to analyze and test jobs in pull request workflow
+
 ## [1.1.1] - 2025-07-17
 
 ### 🐛 Bug Fixes
