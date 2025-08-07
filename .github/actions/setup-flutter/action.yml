@@ -3,9 +3,6 @@ description: 'Setup Flutter with dependencies'
 runs:
   using: 'composite'
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      shell: bash
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:

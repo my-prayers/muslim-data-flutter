@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Conventional Commitlint
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
       - name: Conventional Commitlint
         uses: opensource-nepal/commitlint@v1
 
@@ -20,6 +18,8 @@ jobs:
     needs: commitlint
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Setup Flutter
         uses: ./.github/actions/setup-flutter
       - name: Analyze code
@@ -30,6 +30,8 @@ jobs:
     needs: analyze
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Setup Flutter
         uses: ./.github/actions/setup-flutter
       - name: Run tests
