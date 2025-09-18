@@ -21,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   drift: ^2.28.1
-  drift_flutter: ^0.2.5
+  drift_flutter: ^0.2.6
   path_provider: ^2.1.5
   sqlite3_flutter_libs: ^0.5.39
   sqlite3: ^2.9.0
@@ -31,8 +31,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  drift_dev: ^2.28.1
-  build_runner: ^2.6.0
+  drift_dev: ^2.28.2
+  build_runner: ^2.7.0
 
 flutter:
   assets:
