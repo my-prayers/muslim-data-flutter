@@ -1,3 +1,16 @@
 {
-  "conventionalCommits.scopes": ["prayer times", "deps"]
+  "conventionalCommits.scopes": [
+    "prayer_times",
+    "azkars",
+    "names",
+    "deps"
+  ],
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Generate a commit message MUST following the Conventional Commits format (feat, fix, docs, build, ci, perf, refactor, test, chore).  Include a brief description of the change in the subject line (under 72 characters) and a summarized explanation in the body (under 200 characters), if necessary.  Separate the subject and body with a blank line.  Example: 'feat(feature): Add new feature description' or 'fix(bug): Fix a bug in the project'."
+    }
+  ],
+  "dart.flutterTestAdditionalArgs": [
+    "--concurrency=1"
+  ]
 }

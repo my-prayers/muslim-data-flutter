@@ -1,3 +1,5 @@
+import 'package:muslim_data_flutter/src/data/models/prayer_times/custom_method.dart';
+
 /// Prayer calculation methods.
 enum CalculationMethod {
   makkah, // Umm al-Qura, Makkah
@@ -9,7 +11,9 @@ enum CalculationMethod {
   tehran, // Institute of Geophysics, University of Tehran
   custom; // Custom Setting
 
-  static Map<CalculationMethod, List<double>> methodList() {
+  static Map<CalculationMethod, List<double>> methodList(
+    CustomMethod customMethod,
+  ) {
     return {
       CalculationMethod.makkah: [18.5, 1.0, 0.0, 1.0, 90.0],
       CalculationMethod.mwl: [18.0, 1.0, 0.0, 0.0, 17.0],
@@ -18,7 +22,7 @@ enum CalculationMethod {
       CalculationMethod.egypt: [19.5, 1.0, 0.0, 0.0, 17.5],
       CalculationMethod.jafari: [16.0, 0.0, 4.0, 0.0, 14.0],
       CalculationMethod.tehran: [17.7, 0.0, 4.5, 0.0, 14.0],
-      CalculationMethod.custom: [18.0, 1.0, 0.0, 0.0, 17.0],
+      CalculationMethod.custom: customMethod.angles,
     };
   }
 }

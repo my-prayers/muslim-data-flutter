@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculated_prayer_time.dart';
+import 'package:muslim_data_flutter/src/data/models/prayer_times/custom_method.dart';
 import '../../../../utils/date_extension.dart';
 
 void main() {
@@ -68,7 +69,7 @@ void main() {
       hasFixedPrayerTime: false,
     );
 
-    test('Mexico City, Mexico - 1 Junuary 2025', () {
+    test('Mexico City, Mexico - 1 January 2025', () {
       final date = DateTime(2025, 1, 15);
       final prayerTimes = calculator.getPrayerTimes(
         location,
@@ -287,7 +288,7 @@ void main() {
     });
   });
 
-  group('Makkah, Sudia Arabia Tests', () {
+  group('Makkah, Saudi Arabia Tests', () {
     final attribute = PrayerAttribute(
       calculationMethod: CalculationMethod.makkah,
       asrMethod: AsrMethod.shafii,
@@ -498,6 +499,362 @@ void main() {
       );
 
       expect(prayerTimes, isNull);
+    });
+  });
+
+  group('Custom Calculation Method Tests', () {
+    final location = Location(
+      id: 0,
+      name: 'Dubai',
+      countryCode: 'AE',
+      countryName: 'United Arab Emirates',
+      latitude: 25.27652,
+      longitude: 55.29688,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Dubai, UAE - Custom Method with default angles (18°, 17°)', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 18.0, ishaAngle: 17.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 4.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:46');
+      expect(prayerTimes.sunrise.formatTime(), '07:06');
+      expect(prayerTimes.dhuhr.formatTime(), '12:28');
+      expect(prayerTimes.asr.formatTime(), '15:30');
+      expect(prayerTimes.maghrib.formatTime(), '17:51');
+      expect(prayerTimes.isha.formatTime(), '19:06');
+    });
+
+    test('Dubai, UAE - Custom Method with higher Fajr angle (20°, 17°)', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 20.0, ishaAngle: 17.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 4.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:37');
+      expect(prayerTimes.sunrise.formatTime(), '07:06');
+      expect(prayerTimes.dhuhr.formatTime(), '12:28');
+      expect(prayerTimes.asr.formatTime(), '15:30');
+      expect(prayerTimes.maghrib.formatTime(), '17:51');
+      expect(prayerTimes.isha.formatTime(), '19:06');
+    });
+
+    test('Dubai, UAE - Custom Method with lower Fajr angle (15°, 17°)', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 15.0, ishaAngle: 17.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 4.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '06:00');
+      expect(prayerTimes.sunrise.formatTime(), '07:06');
+      expect(prayerTimes.dhuhr.formatTime(), '12:28');
+      expect(prayerTimes.asr.formatTime(), '15:30');
+      expect(prayerTimes.maghrib.formatTime(), '17:51');
+      expect(prayerTimes.isha.formatTime(), '19:06');
+    });
+
+    test('Dubai, UAE - Custom Method with higher Isha angle (18°, 19°)', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 18.0, ishaAngle: 19.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 4.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:46');
+      expect(prayerTimes.sunrise.formatTime(), '07:06');
+      expect(prayerTimes.dhuhr.formatTime(), '12:28');
+      expect(prayerTimes.asr.formatTime(), '15:30');
+      expect(prayerTimes.maghrib.formatTime(), '17:51');
+      expect(prayerTimes.isha.formatTime(), '19:16');
+    });
+
+    test('Dubai, UAE - Custom Method with lower Isha angle (18°, 15°)', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 18.0, ishaAngle: 15.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 4.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '05:46');
+      expect(prayerTimes.sunrise.formatTime(), '07:06');
+      expect(prayerTimes.dhuhr.formatTime(), '12:28');
+      expect(prayerTimes.asr.formatTime(), '15:30');
+      expect(prayerTimes.maghrib.formatTime(), '17:51');
+      expect(prayerTimes.isha.formatTime(), '18:57');
+    });
+
+    test('London, UK - Custom Method with default angles in summer', () {
+      final customAttribute = PrayerAttribute(
+        calculationMethod: CalculationMethod.custom,
+        customMethod: const CustomMethod(fajrAngle: 18.0, ishaAngle: 17.0),
+      );
+      final customCalculator = CalculatedPrayerTime(customAttribute);
+      final londonLocation = Location(
+        id: 0,
+        name: 'London',
+        countryCode: 'GB',
+        countryName: 'United Kingdom',
+        latitude: 51.5074,
+        longitude: -0.1278,
+        hasFixedPrayerTime: false,
+      );
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = customCalculator.getPrayerTimes(
+        londonLocation,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), '02:40');
+      expect(prayerTimes.sunrise.formatTime(), '05:01');
+      expect(prayerTimes.dhuhr.formatTime(), '13:07');
+      expect(prayerTimes.asr.formatTime(), '17:25');
+      expect(prayerTimes.maghrib.formatTime(), '21:11');
+      expect(prayerTimes.isha.formatTime(), '23:24');
+    });
+  });
+
+  group('Higher Latitude Method Tests - None', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.none,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - None Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:27'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - None Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      // Could not compute prayer times for this location with 'None' method
+      expect(prayerTimes, isNull);
+    });
+  });
+
+  group('Higher Latitude Method Tests - MidNight', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.midNight,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - MidNight Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:27'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - MidNight Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('01:23'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:23'));
+      expect(prayerTimes.isha.formatTime(), equals('01:23'));
+    });
+  });
+
+  group('Higher Latitude Method Tests - OneSeven', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.oneSeven,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - OneSeven Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:36'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - OneSeven Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('03:31'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:23'));
+      expect(prayerTimes.isha.formatTime(), equals('23:14'));
+    });
+  });
+
+  group('Higher Latitude Method Tests - AngleBased', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.tehran,
+      higherLatitudeMethod: HigherLatitudeMethod.angleBased,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - AngleBased Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:30'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('16:28'));
+      expect(prayerTimes.isha.formatTime(), equals('17:53'));
+    });
+
+    test('Oslo, Norway - AngleBased Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('02:36'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:50'));
+      expect(prayerTimes.isha.formatTime(), equals('23:47'));
     });
   });
 }

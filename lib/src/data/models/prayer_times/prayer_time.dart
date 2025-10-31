@@ -34,6 +34,7 @@ class PrayerTime {
   }
 
   /// Returns the prayer time for the given index.
+  /// If index is negative, returns Isha time.
   DateTime operator [](int index) {
     final prayers = [fajr, sunrise, dhuhr, asr, maghrib, isha];
     if (index < 0) {

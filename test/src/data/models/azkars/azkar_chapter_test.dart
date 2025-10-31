@@ -33,6 +33,60 @@ void main() {
       expect(azkarChapter1, isNot(equals(azkarChapter2)));
     });
 
+    test('should return true when comparing an object with itself', () {
+      const azkarChapter = AzkarChapter(
+        id: 1,
+        categoryId: 10,
+        name: 'Morning Azkar',
+      );
+
+      expect(azkarChapter, equals(azkarChapter));
+    });
+
+    test(
+      'should return false when comparing with object of different type',
+      () {
+        const azkarChapter = AzkarChapter(
+          id: 1,
+          categoryId: 10,
+          name: 'Morning Azkar',
+        );
+        String notAzkarChapter = 'Not an AzkarChapter';
+
+        expect(azkarChapter, isNot(equals(notAzkarChapter)));
+      },
+    );
+
+    test('should return false when only categoryId is different', () {
+      const azkarChapter1 = AzkarChapter(
+        id: 1,
+        categoryId: 10,
+        name: 'Morning Azkar',
+      );
+      const azkarChapter2 = AzkarChapter(
+        id: 1,
+        categoryId: 20,
+        name: 'Morning Azkar',
+      );
+
+      expect(azkarChapter1, isNot(equals(azkarChapter2)));
+    });
+
+    test('should return false when only name is different', () {
+      const azkarChapter1 = AzkarChapter(
+        id: 1,
+        categoryId: 10,
+        name: 'Morning Azkar',
+      );
+      const azkarChapter2 = AzkarChapter(
+        id: 1,
+        categoryId: 10,
+        name: 'Evening Azkar',
+      );
+
+      expect(azkarChapter1, isNot(equals(azkarChapter2)));
+    });
+
     test(
       'should return correct hashCode for identical AzkarChapter objects',
       () {
