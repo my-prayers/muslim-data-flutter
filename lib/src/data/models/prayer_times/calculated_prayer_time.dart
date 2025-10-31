@@ -237,10 +237,8 @@ class CalculatedPrayerTime {
         return angle / 60.0;
       case HigherLatitudeMethod.midNight:
         return 0.5;
-      case HigherLatitudeMethod.oneSeven:
+      default: // HigherLatitudeMethod.oneSeven:
         return 0.14286;
-      case HigherLatitudeMethod.none:
-        return 0.0;
     }
   }
 
