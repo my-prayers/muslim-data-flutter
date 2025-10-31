@@ -654,4 +654,207 @@ void main() {
       expect(prayerTimes.isha.formatTime(), '23:24');
     });
   });
+
+  group('Higher Latitude Method Tests - None', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.none,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - None Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:27'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - None Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      // Could not compute prayer times for this location with 'None' method
+      expect(prayerTimes, isNull);
+    });
+  });
+
+  group('Higher Latitude Method Tests - MidNight', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.midNight,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - MidNight Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:27'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - MidNight Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('01:23'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:23'));
+      expect(prayerTimes.isha.formatTime(), equals('01:23'));
+    });
+  });
+
+  group('Higher Latitude Method Tests - OneSeven', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.mwl,
+      higherLatitudeMethod: HigherLatitudeMethod.oneSeven,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - OneSeven Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:36'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('15:50'));
+      expect(prayerTimes.isha.formatTime(), equals('18:18'));
+    });
+
+    test('Oslo, Norway - OneSeven Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('03:31'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:23'));
+      expect(prayerTimes.isha.formatTime(), equals('23:14'));
+    });
+  });
+
+  group('Higher Latitude Method Tests - AngleBased', () {
+    final attribute = PrayerAttribute(
+      calculationMethod: CalculationMethod.tehran,
+      higherLatitudeMethod: HigherLatitudeMethod.angleBased,
+    );
+    final calculator = CalculatedPrayerTime(attribute);
+
+    final location = Location(
+      id: 0,
+      name: 'Oslo',
+      countryCode: 'NO',
+      countryName: 'Norway',
+      latitude: 59.91386,
+      longitude: 10.75225,
+      hasFixedPrayerTime: false,
+    );
+
+    test('Oslo, Norway - AngleBased Method - 15 January 2025', () {
+      final date = DateTime(2025, 1, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 1.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('06:30'));
+      expect(prayerTimes.sunrise.formatTime(), equals('09:04'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('12:26'));
+      expect(prayerTimes.asr.formatTime(), equals('13:36'));
+      expect(prayerTimes.maghrib.formatTime(), equals('16:28'));
+      expect(prayerTimes.isha.formatTime(), equals('17:53'));
+    });
+
+    test('Oslo, Norway - AngleBased Method - 15 July 2025', () {
+      final date = DateTime(2025, 7, 15);
+      final prayerTimes = calculator.getPrayerTimes(
+        location,
+        date,
+        timezone: 2.0,
+      );
+
+      expect(prayerTimes, isNotNull);
+      expect(prayerTimes!.fajr.formatTime(), equals('02:36'));
+      expect(prayerTimes.sunrise.formatTime(), equals('04:22'));
+      expect(prayerTimes.dhuhr.formatTime(), equals('13:23'));
+      expect(prayerTimes.asr.formatTime(), equals('17:57'));
+      expect(prayerTimes.maghrib.formatTime(), equals('22:50'));
+      expect(prayerTimes.isha.formatTime(), equals('23:47'));
+    });
+  });
 }
