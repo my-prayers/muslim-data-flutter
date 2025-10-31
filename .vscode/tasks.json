@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flutter: Test Coverage",
+            "type": "shell",
+            "command": "flutter test --coverage --concurrency=1",
+        },
+        {
+            "label": "Flutter: Pub Get",
+            "type": "shell",
+            "command": "flutter pub get",
+        },
+        {
+            "label": "Version: Bump",
+            "type": "shell",
+            "command": "sh scripts/bump_version.sh",
+        },
+    ]
+}
