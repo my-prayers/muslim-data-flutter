@@ -76,11 +76,46 @@ void main() {
       expect(prayerAttribute1, prayerAttribute2);
     });
 
-    test('equality operator returns false for different customAngles', () {
+    test('equality operator returns false for different calculationMethod', () {
+      const prayerAttribute1 = PrayerAttribute();
+      const prayerAttribute2 = PrayerAttribute(
+        calculationMethod: CalculationMethod.karachi,
+      );
+
+      expect(prayerAttribute1, isNot(prayerAttribute2));
+    });
+
+    test('equality operator returns false for different customMethods', () {
       const prayerAttribute1 = PrayerAttribute();
       const prayerAttribute2 = PrayerAttribute(
         customMethod: CustomMethod(fajrAngle: 19.0, ishaAngle: 20.0),
       );
+
+      expect(prayerAttribute1, isNot(prayerAttribute2));
+    });
+
+    test('equality operator returns false for different asrMethod', () {
+      const prayerAttribute1 = PrayerAttribute();
+      const prayerAttribute2 = PrayerAttribute(asrMethod: AsrMethod.hanafi);
+
+      expect(prayerAttribute1, isNot(prayerAttribute2));
+    });
+
+    test(
+      'equality operator returns false for different higherLatitudeMethod',
+      () {
+        const prayerAttribute1 = PrayerAttribute();
+        const prayerAttribute2 = PrayerAttribute(
+          higherLatitudeMethod: HigherLatitudeMethod.midNight,
+        );
+
+        expect(prayerAttribute1, isNot(prayerAttribute2));
+      },
+    );
+
+    test('equality operator returns false for different offset', () {
+      const prayerAttribute1 = PrayerAttribute();
+      const prayerAttribute2 = PrayerAttribute(offset: [1, 0, 0, 0, 0, 0]);
 
       expect(prayerAttribute1, isNot(prayerAttribute2));
     });
