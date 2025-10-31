@@ -1,12 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculation_method.dart';
+import 'package:muslim_data_flutter/src/data/models/prayer_times/custom_method.dart';
 
 void main() {
   group('CalculationMethod', () {
     test(
       'methodList should return correct values for each calculation method',
       () {
-        final methodList = CalculationMethod.methodList();
+        final methodList = CalculationMethod.methodList(CustomMethod());
 
         expect(methodList[CalculationMethod.makkah], [
           18.5,
@@ -56,13 +57,13 @@ void main() {
     );
 
     test('methodList should contain all calculation methods', () {
-      final methodList = CalculationMethod.methodList();
+      final methodList = CalculationMethod.methodList(CustomMethod());
 
       expect(methodList.keys, CalculationMethod.values.toSet());
     });
 
     test('methodList values should have correct length', () {
-      final methodList = CalculationMethod.methodList();
+      final methodList = CalculationMethod.methodList(CustomMethod());
 
       for (final values in methodList.values) {
         expect(values.length, 5);
@@ -70,7 +71,7 @@ void main() {
     });
 
     test('methodList values should contain only doubles', () {
-      final methodList = CalculationMethod.methodList();
+      final methodList = CalculationMethod.methodList(CustomMethod());
 
       for (final values in methodList.values) {
         for (final value in values) {

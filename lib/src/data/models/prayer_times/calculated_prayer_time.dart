@@ -22,7 +22,7 @@ class CalculatedPrayerTime {
   late Map<CalculationMethod, List<double>> methodParams;
 
   CalculatedPrayerTime(this.attribute) {
-    methodParams = CalculationMethod.methodList();
+    methodParams = CalculationMethod.methodList(attribute.customMethod);
   }
 
   // Trigonometric Functions
