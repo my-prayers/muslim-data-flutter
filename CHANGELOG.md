@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2025-10-31
+
+### 🚀 Features
+
+- *(vscode)* Add tasks for Flutter development
+- *(prayer_times)* Add CustomMethod for custom prayer time calculations
+- *(prayer_times)* Integrate custom method into prayer time calculation
+
+### 🐛 Bug Fixes
+
+- *(prayer_times)* Update default case for higher latitude method
+
+### 📚 Documentation
+
+- *(prayer_times)* Update documentation for index operator
+
+### 🧪 Testing
+
+- *(azkars)* Enhance equality tests for AzkarChapter model
+- *(names)* Enhance equality tests for NameOfAllah model
+- *(prayer_times)* Enhance copyWith tests for PrayerTime model
+- *(prayer_times)* Enhance equality tests for PrayerAttribute model
+- *(prayer_times)* Add tests for higher latitude calculation methods
+- *(locations)* Enhance equality and JSON serialization tests
+
+### ⚙️ Miscellaneous Tasks
+
+- *(vscode)* Update conventional commits scopes and instructions
+- *(vscode)* Update test coverage command to include lcov processing
+
 ## [1.1.3] - 2025-09-18
 
 ### 🚜 Refactor
