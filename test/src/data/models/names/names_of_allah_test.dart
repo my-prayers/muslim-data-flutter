@@ -33,6 +33,61 @@ void main() {
       expect(name1, isNot(equals(name2)));
     });
 
+    test('should return true when comparing an object with itself', () {
+      const name = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Merciful',
+      );
+
+      expect(name, equals(name));
+    });
+
+    test(
+      'should return false when comparing with object of different type',
+      () {
+        const name = NameOfAllah(
+          id: 1,
+          name: 'Ar-Rahman',
+          translation: 'The Most Merciful',
+        );
+
+        String notName = 'Not a NameOfAllah';
+
+        expect(name, isNot(equals(notName)));
+      },
+    );
+
+    test('should return false when only name is different', () {
+      const name1 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Merciful',
+      );
+      const name2 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahim',
+        translation: 'The Most Merciful',
+      );
+
+      expect(name1, isNot(equals(name2)));
+    });
+
+    test('should return false when only translation is different', () {
+      const name1 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Merciful',
+      );
+      const name2 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Compassionate',
+      );
+
+      expect(name1, isNot(equals(name2)));
+    });
+
     test('should correctly generate hashCode', () {
       const name = NameOfAllah(
         id: 1,
