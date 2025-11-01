@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2025-11-01
+
+### 🐛 Bug Fixes
+
+- Add CustomMethod class export to the models
+
 ## [1.2.0] - 2025-10-31
 
 ### 🚀 Features
