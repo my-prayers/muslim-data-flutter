@@ -65,11 +65,12 @@ class MuslimRepository {
     required Location location,
     required DateTime date,
     required PrayerAttribute attribute,
+    useFixedPrayer = true,
   }) async {
     try {
       PrayerTime? prayerTime;
 
-      if (location.hasFixedPrayerTime) {
+      if (location.hasFixedPrayerTime && useFixedPrayer) {
         final fixedPrayer = await _dbDao.getPrayerTimes(
           location.prayerDependentId ?? location.id,
           date,
@@ -130,8 +131,9 @@ class MuslimRepository {
     final julyOffset = july.timeZoneOffset;
 
     // The smaller offset is the standard offset (non-DST)
-    final standardOffset =
-        januaryOffset < julyOffset ? januaryOffset : julyOffset;
+    final standardOffset = januaryOffset < julyOffset
+        ? januaryOffset
+        : julyOffset;
 
     // DST is active if the current offset is greater than the standard offset
     return now.timeZoneOffset > standardOffset;
