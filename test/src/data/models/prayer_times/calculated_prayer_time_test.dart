@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/models/prayer_times/calculated_prayer_time.dart';
-import 'package:muslim_data_flutter/src/data/models/prayer_times/custom_method.dart';
 import '../../../../utils/date_extension.dart';
 
 void main() {
