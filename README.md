@@ -1,5 +1,7 @@
 # Muslim Data for Flutter
 
+[![Flutter PR Checks](https://github.com/my-prayers/muslim-data-flutter/actions/workflows/pull_request.yaml/badge.svg)](https://github.com/my-prayers/muslim-data-flutter/actions/workflows/pull_request.yaml) ![Pub.dev](https://img.shields.io/pub/v/muslim_data_flutter.svg) [![codecov](https://codecov.io/github/my-prayers/muslim-data-flutter/graph/badge.svg?token=1H60BI85PT)](https://codecov.io/github/my-prayers/muslim-data-flutter)
+
 Muslim Data for Flutter is a cross-platform library that brings Islamic data to your Flutter applications. It unifies features from both Android and iOS versions into a single API so you can easily integrate functionalities such as:
 
 - Fixed or Calculated Prayer Times
