@@ -1,4 +1,4 @@
-name: Flutter PR Checks
+name: Flutter CI
 
 on:
   pull_request:
