@@ -2,11 +2,11 @@
 
 Muslim Data for Flutter is a cross-platform library that brings Islamic data to your Flutter applications. It unifies features from both Android and iOS versions into a single API so you can easily integrate functionalities such as:
 
-- Fixed or Calculated Prayer Times  
-- Offline Geocoding and Reverse Geocoding  
-- Location Search  
-- Azkars (Hisnul Muslim) with translations  
-- 99 Names of Allah with translations  
+- Fixed or Calculated Prayer Times
+- Offline Geocoding and Reverse Geocoding
+- Location Search
+- Azkars (Hisnul Muslim) with translations
+- 99 Names of Allah with translations
 
 ## Available on Native Platforms
 
@@ -17,15 +17,16 @@ This library is also available for native platform integration:
 
 These native libraries share the same concepts and data structure, making it easy to develop similar applications across different platforms.
 
-# Features
+## Features
 
-✅ **Prayer Times**: Most cities around the world find their prayer times by using some calculations which is based on location (longitude and latitude) but some other cities have fixed time table for their prayer times. This library contains most fixed and calculated prayer times. Now you can contribute it to improve it and also you can use it in Muslim communities or Muslim apps.  
-✅ **Location Services**: Search for locations offline, geocode by city name, and reverse geocode using latitude and longitude.  
-✅ **Azkars (Hisnul Muslim)**: Retrieve categorized azkars by (Category, Chapter, Item) in various languages.  
+✅ **Prayer Times**: Most cities around the world find their prayer times by using some calculations which is based on location (longitude and latitude) but some other cities have fixed time table for their prayer times. This library contains most fixed and calculated prayer times. Now you can contribute it to improve it and also you can use it in Muslim communities or Muslim apps.
+✅ **Location Services**: Search for locations offline, geocode by city name, and reverse geocode using latitude and longitude.
+✅ **Azkars (Hisnul Muslim)**: Retrieve categorized azkars by (Category, Chapter, Item) in various languages.
 ✅ **Names of Allah**: Access 99 Names of Allah along with translations in supported languages.
 
-# Usage
-Install the package: 
+## Usage
+
+Install the package:
 
 ```bash
 flutter pub add muslim_data_flutter
@@ -41,10 +42,9 @@ import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 
 There are some location helper methods in the MuslimRepository that provides **offline Location Search**, **Geocoding**, and **Reverse Geocoding** and also each of one will return `Location` object or list of `Location`. `Location` object contains (`countryCode`, `countryName`, `cityName`, `latitude`, `longitude`, and `hasFixedPrayerTime`).
 
-|              Search Location               |              Selected Location               |
-| :----------------------------------------: | :------------------------------------------: |
+|                      Search Location                      |                       Selected Location                       |
+| :----------------------------------------------------------: | :--------------------------------------------------------------: |
 | ![Search Location](assets/screenshots/search_location.png) | ![Selected Location](assets/screenshots/selected_location.png) |
-
 
 ### Search for a location
 
@@ -100,8 +100,9 @@ Future<void> reverseGeocode() async {
 ```
 
 ## Prayer Times
-|              Prayer Times               |
-| :-------------------------------------: |
+
+|                     Prayer Times                     |
+| :----------------------------------------------------: |
 | ![Prayer Times](assets/screenshots/prayer_times.png) |
 
 You can easily get prayer times for a location just by passing (`Location`, `PrayerAttribute`, and `Date`) objects to `getPrayerTimes` method.
@@ -112,7 +113,7 @@ Future<void> getPrayerTimesExample() async {
 
   // Create a PrayerAttribute object.
   final attribute = PrayerAttribute(
-    calculationMethod: CalculationMethod.makkah,
+    calculationMethod: CalculationMethod.makkah, // if it's custom, you should pass CustomMethod parameter too.
     asrMethod: AsrMethod.shafii,
     higherLatitudeMethod: HigherLatitudeMethod.angleBased,
     offset: [0, 0, 0, 0, 0, 0],
@@ -124,6 +125,8 @@ Future<void> getPrayerTimesExample() async {
     location: location,  
     date: DateTime.now(),
     attribute: attribute,
+    // You can set useFixedPrayer: false if you want calculated prayer times 
+    // for places that have fixed prayer times.
   );
 
   if (prayerTime != null) {
@@ -133,14 +136,15 @@ Future<void> getPrayerTimesExample() async {
 ```
 
 ## Azkars (Hisnul Muslim)
+
 Get all azkars from (Hisnul Muslim book) that is categorized by (`AzkarCategory`, `AzkarChapter`, and `AzkarItem`) and also the azkars are available for these languages (`en`, `ar`, `ckb`, `ckb_BADINI`, `fa`, and `ru`)
 
-| Azkar Categories | Azkar Chapters | Azkar Items |
-| :--------------: | :------------: | :---------: |
+|                      Azkar Categories                      |                      Azkar Chapters                      |                    Azkar Items                    |
+| :----------------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------: |
 | ![Azkar Categories](assets/screenshots/azkar_category.png) | ![Azkar Chapters](assets/screenshots/azkar_chapters.png) | ![Azkar Items](assets/screenshots/azkar_item.png) |
 
-
 ### Azkar Category
+
 Get all azkar categories with its translation for the given language.
 
 ```dart
@@ -166,7 +170,6 @@ void getAzkarChaptersExample() async {
 ```
 
 Get azkar chapters for a specific category with its translation for the given language.
-
 
 ```dart
 void getAzkarChaptersExample() async {
@@ -212,8 +215,8 @@ void getAzkarItemsExample() async {
 
 ## Names of Allah
 
-| 99 Names of Allah |
-| :---------------: |
+|                99 Names of Allah                |
+| :-----------------------------------------------: |
 | ![Names of Allah](assets/screenshots/names.png) |
 
 Get 99 Names of Allah with its translation and it is available for these languages (`en`, `ar`, `ckb`, `ckb_BADINI`, `fa`, and `ru`)
@@ -226,11 +229,11 @@ Future<void> getNamesOfAllah() async {
 }
 ```
 
-# Author
+## Author
 
-Kosrat D. Ahmed  
-Email: kosrat.d.ahmad@gmail.com
+Kosrat D. Ahmed
+Email: <kosrat.d.ahmad@gmail.com>
 
-# License
+## License
 
 **Muslim Data for Flutter** is available under the MIT license. See the [LICENSE](LICENSE) file for details.
