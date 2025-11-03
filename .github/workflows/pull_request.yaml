@@ -1,4 +1,4 @@
-name: Flutter PR Checks
+name: Flutter CI
 
 on:
   pull_request:
@@ -37,4 +37,9 @@ jobs:
       - name: Setup Flutter
         uses: ./.github/actions/setup-flutter
       - name: Run tests
-        run: flutter test --concurrency=1
+        run: flutter test --coverage --concurrency=1
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: my-prayers/muslim-data-flutter
