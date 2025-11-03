@@ -65,7 +65,7 @@ class MuslimRepository {
     required Location location,
     required DateTime date,
     required PrayerAttribute attribute,
-    useFixedPrayer = true,
+    bool useFixedPrayer = true,
   }) async {
     try {
       PrayerTime? prayerTime;
