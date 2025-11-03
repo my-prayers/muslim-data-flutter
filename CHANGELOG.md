@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2025-11-03
+
+### 🚀 Features
+
+- Add option to use calculated prayer times instead of fixed times
+
+### 🐛 Bug Fixes
+
+- Add type annotation to the useFixedPrayer param
+
+### 🚜 Refactor
+
+- Swap positions of none and angleBased in HigherLatitudeMethod
+
+### 📚 Documentation
+
+- Update prayer times usage to include useFixedPrayer parameter
+
+### 🎨 Styling
+
+- Reapply file format on the muslim_dao file
+
+### 🧪 Testing
+
+- Update enum index values in HigherLatitudeMethod tests
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve validation messages for commit format
+- Remove unused import from calculated prayer time tests
+
 ## [1.2.1] - 2025-11-01
 
 ### 🐛 Bug Fixes
