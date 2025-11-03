@@ -37,4 +37,7 @@ jobs:
       - name: Setup Flutter
         uses: ./.github/actions/setup-flutter
       - name: Run tests
-        run: flutter test --concurrency=1
+        run: flutter test --coverage --concurrency=1
+      - name: Upload coverage to codecov
+        run: curl -s https://codecov.io/bash | bash
+        shell: bash
