@@ -1,7 +1,7 @@
 /// Prayer higher latitude method.
 enum HigherLatitudeMethod {
-  none, // No adjustment
+  angleBased, // floating point number
   midNight, // middle of night
   oneSeven, // 1/7th of night
-  angleBased, // floating point number
+  none, // No adjustment
 }

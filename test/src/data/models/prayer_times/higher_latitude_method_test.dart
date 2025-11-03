@@ -4,10 +4,10 @@ import 'package:muslim_data_flutter/src/data/models/prayer_times/higher_latitude
 void main() {
   group('HigherLatitudeMethod', () {
     test('should have correct enum values', () {
-      expect(HigherLatitudeMethod.none.index, 0);
+      expect(HigherLatitudeMethod.angleBased.index, 0);
       expect(HigherLatitudeMethod.midNight.index, 1);
       expect(HigherLatitudeMethod.oneSeven.index, 2);
-      expect(HigherLatitudeMethod.angleBased.index, 3);
+      expect(HigherLatitudeMethod.none.index, 3);
     });
 
     test('should return correct string representation', () {
@@ -36,10 +36,10 @@ void main() {
 
     test('should have all enum values in values list', () {
       expect(HigherLatitudeMethod.values, [
-        HigherLatitudeMethod.none,
+        HigherLatitudeMethod.angleBased,
         HigherLatitudeMethod.midNight,
         HigherLatitudeMethod.oneSeven,
-        HigherLatitudeMethod.angleBased,
+        HigherLatitudeMethod.none,
       ]);
     });
   });
