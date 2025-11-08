@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2025-11-08
+
+### 🚀 Features
+
+- Add transliteration for names of Allah
+
+### 🚜 Refactor
+
+- *(example)* Update names display to show transliteration
+
+### 📚 Documentation
+
+- Update README to include CI badge
+- Reorder badges in README for better visibility
+- Correct capitalization for names of Allah in README file
+
+### 🧪 Testing
+
+- Add test for transliteration comparison in NameOfAllah
+
+### ⚙️ Miscellaneous Tasks
+
+- Add code coverage upload step to CI workflow
+- Add codecov configuration file
+- Use official codecov action
+- Update Codecov action to v5 and add configuration
+- Rename workflow from Flutter PR Checks to Flutter CI
+- Update codecov.yml to ignore additional file patterns
+- Update names screenshot to reflect recent changes
+
 ## [1.3.0] - 2025-11-03
 
 ### 🚀 Features
