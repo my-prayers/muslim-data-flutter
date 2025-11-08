@@ -98,6 +98,23 @@ void main() {
       expect(name1, isNot(equals(name2)));
     });
 
+    test('should return false when only transliteration is different', () {
+      const name1 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
+      );
+      const name2 = NameOfAllah(
+        id: 1,
+        name: 'Ar-Rahman',
+        translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahim',
+      );
+
+      expect(name1, isNot(equals(name2)));
+    });
+
     test('should correctly generate hashCode', () {
       const name = NameOfAllah(
         id: 1,
