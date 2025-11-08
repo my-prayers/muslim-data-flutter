@@ -11,10 +11,10 @@ Add transliteration for names of Allah
 
 ### Added
 
-- Add transliteration for names of allah for all languages.
+- Add transliteration for names of Allah for all languages.
 - Change the name column to translation column in the name_translation table.
 - Add transliteration column in the name_translation table.
-- Update names of allah to include diacritical marks.
+- Update names of Allah to include diacritical marks.
 
 ## [2.5.1] - 2025-07-17
 
