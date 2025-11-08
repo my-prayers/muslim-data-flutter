@@ -3,11 +3,13 @@ class NameOfAllah {
   final int id;
   final String name;
   final String translation;
+  final String transliteration;
 
   const NameOfAllah({
     required this.id,
     required this.name,
     required this.translation,
+    required this.transliteration,
   });
 
   @override
@@ -17,13 +19,14 @@ class NameOfAllah {
     return other is NameOfAllah &&
         other.id == id &&
         other.name == name &&
-        other.translation == translation;
+        other.translation == translation &&
+        other.transliteration == transliteration;
   }
 
   @override
-  int get hashCode => Object.hash(id, name, translation);
+  int get hashCode => Object.hash(id, name, translation, transliteration);
 
   @override
   String toString() =>
-      'NameOfAllah(id: $id, name: $name, translation: $translation)';
+      'NameOfAllah(id: $id, name: $name, translation: $translation, transliteration: $transliteration)';
 }

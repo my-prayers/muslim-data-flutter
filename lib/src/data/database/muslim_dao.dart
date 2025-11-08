@@ -102,9 +102,10 @@ class MuslimDao {
   Future<List<NameOfAllah>> getNames(String language) async {
     return await _db.customSelect(RowQuery.namesQuery(language)).map((row) {
       return NameOfAllah(
-        id: row.read<int>('nameId'),
+        id: row.read<int>('id'),
         name: row.read<String>('name'),
         translation: row.read<String>('translation'),
+        transliteration: row.read<String>('transliteration'),
       );
     }).get();
   }

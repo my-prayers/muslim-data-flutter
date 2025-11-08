@@ -24,8 +24,12 @@ class NamesScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final currentName = names[index];
               return ListTile(
-                title: Text(currentName.name),
+                title: Text(currentName.transliteration),
                 subtitle: Text(currentName.translation),
+                trailing: Text(
+                  currentName.name,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               );
             },
           );

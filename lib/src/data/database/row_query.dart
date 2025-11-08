@@ -42,11 +42,12 @@ class RowQuery {
 
   /// Query to get the names of Allah for the specified [language].
   static String namesQuery(String language) {
-    return "SELECT name_translation.name_id AS nameId, "
-        "name_translation.name AS translation, name.name "
-        "FROM name_translation "
-        "INNER JOIN name ON name._id = name_translation.name_id "
-        "WHERE name_translation.language='$language'";
+    return "SELECT name._id AS id, name.name, "
+        "transl.translation AS translation, "
+        "transl.transliteration AS transliteration "
+        "FROM name_translation AS transl "
+        "INNER JOIN name ON name._id = transl.name_id "
+        "WHERE transl.language='$language'";
   }
 
   /// Query to get the azkar categories for the specified [language].

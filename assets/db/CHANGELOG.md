@@ -5,6 +5,17 @@ All notable changes to the MuslimData database will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0] - 2025-11-08
+
+Add transliteration for names of Allah
+
+### Added
+
+- Add transliteration for names of Allah for all languages.
+- Change the name column to translation column in the name_translation table.
+- Add transliteration column in the name_translation table.
+- Update names of Allah to include diacritical marks.
+
 ## [2.5.1] - 2025-07-17
 
 ### Fixed
