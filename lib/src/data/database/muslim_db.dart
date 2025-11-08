@@ -46,7 +46,7 @@ class MuslimDb extends _$MuslimDb {
       if (!await file.exists() || await _hasUpdate()) {
         // Extract the pre-populated database file from assets
         final blob = await rootBundle.load(
-          'packages/muslim_data_flutter/assets/db/muslim_db_v2.5.1.db',
+          'packages/muslim_data_flutter/assets/db/muslim_db_v2.6.0.db',
         );
         final buffer = blob.buffer;
         await file.writeAsBytes(

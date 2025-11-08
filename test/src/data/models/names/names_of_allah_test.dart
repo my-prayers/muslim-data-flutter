@@ -8,11 +8,13 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
       const name2 = NameOfAllah(
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
 
       expect(name1, equals(name2));
@@ -23,11 +25,13 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
       const name2 = NameOfAllah(
         id: 2,
         name: 'Ar-Rahim',
         translation: 'The Most Compassionate',
+        transliteration: 'Ar-Rahim',
       );
 
       expect(name1, isNot(equals(name2)));
@@ -38,6 +42,7 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
 
       expect(name, equals(name));
@@ -50,6 +55,7 @@ void main() {
           id: 1,
           name: 'Ar-Rahman',
           translation: 'The Most Merciful',
+          transliteration: 'Ar-Rahman',
         );
 
         String notName = 'Not a NameOfAllah';
@@ -63,11 +69,13 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
       const name2 = NameOfAllah(
         id: 1,
         name: 'Ar-Rahim',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahim',
       );
 
       expect(name1, isNot(equals(name2)));
@@ -78,11 +86,13 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
       const name2 = NameOfAllah(
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Compassionate',
+        transliteration: 'Ar-Rahman',
       );
 
       expect(name1, isNot(equals(name2)));
@@ -93,8 +103,14 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
-      final expectedHashCode = Object.hash(1, 'Ar-Rahman', 'The Most Merciful');
+      final expectedHashCode = Object.hash(
+        1,
+        'Ar-Rahman',
+        'The Most Merciful',
+        'Ar-Rahman',
+      );
 
       expect(name.hashCode, equals(expectedHashCode));
     });
@@ -104,9 +120,10 @@ void main() {
         id: 1,
         name: 'Ar-Rahman',
         translation: 'The Most Merciful',
+        transliteration: 'Ar-Rahman',
       );
       const expectedString =
-          'NameOfAllah(id: 1, name: Ar-Rahman, translation: The Most Merciful)';
+          'NameOfAllah(id: 1, name: Ar-Rahman, translation: The Most Merciful, transliteration: Ar-Rahman)';
 
       expect(name.toString(), equals(expectedString));
     });
