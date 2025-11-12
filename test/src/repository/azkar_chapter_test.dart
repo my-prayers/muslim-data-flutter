@@ -73,9 +73,10 @@ void main() {
 
     test('Verifies azkar chapters filter by chapter ids', () async {
       final chapters = await repository.getAzkarChaptersByIds(
-        chapterIds: [1, 2],
+        chapterIds: [1, 2, 10],
       );
       expect(chapters, isNotEmpty);
+      expect(chapters.length, 3);
     });
   });
 }

@@ -75,7 +75,7 @@ class RowQuery {
         "chapter_name AS chapterName "
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
-        "WHERE language='$language' AND category_id IN (${chapterIds.join(',')})";
+        "WHERE language='$language' AND chapter._id IN (${chapterIds.join(',')})";
   }
 
   /// Query to get the azkar items for the specified [language] and [chapterId].
