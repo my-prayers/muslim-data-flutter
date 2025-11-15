@@ -61,21 +61,24 @@ class RowQuery {
   /// Query to get the azkar chapters for the specified [language] and [categoryId].
   /// If [categoryId] is -1, then all chapters will be returned.
   static String azkarChaptersQuery(String language, int categoryId) {
-    return "SELECT chapter._id AS chapterId, category_id AS categoryId, "
-        "chapter_name AS chapterName "
+    return "SELECT chapter._id AS chapterId, chapter.category_id AS categoryId, "
+        "cat_transl.category_name AS categoryName, chapter_name AS chapterName "
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
-        "WHERE language='$language' "
-        "${categoryId != -1 ? "AND category_id=$categoryId" : ""}";
+        "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
+        "WHERE cat_transl.language='$language' AND transl.language='$language'"
+        "${categoryId != -1 ? "AND chapter.category_id=$categoryId" : ""}";
   }
 
   /// Query to get the azkar chapters for the specified [language] and [chapterIds].
   static String azkarChaptersQueryByIds(String language, List<int> chapterIds) {
-    return "SELECT chapter._id AS chapterId, category_id AS categoryId, "
-        "chapter_name AS chapterName "
+    return "SELECT chapter._id AS chapterId, chapter.category_id AS categoryId, "
+        "cat_transl.category_name AS categoryName, chapter_name AS chapterName "
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
-        "WHERE language='$language' AND chapter._id IN (${chapterIds.join(',')})";
+        "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
+        "WHERE cat_transl.language='$language' AND transl.language='$language' "
+        "AND chapter._id IN (${chapterIds.join(',')})";
   }
 
   /// Query to get the azkar items for the specified [language] and [chapterId].

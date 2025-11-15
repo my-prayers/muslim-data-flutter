@@ -133,6 +133,7 @@ class MuslimDao {
           return AzkarChapter(
             id: row.read<int>('chapterId'),
             categoryId: row.read<int>('categoryId'),
+            categoryName: row.read<String>('categoryName'),
             name: row.read<String>('chapterName'),
           );
         })
@@ -150,6 +151,7 @@ class MuslimDao {
           return AzkarChapter(
             id: row.read<int>('chapterId'),
             categoryId: row.read<int>('categoryId'),
+            categoryName: row.read<String>('categoryName'),
             name: row.read<String>('chapterName'),
           );
         })
