@@ -66,8 +66,8 @@ class RowQuery {
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
         "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
-        "WHERE cat_transl.language='$language' AND transl.language='$language'"
-        "${categoryId != -1 ? "AND chapter.category_id=$categoryId" : ""}";
+        "AND cat_transl.language = transl.language "
+        "WHERE transl.language='$language' ${categoryId != -1 ? "AND chapter.category_id=$categoryId" : ""}";
   }
 
   /// Query to get the azkar chapters for the specified [language] and [chapterIds].
@@ -77,8 +77,8 @@ class RowQuery {
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
         "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
-        "WHERE cat_transl.language='$language' AND transl.language='$language' "
-        "AND chapter._id IN (${chapterIds.join(',')})";
+        "AND cat_transl.language = transl.language "
+        "WHERE transl.language='$language' AND chapter._id IN (${chapterIds.join(',')})";
   }
 
   /// Query to get the azkar items for the specified [language] and [chapterId].
