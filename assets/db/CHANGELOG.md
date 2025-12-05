@@ -11,7 +11,7 @@ Revert Kifri, IQ prayer times and bug fixes.
 
 ### Changed
 
-- Revert back the fajr and sunrise prayer times of Kalar, IQ to the old timetable.
+- Revert back the fajr and sunrise prayer times of Kifri, IQ to the old timetable.
 
 ## [2.6.0] - 2025-11-08
 
