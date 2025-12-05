@@ -10,7 +10,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'muslim_db.g.dart';
 
-final _dbVersion = 3;
+final _dbVersion = 4;
 
 @DriftDatabase()
 class MuslimDb extends _$MuslimDb {
@@ -46,7 +46,7 @@ class MuslimDb extends _$MuslimDb {
       if (!await file.exists() || await _hasUpdate()) {
         // Extract the pre-populated database file from assets
         final blob = await rootBundle.load(
-          'packages/muslim_data_flutter/assets/db/muslim_db_v2.6.0.db',
+          'packages/muslim_data_flutter/assets/db/muslim_db_v2.7.0.db',
         );
         final buffer = blob.buffer;
         await file.writeAsBytes(
@@ -61,10 +61,10 @@ class MuslimDb extends _$MuslimDb {
 
       // Make sqlite3 pick a more suitable location for temporary files - the
       // one from the system may be inaccessible due to sandboxing.
-      final cachebase = (await getTemporaryDirectory()).path;
+      final cachePath = (await getTemporaryDirectory()).path;
       // We can't access /tmp on Android, which sqlite3 would try by default.
       // Explicitly tell it about the correct temporary directory.
-      sqlite3.tempDirectory = cachebase;
+      sqlite3.tempDirectory = cachePath;
 
       return NativeDatabase.createInBackground(file);
     });
