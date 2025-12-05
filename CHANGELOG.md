@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2025-12-05
+
+### 🚀 Features
+
+- Enhance azkar chapter model and queries by adding category name
+
+### 🐛 Bug Fixes
+
+- Correct query conditions for azkar chapters
+- Fix Kifri, IQ prayer times by reverting to the old timetable
+- *(changelog)* Correct Kifri prayer times in changelog
+
 ## [1.4.1] - 2025-11-12
 
 ### 🐛 Bug Fixes
