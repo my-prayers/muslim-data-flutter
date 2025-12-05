@@ -14,8 +14,8 @@ topics:
   - names-of-allah
 
 environment:
-  sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  sdk: ^3.10.0
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
@@ -32,7 +32,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   drift_dev: ^2.29.0
-  build_runner: ^2.7.0
+  build_runner: ^2.10.0
 
 flutter:
   assets:
