@@ -7,13 +7,49 @@ import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
 import '../data/database/db_connection.dart';
 
 void main() {
-  late MuslimRepository repository;
+  late AzkarRepository repository;
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
-    repository = MuslimRepository(
+    repository = AzkarRepository(
       dao: MuslimDao(db: MuslimDb(connection: openTestConnection())),
     );
+  });
+
+  group('AzkarCategoryTests', () {
+    /// Test function to verify the number of azkar categories
+    Future<void> testAzkarCategories(Language language) async {
+      final categories = await repository.getAzkarCategories(
+        language: language,
+      );
+      expect(categories, isNotNull);
+      expect(categories.length, equals(11));
+      expect(categories[0].name, isNotNull);
+    }
+
+    test('should fetch English azkar categories correctly', () async {
+      await testAzkarCategories(Language.en);
+    });
+
+    test('should fetch Arabic azkar categories correctly', () async {
+      await testAzkarCategories(Language.ar);
+    });
+
+    test('should fetch Central Kurdish azkar categories correctly', () async {
+      await testAzkarCategories(Language.ckb);
+    });
+
+    test('should fetch Badini Kurdish azkar categories correctly', () async {
+      await testAzkarCategories(Language.ckbBadini);
+    });
+
+    test('should fetch Persian azkar categories correctly', () async {
+      await testAzkarCategories(Language.fa);
+    });
+
+    test('should fetch Russian azkar categories correctly', () async {
+      await testAzkarCategories(Language.ru);
+    });
   });
 
   group('AzkarChapterTests', () {
@@ -79,6 +115,48 @@ void main() {
       expect(chapters.length, 3);
     });
   });
+
+  group('AzkarItem Tests', () {
+    /// Test function to verify the number of azkar items in a chapter
+    Future<void> testChapterItems(Language language, int id, int total) async {
+      final items = await repository.getAzkarItems(
+        language: language,
+        chapterId: id,
+      );
+      expect(items, isNotNull);
+      expect(items.length, total);
+    }
+
+    test('should return correct number of English azkar items', () async {
+      await testChapterItems(Language.en, 1, 4);
+    });
+
+    test('should return correct number of Arabic azkar items', () async {
+      await testChapterItems(Language.ar, 25, 8);
+    });
+
+    test(
+      'should return correct number of Central Kurdish azkar items',
+      () async {
+        await testChapterItems(Language.ckb, 50, 2);
+      },
+    );
+
+    test(
+      'should return correct number of Badini Kurdish azkar items',
+      () async {
+        await testChapterItems(Language.ckbBadini, 50, 2);
+      },
+    );
+
+    test('should return correct number of Persian azkar items', () async {
+      await testChapterItems(Language.fa, 75, 1);
+    });
+
+    test('should return correct number of Russian azkar items', () async {
+      await testChapterItems(Language.ru, 100, 1);
+    });
+  });
 }
 
 /// Test function to verify the number of azkar chapters in a specific language
@@ -87,7 +165,7 @@ Future<void> testAzkarChapters(
   int categoryId = -1,
   int total = 133,
 }) async {
-  final repository = MuslimRepository();
+  final repository = AzkarRepository();
   final chapters = await repository.getAzkarChapters(
     language: language,
     categoryId: categoryId,

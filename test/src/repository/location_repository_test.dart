@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/database/muslim_dao.dart';
 import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
-import 'package:muslim_data_flutter/src/repository/muslim_repository.dart';
 
 import '../data/database/db_connection.dart';
 
 void main() {
-  late MuslimRepository repository;
+  late LocationRepository repository;
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
-    repository = MuslimRepository(
+    repository = LocationRepository(
       dao: MuslimDao(db: MuslimDb(connection: openTestConnection())),
     );
   });

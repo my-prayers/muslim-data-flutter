@@ -42,7 +42,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
         higherLatitudeMethod: HigherLatitudeMethod.angleBased,
       );
 
-      final muslimRepo = MuslimRepository();
+      final muslimRepo = PrayerTimeRepository();
       final prayerTime = await muslimRepo.getPrayerTimes(
         location: location,
         date: date,

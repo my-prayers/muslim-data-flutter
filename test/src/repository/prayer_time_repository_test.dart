@@ -9,13 +9,13 @@ import '../data/database/db_connection.dart';
 
 void main() {
   late MuslimDao dao;
-  late MuslimRepository repository;
+  late PrayerTimeRepository repository;
   late PrayerAttribute attributes;
 
   setUp(() async {
     WidgetsFlutterBinding.ensureInitialized();
     dao = MuslimDao(db: MuslimDb(connection: openTestConnection()));
-    repository = MuslimRepository(dao: dao);
+    repository = PrayerTimeRepository(dao: dao);
     attributes = PrayerAttribute(
       calculationMethod: CalculationMethod.makkah,
       asrMethod: AsrMethod.shafii,

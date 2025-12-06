@@ -24,7 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
     keyword = keyword.trim();
     if (keyword.isNotEmpty) {
       // Query the API (replace with your actual implementation)
-      final results = await MuslimRepository().searchLocations(
+      final results = await LocationRepository().searchLocations(
         locationName: keyword,
       );
       setState(() {
@@ -77,14 +77,14 @@ class _LocationScreenState extends State<LocationScreen> {
             const SizedBox(height: 16),
             _searchResults.isNotEmpty
                 ? SearchResult(
-                  searchResults: _searchResults,
-                  onLocationSelected: _onLocationSelected,
-                )
+                    searchResults: _searchResults,
+                    onLocationSelected: _onLocationSelected,
+                  )
                 : _selectedLocation != null
                 ? LocationDetail(
-                  location: _selectedLocation!,
-                  onSaveLocation: _saveLocation,
-                )
+                    location: _selectedLocation!,
+                    onSaveLocation: _saveLocation,
+                  )
                 : Container(),
           ],
         ),

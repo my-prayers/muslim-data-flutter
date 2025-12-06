@@ -7,11 +7,11 @@ import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
 import '../data/database/db_connection.dart';
 
 void main() {
-  late MuslimRepository repository;
+  late NameOfAllahRepository repository;
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
-    repository = MuslimRepository(
+    repository = NameOfAllahRepository(
       dao: MuslimDao(db: MuslimDb(connection: openTestConnection())),
     );
   });

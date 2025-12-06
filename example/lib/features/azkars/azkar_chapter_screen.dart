@@ -20,7 +20,7 @@ class AzkarChapterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Azkar Chapters')),
       body: FutureBuilder<List<AzkarChapter>>(
-        future: MuslimRepository().getAzkarChapters(
+        future: AzkarRepository().getAzkarChapters(
           language: Language.en,
           categoryId: categoryId,
         ),
