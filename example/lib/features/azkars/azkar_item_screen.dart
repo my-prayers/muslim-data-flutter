@@ -46,17 +46,45 @@ class AzkarItemScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8.0,
                     children: [
-                      Text(
-                        item.item,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        item.translation,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 8.0),
+                      item.topNote != null
+                          ? Text(
+                              item.topNote!,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            )
+                          : const SizedBox.shrink(),
+                      item.item != null
+                          ? Text(
+                              item.item!,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            )
+                          : const SizedBox.shrink(),
+                      item.count != null
+                          ? Text(
+                              'X${item.count}',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              textAlign: TextAlign.right,
+                            )
+                          : const SizedBox.shrink(),
+                      item.bottomNote != null
+                          ? Text(
+                              item.bottomNote!,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            )
+                          : const SizedBox.shrink(),
+                      item.transliteration != null
+                          ? Text(
+                              item.transliteration!,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            )
+                          : const SizedBox.shrink(),
+                      item.translation != null
+                          ? Text(
+                              item.translation!,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            )
+                          : const SizedBox.shrink(),
                       Text(
                         item.reference,
                         style: Theme.of(context).textTheme.bodySmall,

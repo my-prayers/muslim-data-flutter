@@ -132,7 +132,7 @@ void main() {
     });
 
     test('should return correct number of Arabic azkar items', () async {
-      await testChapterItems(Language.ar.locale, 25, 8);
+      await testChapterItems(Language.ar.locale, 25, 15);
     });
 
     test(

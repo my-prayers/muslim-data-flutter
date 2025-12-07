@@ -170,8 +170,12 @@ class MuslimDao {
           return AzkarItem(
             id: row.read<int>('itemId'),
             chapterId: row.read<int>('chapterId'),
-            item: row.read<String>('item'),
-            translation: row.read<String>('translation'),
+            item: row.read<String?>('item'),
+            transliteration: row.read<String?>('transliteration'),
+            count: row.read<String?>('count'),
+            topNote: row.read<String?>('topNote'),
+            bottomNote: row.read<String?>('bottomNote'),
+            translation: row.read<String?>('translation'),
             reference: row.read<String>('reference'),
           );
         })

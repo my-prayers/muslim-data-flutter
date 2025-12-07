@@ -5,6 +5,22 @@ All notable changes to the MuslimData database will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2025-12-07
+
+Improve and restructure the azkar tables and their contents.
+
+### Added
+
+- Transliteration has been added to the azkar items to display how to read the azkar for none Arabic users so the `transliteration` field added in the `azkar_item` table.
+- Count has been added to the azkar items to shows that how many times this azkar should be read. Therefore, the `count` field added in the `azkar_item` table.
+- Azkar instructions are extracted from Azkar items and put into two new fields (`top_note` and `bottom_note`) in the `azkar_item_translation` table.
+- Azkar `reference` has been moved into the `azkar_item_translation` table.
+
+### Changed
+
+- Remove reference tables as they merged into `azkar_item_translation` table.
+- Update all the azkar contents to meet the new structure.
+
 ## [2.7.0] - 2025-12-05
 
 Revert Kifri, IQ prayer times and bug fixes.

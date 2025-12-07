@@ -90,12 +90,10 @@ class RowQuery {
   /// Query to get the azkar items for the specified [language] and [chapterId].
   static String azkarItemsQuery(Language language, int chapterId) {
     return "SELECT item._id AS itemId, item.chapter_id AS chapterId, item.item, "
-        "transl.item_translation AS translation, ref_transl.reference "
+        "item.transliteration, item.count, transl.top_note AS topNote, transl.bottom_note AS bottomNote, "
+        "transl.item_translation AS translation, transl.reference "
         "FROM azkar_item AS item "
         "INNER JOIN azkar_item_translation AS transl ON transl.item_id = item._id "
-        "INNER JOIN azkar_reference AS ref ON ref.item_id = item._id "
-        "INNER JOIN azkar_reference_translation AS ref_transl ON ref_transl.reference_id = ref._id AND "
-        "ref_transl.language = transl.language "
         "WHERE chapterId = $chapterId AND transl.language = '${language.locale.toCode()}'";
   }
 

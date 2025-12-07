@@ -10,7 +10,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'muslim_db.g.dart';
 
-final _dbVersion = 4;
+final _dbVersion = 5;
 
 @DriftDatabase()
 class MuslimDb extends _$MuslimDb {
@@ -46,7 +46,7 @@ class MuslimDb extends _$MuslimDb {
       if (!await file.exists() || await _hasUpdate()) {
         // Extract the pre-populated database file from assets
         final blob = await rootBundle.load(
-          'packages/muslim_data_flutter/assets/db/muslim_db_v2.7.0.db',
+          'packages/muslim_data_flutter/assets/db/muslim_db_v3.0.0.db',
         );
         final buffer = blob.buffer;
         await file.writeAsBytes(
