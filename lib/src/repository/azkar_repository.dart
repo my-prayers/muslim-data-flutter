@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/database/muslim_dao.dart';
 import 'package:muslim_data_flutter/src/repository/muslim_repository.dart';
@@ -14,11 +16,9 @@ class AzkarRepository extends MuslimRepository {
   }
 
   /// Get azkar categories for the specified [language].
-  Future<List<AzkarCategory>> getAzkarCategories({
-    Language language = Language.en,
-  }) async {
+  Future<List<AzkarCategory>> getAzkarCategories({Locale? language}) async {
     try {
-      return await dbDao.getAzkarCategories(language.value);
+      return await dbDao.getAzkarCategories(Language.fromLocale(language));
     } catch (e) {
       return [];
     }
@@ -27,11 +27,14 @@ class AzkarRepository extends MuslimRepository {
   /// Get azkar chapters for the specified [language] and [categoryId].
   /// If [categoryId] is not provided, all azkar chapters will be returned.
   Future<List<AzkarChapter>> getAzkarChapters({
-    Language language = Language.en,
+    Locale? language,
     int categoryId = -1,
   }) async {
     try {
-      return await dbDao.getAzkarChapters(language.value, categoryId);
+      return await dbDao.getAzkarChapters(
+        Language.fromLocale(language),
+        categoryId,
+      );
     } catch (e) {
       return [];
     }
@@ -39,11 +42,14 @@ class AzkarRepository extends MuslimRepository {
 
   /// Get azkar chapters for the specified [language] and [chapterIds].
   Future<List<AzkarChapter>> getAzkarChaptersByIds({
-    Language language = Language.en,
+    Locale? language,
     required List<int> chapterIds,
   }) async {
     try {
-      return await dbDao.getAzkarChaptersByIds(language.value, chapterIds);
+      return await dbDao.getAzkarChaptersByIds(
+        Language.fromLocale(language),
+        chapterIds,
+      );
     } catch (e) {
       return [];
     }
@@ -51,11 +57,14 @@ class AzkarRepository extends MuslimRepository {
 
   /// Get azkar items for the specified azkar [language] and [chapterId].
   Future<List<AzkarItem>> getAzkarItems({
-    Language language = Language.en,
+    Locale? language,
     required int chapterId,
   }) async {
     try {
-      return await dbDao.getAzkarItems(language.value, chapterId);
+      return await dbDao.getAzkarItems(
+        Language.fromLocale(language),
+        chapterId,
+      );
     } catch (e) {
       return [];
     }

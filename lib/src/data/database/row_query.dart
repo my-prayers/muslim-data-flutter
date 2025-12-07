@@ -1,3 +1,6 @@
+import 'package:muslim_data_flutter/src/data/models/language.dart';
+import 'package:muslim_data_flutter/src/utils/locale_utils.dart';
+
 /// A class that contains all the queries used in the database.
 class RowQuery {
   /// Query to search for locations in the database by the given [location].
@@ -41,48 +44,51 @@ class RowQuery {
   }
 
   /// Query to get the names of Allah for the specified [language].
-  static String namesQuery(String language) {
+  static String namesQuery(Language language) {
     return "SELECT name._id AS id, name.name, "
         "transl.translation AS translation, "
         "transl.transliteration AS transliteration "
         "FROM name_translation AS transl "
         "INNER JOIN name ON name._id = transl.name_id "
-        "WHERE transl.language='$language'";
+        "WHERE transl.language='${language.locale.toCode()}'";
   }
 
   /// Query to get the azkar categories for the specified [language].
-  static String azkarCategoriesQuery(String language) {
+  static String azkarCategoriesQuery(Language language) {
     return "SELECT category._id AS categoryId, category_name AS categoryName "
         "FROM azkar_category AS category "
         "INNER JOIN azkar_category_translation AS transl ON transl.category_id = category._id "
-        "WHERE language = '$language'";
+        "WHERE language = '${language.locale.toCode()}'";
   }
 
   /// Query to get the azkar chapters for the specified [language] and [categoryId].
   /// If [categoryId] is -1, then all chapters will be returned.
-  static String azkarChaptersQuery(String language, int categoryId) {
+  static String azkarChaptersQuery(Language language, int categoryId) {
     return "SELECT chapter._id AS chapterId, chapter.category_id AS categoryId, "
         "cat_transl.category_name AS categoryName, chapter_name AS chapterName "
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
         "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
         "AND cat_transl.language = transl.language "
-        "WHERE transl.language='$language' ${categoryId != -1 ? "AND chapter.category_id=$categoryId" : ""}";
+        "WHERE transl.language='${language.locale.toCode()}' ${categoryId != -1 ? "AND chapter.category_id=$categoryId" : ""}";
   }
 
   /// Query to get the azkar chapters for the specified [language] and [chapterIds].
-  static String azkarChaptersQueryByIds(String language, List<int> chapterIds) {
+  static String azkarChaptersQueryByIds(
+    Language language,
+    List<int> chapterIds,
+  ) {
     return "SELECT chapter._id AS chapterId, chapter.category_id AS categoryId, "
         "cat_transl.category_name AS categoryName, chapter_name AS chapterName "
         "FROM azkar_chapter AS chapter "
         "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
         "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
         "AND cat_transl.language = transl.language "
-        "WHERE transl.language='$language' AND chapter._id IN (${chapterIds.join(',')})";
+        "WHERE transl.language='${language.locale.toCode()}' AND chapter._id IN (${chapterIds.join(',')})";
   }
 
   /// Query to get the azkar items for the specified [language] and [chapterId].
-  static String azkarItemsQuery(String language, int chapterId) {
+  static String azkarItemsQuery(Language language, int chapterId) {
     return "SELECT item._id AS itemId, item.chapter_id AS chapterId, item.item, "
         "transl.item_translation AS translation, ref_transl.reference "
         "FROM azkar_item AS item "
@@ -90,7 +96,7 @@ class RowQuery {
         "INNER JOIN azkar_reference AS ref ON ref.item_id = item._id "
         "INNER JOIN azkar_reference_translation AS ref_transl ON ref_transl.reference_id = ref._id AND "
         "ref_transl.language = transl.language "
-        "WHERE chapterId = $chapterId AND transl.language = '$language'";
+        "WHERE chapterId = $chapterId AND transl.language = '${language.locale.toCode()}'";
   }
 
   /// Query to get the list of locations with fixed prayer times.

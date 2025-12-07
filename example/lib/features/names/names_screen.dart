@@ -9,7 +9,7 @@ class NamesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('99 Names of Allah')),
       body: FutureBuilder<List<NameOfAllah>>(
-        future: NameOfAllahRepository().getNames(language: Language.en),
+        future: NameOfAllahRepository().getNames(language: const Locale('en')),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

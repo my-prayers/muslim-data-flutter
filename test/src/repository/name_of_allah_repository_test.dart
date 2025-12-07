@@ -16,7 +16,7 @@ void main() {
     );
   });
 
-  Future<void> testNames(Language language) async {
+  Future<void> testNames(Locale language) async {
     final names = await repository.getNames(language: language);
     expect(names, isNotNull);
     expect(names, isNotEmpty);
@@ -24,26 +24,26 @@ void main() {
   }
 
   test('Verify English names of Allah are correct', () async {
-    await testNames(Language.en);
+    await testNames(Language.en.locale);
   });
 
   test('Verify Arabic names of Allah are correct', () async {
-    await testNames(Language.ar);
+    await testNames(Language.ar.locale);
   });
 
   test('Verify Central Kurdish names of Allah are correct', () async {
-    await testNames(Language.ckb);
+    await testNames(Language.ckb.locale);
   });
 
   test('Verify Central Kurdish (Badini) names of Allah are correct', () async {
-    await testNames(Language.ckbBadini);
+    await testNames(Language.ckbBadini.locale);
   });
 
   test('Verify Persian names of Allah are correct', () async {
-    await testNames(Language.fa);
+    await testNames(Language.fa.locale);
   });
 
   test('Verify Russian names of Allah are correct', () async {
-    await testNames(Language.ru);
+    await testNames(Language.ru.locale);
   });
 }

@@ -21,7 +21,7 @@ class AzkarChapterScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Azkar Chapters')),
       body: FutureBuilder<List<AzkarChapter>>(
         future: AzkarRepository().getAzkarChapters(
-          language: Language.en,
+          language: const Locale('en'),
           categoryId: categoryId,
         ),
         builder: (context, snapshot) {

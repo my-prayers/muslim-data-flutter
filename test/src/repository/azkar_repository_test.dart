@@ -18,7 +18,7 @@ void main() {
 
   group('AzkarCategoryTests', () {
     /// Test function to verify the number of azkar categories
-    Future<void> testAzkarCategories(Language language) async {
+    Future<void> testAzkarCategories(Locale language) async {
       final categories = await repository.getAzkarCategories(
         language: language,
       );
@@ -28,53 +28,53 @@ void main() {
     }
 
     test('should fetch English azkar categories correctly', () async {
-      await testAzkarCategories(Language.en);
+      await testAzkarCategories(Language.en.locale);
     });
 
     test('should fetch Arabic azkar categories correctly', () async {
-      await testAzkarCategories(Language.ar);
+      await testAzkarCategories(Language.ar.locale);
     });
 
     test('should fetch Central Kurdish azkar categories correctly', () async {
-      await testAzkarCategories(Language.ckb);
+      await testAzkarCategories(Language.ckb.locale);
     });
 
     test('should fetch Badini Kurdish azkar categories correctly', () async {
-      await testAzkarCategories(Language.ckbBadini);
+      await testAzkarCategories(Language.ckbBadini.locale);
     });
 
     test('should fetch Persian azkar categories correctly', () async {
-      await testAzkarCategories(Language.fa);
+      await testAzkarCategories(Language.fa.locale);
     });
 
     test('should fetch Russian azkar categories correctly', () async {
-      await testAzkarCategories(Language.ru);
+      await testAzkarCategories(Language.ru.locale);
     });
   });
 
   group('AzkarChapterTests', () {
     test('Verify English azkar chapters', () async {
-      await testAzkarChapters(Language.en);
+      await testAzkarChapters(Language.en.locale);
     });
 
     test('Verify Arabic azkar chapters', () async {
-      await testAzkarChapters(Language.ar);
+      await testAzkarChapters(Language.ar.locale);
     });
 
     test('Verify Central Kurdish azkar chapters', () async {
-      await testAzkarChapters(Language.ckb);
+      await testAzkarChapters(Language.ckb.locale);
     });
 
     test('Verify Badini Kurdish azkar chapters', () async {
-      await testAzkarChapters(Language.ckbBadini);
+      await testAzkarChapters(Language.ckbBadini.locale);
     });
 
     test('Verify Persian azkar chapters', () async {
-      await testAzkarChapters(Language.fa);
+      await testAzkarChapters(Language.fa.locale);
     });
 
     test('Verify Russian azkar chapters', () async {
-      await testAzkarChapters(Language.ru);
+      await testAzkarChapters(Language.ru.locale);
     });
 
     test('Verify chapter IDs for English azkar chapters', () async {
@@ -84,27 +84,27 @@ void main() {
     });
 
     test('Verify English azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.en);
+      await testAzkarChaptersByCategory(Language.en.locale);
     });
 
     test('Verify Arabic azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.ar);
+      await testAzkarChaptersByCategory(Language.ar.locale);
     });
 
     test('Verify Central Kurdish azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.ckb);
+      await testAzkarChaptersByCategory(Language.ckb.locale);
     });
 
     test('Verify Badini Kurdish azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.ckbBadini);
+      await testAzkarChaptersByCategory(Language.ckbBadini.locale);
     });
 
     test('Verify Persian azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.fa);
+      await testAzkarChaptersByCategory(Language.fa.locale);
     });
 
     test('Verify Russian azkar chapters by category', () async {
-      await testAzkarChaptersByCategory(Language.ru);
+      await testAzkarChaptersByCategory(Language.ru.locale);
     });
 
     test('Verifies azkar chapters filter by chapter ids', () async {
@@ -118,7 +118,7 @@ void main() {
 
   group('AzkarItem Tests', () {
     /// Test function to verify the number of azkar items in a chapter
-    Future<void> testChapterItems(Language language, int id, int total) async {
+    Future<void> testChapterItems(Locale language, int id, int total) async {
       final items = await repository.getAzkarItems(
         language: language,
         chapterId: id,
@@ -128,40 +128,40 @@ void main() {
     }
 
     test('should return correct number of English azkar items', () async {
-      await testChapterItems(Language.en, 1, 4);
+      await testChapterItems(Language.en.locale, 1, 4);
     });
 
     test('should return correct number of Arabic azkar items', () async {
-      await testChapterItems(Language.ar, 25, 8);
+      await testChapterItems(Language.ar.locale, 25, 8);
     });
 
     test(
       'should return correct number of Central Kurdish azkar items',
       () async {
-        await testChapterItems(Language.ckb, 50, 2);
+        await testChapterItems(Language.ckb.locale, 50, 2);
       },
     );
 
     test(
       'should return correct number of Badini Kurdish azkar items',
       () async {
-        await testChapterItems(Language.ckbBadini, 50, 2);
+        await testChapterItems(Language.ckbBadini.locale, 50, 2);
       },
     );
 
     test('should return correct number of Persian azkar items', () async {
-      await testChapterItems(Language.fa, 75, 1);
+      await testChapterItems(Language.fa.locale, 75, 1);
     });
 
     test('should return correct number of Russian azkar items', () async {
-      await testChapterItems(Language.ru, 100, 1);
+      await testChapterItems(Language.ru.locale, 100, 1);
     });
   });
 }
 
 /// Test function to verify the number of azkar chapters in a specific language
 Future<void> testAzkarChapters(
-  Language language, {
+  Locale language, {
   int categoryId = -1,
   int total = 133,
 }) async {
@@ -175,7 +175,7 @@ Future<void> testAzkarChapters(
 }
 
 /// Test function to verify the number of azkar chapters by category
-Future<void> testAzkarChaptersByCategory(Language language) async {
+Future<void> testAzkarChaptersByCategory(Locale language) async {
   final testCases = {
     1: 7,
     2: 14,

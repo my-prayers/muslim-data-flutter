@@ -19,7 +19,9 @@ class AzkarCategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Azkar Categories')),
       body: FutureBuilder<List<AzkarCategory>>(
-        future: AzkarRepository().getAzkarCategories(language: Language.en),
+        future: AzkarRepository().getAzkarCategories(
+          language: const Locale('en'),
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

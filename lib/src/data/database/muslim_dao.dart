@@ -1,5 +1,6 @@
 import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
 import 'package:muslim_data_flutter/src/data/database/row_query.dart';
+import 'package:muslim_data_flutter/src/data/models/language.dart';
 import 'package:muslim_data_flutter/src/utils/date_utils.dart';
 import 'package:muslim_data_flutter/src/utils/string_date.dart';
 
@@ -99,7 +100,7 @@ class MuslimDao {
   }
 
   /// Get the names of Allah from the database for the specified [language].
-  Future<List<NameOfAllah>> getNames(String language) async {
+  Future<List<NameOfAllah>> getNames(Language language) async {
     return await _db.customSelect(RowQuery.namesQuery(language)).map((row) {
       return NameOfAllah(
         id: row.read<int>('id'),
@@ -111,7 +112,7 @@ class MuslimDao {
   }
 
   /// Get the azkar categories from the database for the specified [language].
-  Future<List<AzkarCategory>> getAzkarCategories(String language) async {
+  Future<List<AzkarCategory>> getAzkarCategories(Language language) async {
     return await _db.customSelect(RowQuery.azkarCategoriesQuery(language)).map((
       row,
     ) {
@@ -124,7 +125,7 @@ class MuslimDao {
 
   /// Get the azkar chapters from the database for the specified [language] and [categoryId].
   Future<List<AzkarChapter>> getAzkarChapters(
-    String language,
+    Language language,
     int categoryId,
   ) async {
     return await _db
@@ -142,7 +143,7 @@ class MuslimDao {
 
   /// Get the azkar chapters from the database for the specified [language] and [chapterIds].
   Future<List<AzkarChapter>> getAzkarChaptersByIds(
-    String language,
+    Language language,
     List<int> chapterIds,
   ) async {
     return await _db
@@ -159,7 +160,10 @@ class MuslimDao {
   }
 
   /// Get the azkar items from the database for the specified [language] and [chapterId].
-  Future<List<AzkarItem>> getAzkarItems(String language, int chapterId) async {
+  Future<List<AzkarItem>> getAzkarItems(
+    Language language,
+    int chapterId,
+  ) async {
     return await _db
         .customSelect(RowQuery.azkarItemsQuery(language, chapterId))
         .map((row) {
