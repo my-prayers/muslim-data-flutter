@@ -53,6 +53,46 @@ void main() {
   });
 
   group('AzkarChapterTests', () {
+    /// Test function to verify the number of azkar chapters in a specific language
+    Future<void> testAzkarChapters(
+      Locale language, {
+      int categoryId = -1,
+      int total = 133,
+    }) async {
+      final repository = AzkarRepository();
+      final chapters = await repository.getAzkarChapters(
+        language: language,
+        categoryId: categoryId,
+      );
+      expect(chapters, isNotNull);
+      expect(chapters.length, total);
+    }
+
+    /// Test function to verify the number of azkar chapters by category
+    Future<void> testAzkarChaptersByCategory(Locale language) async {
+      final testCases = {
+        1: 7,
+        2: 14,
+        3: 7,
+        4: 15,
+        5: 11,
+        6: 19,
+        7: 9,
+        8: 8,
+        9: 20,
+        10: 10,
+        11: 13,
+      };
+
+      for (final entry in testCases.entries) {
+        await testAzkarChapters(
+          language,
+          categoryId: entry.key,
+          total: entry.value,
+        );
+      }
+    }
+
     test('Verify English azkar chapters', () async {
       await testAzkarChapters(Language.en.locale);
     });
@@ -157,44 +197,4 @@ void main() {
       await testChapterItems(Language.ru.locale, 100, 1);
     });
   });
-}
-
-/// Test function to verify the number of azkar chapters in a specific language
-Future<void> testAzkarChapters(
-  Locale language, {
-  int categoryId = -1,
-  int total = 133,
-}) async {
-  final repository = AzkarRepository();
-  final chapters = await repository.getAzkarChapters(
-    language: language,
-    categoryId: categoryId,
-  );
-  expect(chapters, isNotNull);
-  expect(chapters.length, total);
-}
-
-/// Test function to verify the number of azkar chapters by category
-Future<void> testAzkarChaptersByCategory(Locale language) async {
-  final testCases = {
-    1: 7,
-    2: 14,
-    3: 7,
-    4: 15,
-    5: 11,
-    6: 19,
-    7: 9,
-    8: 8,
-    9: 20,
-    10: 10,
-    11: 13,
-  };
-
-  for (final entry in testCases.entries) {
-    await testAzkarChapters(
-      language,
-      categoryId: entry.key,
-      total: entry.value,
-    );
-  }
 }
