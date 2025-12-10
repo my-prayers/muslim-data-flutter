@@ -31,6 +31,12 @@ void main() {
       expect(chapters, isEmpty);
     });
 
+    test('should return empty list when searchAzkarChapters fails', () async {
+      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final chapters = await repository.searchAzkarChapters(query: 'test');
+      expect(chapters, isEmpty);
+    });
+
     test('should return empty list when getAzkarItems fails', () async {
       final repository = AzkarRepository(dao: _FailingDaoWrapper());
       final items = await repository.getAzkarItems(chapterId: 1);
@@ -58,6 +64,14 @@ class _FailingDaoWrapper implements MuslimDao {
   Future<List<AzkarChapter>> getAzkarChaptersByIds(
     Language language,
     List<int> chapterIds,
+  ) async {
+    throw Exception('Database error');
+  }
+
+  @override
+  Future<List<AzkarChapter>> searchAzkarChapters(
+    Language language,
+    String query,
   ) async {
     throw Exception('Database error');
   }

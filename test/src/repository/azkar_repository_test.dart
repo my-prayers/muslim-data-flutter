@@ -156,6 +156,120 @@ void main() {
     });
   });
 
+  group('SearchAzkarChapters Tests', () {
+    /// Test function to verify search results for a given query
+    Future<void> testSearchAzkarChapters(Locale language, String query) async {
+      final chapters = await repository.searchAzkarChapters(
+        language: language,
+        query: query,
+      );
+      expect(chapters, isNotNull);
+      expect(chapters, isNotEmpty);
+      // Verify that results contain the query in name or category
+      for (final chapter in chapters) {
+        final containsQuery =
+            chapter.name.toLowerCase().contains(query.toLowerCase()) ||
+            chapter.categoryName.toLowerCase().contains(query.toLowerCase());
+        expect(containsQuery, isTrue);
+      }
+    }
+
+    test('should return results when searching in English', () async {
+      await testSearchAzkarChapters(Language.en.locale, 'morning');
+    });
+
+    test('should return results when searching in Arabic', () async {
+      await testSearchAzkarChapters(Language.ar.locale, 'الصباح');
+    });
+
+    test('should return results when searching in Central Kurdish', () async {
+      await testSearchAzkarChapters(Language.ckb.locale, 'بەیانی');
+    });
+
+    test('should return results when searching in Badini Kurdish', () async {
+      await testSearchAzkarChapters(Language.ckbBadini.locale, 'سپێدێ');
+    });
+
+    test('should return results when searching in Persian', () async {
+      await testSearchAzkarChapters(Language.fa.locale, 'صبح');
+    });
+
+    test('should return results when searching in Russian', () async {
+      await testSearchAzkarChapters(Language.ru.locale, 'утро');
+    });
+
+    test('should return empty list for non-existent query', () async {
+      final chapters = await repository.searchAzkarChapters(
+        language: Language.en.locale,
+        query: 'noneExistentQuery12345',
+      );
+
+      expect(chapters, isNotNull);
+      expect(chapters, isEmpty);
+    });
+
+    test('should search by category name in English', () async {
+      await testSearchAzkarChapters(Language.en.locale, 'sleep');
+    });
+
+    test('should search by category name in Arabic', () async {
+      await testSearchAzkarChapters(Language.ar.locale, 'النوم');
+    });
+
+    test('should search by chapter name in English', () async {
+      await testSearchAzkarChapters(Language.en.locale, 'waking up');
+    });
+
+    test('should search by chapter name in Arabic', () async {
+      await testSearchAzkarChapters(Language.ar.locale, 'الاستيقاظ');
+    });
+
+    test('should handle partial search queries in English', () async {
+      await testSearchAzkarChapters(Language.en.locale, 'pray');
+    });
+
+    test('should handle partial search queries in Arabic', () async {
+      await testSearchAzkarChapters(Language.ar.locale, 'صلا');
+    });
+
+    test('should be case insensitive for English searches', () async {
+      final lowerCase = await repository.searchAzkarChapters(
+        language: Language.en.locale,
+        query: 'morning',
+      );
+      final upperCase = await repository.searchAzkarChapters(
+        language: Language.en.locale,
+        query: 'MORNING',
+      );
+      expect(lowerCase.length, equals(upperCase.length));
+    });
+
+    test('should return empty list for empty query', () async {
+      await testSearchAzkarChapters(Language.en.locale, '');
+    });
+
+    test('should handle special characters in query', () async {
+      final chapters = await repository.searchAzkarChapters(
+        language: Language.en.locale,
+        query: "test'ing",
+      );
+      expect(chapters, isNotNull);
+    });
+
+    test('should return valid chapter structure', () async {
+      final chapters = await repository.searchAzkarChapters(
+        language: Language.en.locale,
+        query: 'morning',
+      );
+      expect(chapters, isNotEmpty);
+      final chapter = chapters.first;
+      expect(chapter.id, isPositive);
+      expect(chapter.categoryId, isPositive);
+      expect(chapter.name, isNotEmpty);
+      expect(chapter.categoryName, isNotEmpty);
+    });
+  });
+
   group('AzkarItem Tests', () {
     /// Test function to verify the number of azkar items in a chapter
     Future<void> testChapterItems(Locale language, int id, int total) async {

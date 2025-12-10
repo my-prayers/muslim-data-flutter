@@ -87,6 +87,18 @@ class RowQuery {
         "WHERE transl.language='${language.locale.toCode()}' AND chapter._id IN (${chapterIds.join(',')})";
   }
 
+  /// Query to search azkar chapters for the specified [language] and [query].
+  static String searchAzkarChaptersQuery(Language language, String query) {
+    return "SELECT chapter._id AS chapterId, chapter.category_id AS categoryId, "
+        "cat_transl.category_name AS categoryName, chapter_name AS chapterName "
+        "FROM azkar_chapter AS chapter "
+        "INNER JOIN azkar_chapter_translation AS transl ON transl.chapter_id = chapter._id "
+        "INNER JOIN azkar_category_translation AS cat_transl ON cat_transl.category_id = chapter.category_id "
+        "AND cat_transl.language = transl.language "
+        "WHERE transl.language='${language.locale.toCode()}' "
+        "AND (transl.chapter_name LIKE '%$query%' OR cat_transl.category_name LIKE '%$query%')";
+  }
+
   /// Query to get the azkar items for the specified [language] and [chapterId].
   static String azkarItemsQuery(Language language, int chapterId) {
     return "SELECT item._id AS itemId, item.chapter_id AS chapterId, item.item, "

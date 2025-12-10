@@ -141,9 +141,9 @@ Future<void> getPrayerTimesExample() async {
 
 Get all azkars from (Hisnul Muslim book) that is categorized by (`AzkarCategory`, `AzkarChapter`, and `AzkarItem`) and also the azkars are available for these languages (`en`, `ar`, `ckb`, `ckb_BADINI`, `fa`, and `ru`)
 
-|                      Azkar Categories                      |                      Azkar Chapters                      |                    Azkar Items                    |
-| :----------------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------: |
-| ![Azkar Categories](assets/screenshots/azkar_category.png) | ![Azkar Chapters](assets/screenshots/azkar_chapters.png) | ![Azkar Items](assets/screenshots/azkar_item.png) |
+|                      Azkar Categories                      |                      Azkar Chapter                      |                      Azkar Search                      |                    Azkar Items                    |
+| :----------------------------------------------------------: | :--------------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------: |
+| ![Azkar Categories](assets/screenshots/azkar_category.png) | ![Azkar Chapters](assets/screenshots/azkar_chapters.png) | ![Azkar Search](assets/screenshots/azkar_search.png) | ![Azkar Items](assets/screenshots/azkar_item.png) |
 
 ### Azkar Category
 

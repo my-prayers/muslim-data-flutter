@@ -55,6 +55,21 @@ class AzkarRepository extends MuslimRepository {
     }
   }
 
+  /// Search azkar chapters for the specified [language] and [query].
+  Future<List<AzkarChapter>> searchAzkarChapters({
+    Locale? language,
+    required String query,
+  }) async {
+    try {
+      return await dbDao.searchAzkarChapters(
+        Language.fromLocale(language),
+        query.trim(),
+      );
+    } catch (e) {
+      return [];
+    }
+  }
+
   /// Get azkar items for the specified azkar [language] and [chapterId].
   Future<List<AzkarItem>> getAzkarItems({
     Locale? language,

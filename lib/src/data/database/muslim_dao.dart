@@ -182,6 +182,24 @@ class MuslimDao {
         .get();
   }
 
+  /// Search azkar chapters in the database for the specified [language] and [query].
+  Future<List<AzkarChapter>> searchAzkarChapters(
+    Language language,
+    String query,
+  ) async {
+    return await _db
+        .customSelect(RowQuery.searchAzkarChaptersQuery(language, query))
+        .map((row) {
+          return AzkarChapter(
+            id: row.read<int>('chapterId'),
+            categoryId: row.read<int>('categoryId'),
+            categoryName: row.read<String>('categoryName'),
+            name: row.read<String>('chapterName'),
+          );
+        })
+        .get();
+  }
+
   /// Get the list of locations with fixed prayer times from the database.
   Future<List<Location>> getFixedPrayerTimesList() async {
     return await _db.customSelect(RowQuery.fixedPrayerTimesListQuery()).map((
