@@ -10,21 +10,21 @@ import 'package:muslim_data_flutter/src/data/database/muslim_dao.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  group('AzkarRepository Error Handling', () {
+  group('HisnulMuslimRepository Error Handling', () {
     test('should return empty list when getAzkarCategories fails', () async {
-      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final repository = HisnulMuslimRepository(dao: _FailingDaoWrapper());
       final categories = await repository.getAzkarCategories();
       expect(categories, isEmpty);
     });
 
     test('should return empty list when getAzkarChapters fails', () async {
-      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final repository = HisnulMuslimRepository(dao: _FailingDaoWrapper());
       final chapters = await repository.getAzkarChapters();
       expect(chapters, isEmpty);
     });
 
     test('should return empty list when getAzkarChaptersByIds fails', () async {
-      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final repository = HisnulMuslimRepository(dao: _FailingDaoWrapper());
       final chapters = await repository.getAzkarChaptersByIds(
         chapterIds: [1, 2, 3],
       );
@@ -32,13 +32,13 @@ void main() {
     });
 
     test('should return empty list when searchAzkarChapters fails', () async {
-      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final repository = HisnulMuslimRepository(dao: _FailingDaoWrapper());
       final chapters = await repository.searchAzkarChapters(query: 'test');
       expect(chapters, isEmpty);
     });
 
     test('should return empty list when getAzkarItems fails', () async {
-      final repository = AzkarRepository(dao: _FailingDaoWrapper());
+      final repository = HisnulMuslimRepository(dao: _FailingDaoWrapper());
       final items = await repository.getAzkarItems(chapterId: 1);
       expect(items, isEmpty);
     });

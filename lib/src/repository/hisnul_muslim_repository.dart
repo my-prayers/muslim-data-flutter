@@ -4,14 +4,14 @@ import 'package:muslim_data_flutter/muslim_data_flutter.dart';
 import 'package:muslim_data_flutter/src/data/database/muslim_dao.dart';
 import 'package:muslim_data_flutter/src/repository/muslim_repository.dart';
 
-/// Repository for accessing azkar data.
-class AzkarRepository extends MuslimRepository {
-  AzkarRepository._internal({super.dbDao});
+/// Repository for accessing Hisnul Muslim azkars.
+class HisnulMuslimRepository extends MuslimRepository {
+  HisnulMuslimRepository._internal({super.dbDao});
 
-  static AzkarRepository? _instance;
+  static HisnulMuslimRepository? _instance;
 
-  factory AzkarRepository({MuslimDao? dao}) {
-    _instance ??= AzkarRepository._internal(dbDao: dao);
+  factory HisnulMuslimRepository({MuslimDao? dao}) {
+    _instance ??= HisnulMuslimRepository._internal(dbDao: dao);
     return _instance!;
   }
 

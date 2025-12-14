@@ -18,4 +18,4 @@ export 'src/data/models/language.dart';
 export 'src/repository/location_repository.dart';
 export 'src/repository/prayer_time_repository.dart';
 export 'src/repository/name_of_allah_repository.dart';
-export 'src/repository/azkar_repository.dart';
+export 'src/repository/hisnul_muslim_repository.dart';

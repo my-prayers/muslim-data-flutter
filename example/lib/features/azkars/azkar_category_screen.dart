@@ -12,7 +12,7 @@ class AzkarCategoryScreen extends StatefulWidget {
 
 class _AzkarCategoryScreenState extends State<AzkarCategoryScreen> {
   final _searchController = TextEditingController();
-  final _repository = AzkarRepository();
+  final _repository = HisnulMuslimRepository();
   bool _isSearching = false;
   List<AzkarChapter> _searchResults = [];
 

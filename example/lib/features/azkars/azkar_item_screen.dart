@@ -13,7 +13,7 @@ class AzkarItemScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Azkar Items')),
       body: FutureBuilder<List<AzkarItem>>(
-        future: AzkarRepository().getAzkarItems(
+        future: HisnulMuslimRepository().getAzkarItems(
           language: const Locale('en'),
           chapterId: chapterId,
         ),

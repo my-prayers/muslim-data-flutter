@@ -7,16 +7,16 @@ import 'package:muslim_data_flutter/src/data/database/muslim_db.dart';
 import '../data/database/db_connection.dart';
 
 void main() {
-  late AzkarRepository repository;
+  late HisnulMuslimRepository repository;
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
-    repository = AzkarRepository(
+    repository = HisnulMuslimRepository(
       dao: MuslimDao(db: MuslimDb(connection: openTestConnection())),
     );
   });
 
-  group('AzkarCategoryTests', () {
+  group('HisnulMuslimRepository AzkarCategoryTests', () {
     /// Test function to verify the number of azkar categories
     Future<void> testAzkarCategories(Locale language) async {
       final categories = await repository.getAzkarCategories(
@@ -52,14 +52,14 @@ void main() {
     });
   });
 
-  group('AzkarChapterTests', () {
+  group('HisnulMuslimRepository AzkarChapterTests', () {
     /// Test function to verify the number of azkar chapters in a specific language
     Future<void> testAzkarChapters(
       Locale language, {
       int categoryId = -1,
       int total = 133,
     }) async {
-      final repository = AzkarRepository();
+      final repository = HisnulMuslimRepository();
       final chapters = await repository.getAzkarChapters(
         language: language,
         categoryId: categoryId,
@@ -156,7 +156,7 @@ void main() {
     });
   });
 
-  group('SearchAzkarChapters Tests', () {
+  group('HisnulMuslimRepository SearchAzkarChapters Tests', () {
     /// Test function to verify search results for a given query
     Future<void> testSearchAzkarChapters(Locale language, String query) async {
       final chapters = await repository.searchAzkarChapters(
@@ -270,7 +270,7 @@ void main() {
     });
   });
 
-  group('AzkarItem Tests', () {
+  group('HisnulMuslimRepository AzkarItem Tests', () {
     /// Test function to verify the number of azkar items in a chapter
     Future<void> testChapterItems(Locale language, int id, int total) async {
       final items = await repository.getAzkarItems(
