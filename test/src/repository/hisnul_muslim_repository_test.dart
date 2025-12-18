@@ -23,7 +23,7 @@ void main() {
         language: language,
       );
       expect(categories, isNotNull);
-      expect(categories.length, equals(11));
+      expect(categories.length, equals(12));
       expect(categories[0].name, isNotNull);
     }
 
@@ -56,7 +56,7 @@ void main() {
     /// Test function to verify the number of azkar chapters in a specific language
     Future<void> testAzkarChapters(
       Locale language, {
-      int categoryId = -1,
+      int categoryId = 1,
       int total = 133,
     }) async {
       final repository = HisnulMuslimRepository();
@@ -71,17 +71,18 @@ void main() {
     /// Test function to verify the number of azkar chapters by category
     Future<void> testAzkarChaptersByCategory(Locale language) async {
       final testCases = {
-        1: 7,
-        2: 14,
-        3: 7,
-        4: 15,
-        5: 11,
-        6: 19,
-        7: 9,
-        8: 8,
-        9: 20,
-        10: 10,
-        11: 13,
+        1: 133,
+        2: 7,
+        3: 14,
+        4: 7,
+        5: 15,
+        6: 11,
+        7: 19,
+        8: 9,
+        9: 8,
+        10: 20,
+        11: 10,
+        12: 13,
       };
 
       for (final entry in testCases.entries) {

@@ -28,7 +28,7 @@ class HisnulMuslimRepository extends MuslimRepository {
   /// If [categoryId] is not provided, all azkar chapters will be returned.
   Future<List<AzkarChapter>> getAzkarChapters({
     Locale? language,
-    int categoryId = -1,
+    int categoryId = 1,
   }) async {
     try {
       return await dbDao.getAzkarChapters(

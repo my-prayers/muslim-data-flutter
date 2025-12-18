@@ -11,6 +11,7 @@ Improve and restructure the azkar tables and their contents.
 
 ### Added
 
+- Add a new category named "All" to return all chapters.
 - Transliteration has been added to the azkar items to display how to read the azkar for none Arabic users so the `transliteration` field added in the `azkar_item` table.
 - Count has been added to the azkar items to shows that how many times this azkar should be read. Therefore, the `count` field added in the `azkar_item` table.
 - Azkar instructions are extracted from Azkar items and put into two new fields (`top_note` and `bottom_note`) in the `azkar_item_translation` table.
