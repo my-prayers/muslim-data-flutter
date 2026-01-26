@@ -172,7 +172,7 @@ class MuslimDao {
             chapterId: row.read<int>('chapterId'),
             item: row.read<String?>('item'),
             transliteration: row.read<String?>('transliteration'),
-            count: row.read<String?>('count'),
+            count: row.read<int?>('count'),
             topNote: row.read<String?>('topNote'),
             bottomNote: row.read<String?>('bottomNote'),
             translation: row.read<String?>('translation'),

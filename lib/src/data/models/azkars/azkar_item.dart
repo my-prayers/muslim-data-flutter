@@ -4,7 +4,7 @@ class AzkarItem {
   final int chapterId;
   final String? item;
   final String? transliteration;
-  final String? count;
+  final int? count;
   final String? topNote;
   final String? bottomNote;
   final String? translation;
