@@ -22,8 +22,11 @@ These native libraries share the same concepts and data structure, making it eas
 ## Features
 
 ✅ **Prayer Times**: Most cities around the world find their prayer times by using some calculations which is based on location (longitude and latitude) but some other cities have fixed time table for their prayer times. This library contains most fixed and calculated prayer times. Now you can contribute it to improve it and also you can use it in Muslim communities or Muslim apps.
+
 ✅ **Location Services**: Search for locations offline, geocode by city name, and reverse geocode using latitude and longitude.
+
 ✅ **Azkars (Hisnul Muslim)**: Retrieve categorized azkars by (Category, Chapter, Item) in various languages.
+
 ✅ **Names of Allah**: Access 99 Names of Allah along with translations in supported languages.
 
 ## Usage
